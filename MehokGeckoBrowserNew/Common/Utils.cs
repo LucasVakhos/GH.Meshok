@@ -1,0 +1,119 @@
+﻿using System;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace MeshokBrowser
+{
+    //public static class Utils
+    //{
+    //    private static SynchronizationContext _context;
+    //    private static bool _yesNoResult;
+    //    private static Form _mainForm;
+    //    public static Form MainForm { get => _mainForm; set => _mainForm = value; }
+    //    public static void Init(Form form)
+    //    {
+    //        _mainForm = form;
+    //        _context = SynchronizationContext.Current;
+    //    }
+    //    public static void Sync(SendOrPostCallback d, object state)
+    //    {
+    //        _context.Send(d, state);
+    //    }
+    //    private static void DlgInfo(object message)
+    //    {
+    //        if (_mainForm == null)
+    //            MessageBox.Show((string)message, "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Information);
+    //        else
+    //            MessageBox.Show(_mainForm, (string)message, _mainForm.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+    //    }
+    //    public static void DlgInfo(string message)
+    //    {
+    //        if (_context == null)
+    //            DlgInfo((object)message);
+    //        else
+    //            _context.Send(DlgInfo, message);
+    //    }
+    //    private static void DlgWarning(object message)
+    //    {
+    //        if (_mainForm == null)
+    //            MessageBox.Show((string)message, "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+    //        else
+    //            MessageBox.Show(_mainForm, (string)message, _mainForm.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+    //    }
+    //    public static void DlgWarning(string message)
+    //    {
+    //        if (_context == null)
+    //            DlgWarning((object)message);
+    //        else
+    //            _context.Send(DlgWarning, message);
+    //    }
+    //    private static void DlgError(object message)
+    //    {
+    //        if (_mainForm == null)
+    //            MessageBox.Show((string)message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //        else
+    //            MessageBox.Show(_mainForm, (string)message, _mainForm.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+    //    }
+    //    public static void DlgError(string message)
+    //    {
+    //        if (_context == null)
+    //            DlgError((object)message);
+    //        else
+    //            _context.Send(DlgError, message);
+    //    }
+    //    private static void DlgYesNo(object message)
+    //    {
+    //        if (_mainForm == null)
+    //            _yesNoResult = MessageBox.Show((string)message, "Вопрос", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+    //        else
+    //            _yesNoResult = MessageBox.Show(_mainForm, (string)message, _mainForm.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+    //    }
+    //    public static bool DlgYesNo(string message)
+    //    {
+    //        if (_context == null)
+    //            DlgYesNo((object)message);
+    //        else
+    //            _context.Send(DlgYesNo, message);
+    //        return _yesNoResult;
+    //    }
+    //    public static string CalculateProcessing(int processed, int total)
+    //    {
+    //        return string.Format("{0} из {1}", processed, total);
+    //    }
+    //    public static string CalculateRemaining(DateTime processStarted, int totalElements, int processedElements)
+    //    {
+    //        int secondsRemaining = 0;
+    //        int totalSecond = (int)(DateTime.Now - processStarted).TotalSeconds;
+    //        if (totalSecond > 0)
+    //        {
+    //            int itemsPerSecond = processedElements / totalSecond;
+    //            if (itemsPerSecond > 0)
+    //                secondsRemaining = (totalElements - processedElements) / itemsPerSecond;
+    //        }
+    //        return new TimeSpan(0, 0, secondsRemaining).ToString(@"hh\:mm\:ss");
+    //    }
+    //    public static string CalculateDuration(DateTime processStarted)
+    //    {
+    //        return TimeSpan.FromTicks(DateTime.Now.Subtract(processStarted).Ticks).ToString(@"hh\:mm\:ss");
+    //    }
+    //    public static bool EmailIsValid(string email)
+    //    {
+    //        string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+    //        Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
+    //        if (isMatch.Success)
+    //        {
+    //            return true;
+    //        }
+    //        else
+    //        {
+    //            return false;
+    //        }
+    //    }
+    //}
+}

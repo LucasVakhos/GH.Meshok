@@ -1,0 +1,388 @@
+﻿namespace NewsMaker
+{
+    partial class NewsMakerForm
+    {
+        /// <summary>
+        /// Обязательная переменная конструктора.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Освободить все используемые ресурсы.
+        /// </summary>
+        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                if (Info != null)
+                    Info.Dispose();
+                if (_newsProcessor != null)
+                {
+                    _newsProcessor.Dispose();
+                    _newsProcessor = null;
+                }
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Код, автоматически созданный конструктором форм Windows
+        /// <summary>
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewsMakerForm));
+            this.workTimer = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.miClose = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageCollection = new DevExpress.Utils.ImageCollection(this.components);
+            this.layoutControl = new GH.Controls.LayoutControlGh();
+            this.btnStart = new DevExpress.XtraEditors.SimpleButton();
+            this.progressBar = new DevExpress.XtraEditors.ProgressBarControl();
+            this.btnSendToMe = new DevExpress.XtraEditors.SimpleButton();
+            this.memoReport = new DevExpress.XtraEditors.MemoEdit();
+            this.lcgRoot = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.masterPages = new DevExpress.XtraLayout.TabbedControlGroup();
+            this.lgReport = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcSendToMe = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcErrorMemo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.settingPage = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.settigPages = new DevExpress.XtraLayout.TabbedControlGroup();
+            this.startGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcStart = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcProgress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.aclMain = new GH.Components.ActionList();
+            this.actExitProgram = new GH.Components.ActionGh();
+            this.actBegin = new GH.Components.ActionGh();
+            this.actSendToMe = new GH.Components.ActionGh();
+            this.contextMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.progressBar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memoReport.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgRoot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.masterPages)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lgReport)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcSendToMe)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcErrorMemo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settingPage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settigPages)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcStart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcProgress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aclMain)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // notifyIcon
+            // 
+            this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon.ContextMenuStrip = this.contextMenu;
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "крутой notifyIcon";
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miClose});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(187, 26);
+            // 
+            // miClose
+            // 
+            this.aclMain.SetAction(this.miClose, this.actExitProgram);
+            this.miClose.Image = ((System.Drawing.Image)(resources.GetObject("miClose.Image")));
+            this.miClose.Name = "miClose";
+            this.miClose.Size = new System.Drawing.Size(186, 22);
+            this.miClose.Text = "Закрыть программу";
+            this.miClose.ToolTipText = "Закрыть программу";
+            // 
+            // imageCollection
+            // 
+            this.imageCollection.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imageCollection.ImageStream")));
+            this.imageCollection.InsertGalleryImage("next_16x16.png", "images/arrows/next_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/arrows/next_16x16.png"), 0);
+            this.imageCollection.Images.SetKeyName(0, "next_16x16.png");
+            this.imageCollection.InsertGalleryImage("record_16x16.png", "images/arrows/record_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/arrows/record_16x16.png"), 1);
+            this.imageCollection.Images.SetKeyName(1, "record_16x16.png");
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.AllowCustomization = false;
+            this.layoutControl.Appearance.DisabledLayoutGroupCaption.Options.UseTextOptions = true;
+            this.layoutControl.Appearance.DisabledLayoutGroupCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.layoutControl.AutoScroll = false;
+            this.layoutControl.Controls.Add(this.btnStart);
+            this.layoutControl.Controls.Add(this.progressBar);
+            this.layoutControl.Controls.Add(this.btnSendToMe);
+            this.layoutControl.Controls.Add(this.memoReport);
+            this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl.Name = "layoutControl";
+            this.layoutControl.OptionsCustomizationForm.DefaultPage = DevExpress.XtraLayout.CustomizationPage.LayoutTreeView;
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(683, 71, 629, 661);
+            this.layoutControl.OptionsFocus.AllowFocusGroups = false;
+            this.layoutControl.OptionsFocus.AllowFocusReadonlyEditors = false;
+            this.layoutControl.OptionsFocus.AllowFocusTabbedGroups = false;
+            this.layoutControl.OptionsItemText.TextAlignMode = DevExpress.XtraLayout.TextAlignMode.AlignInGroups;
+            this.layoutControl.Owner = this;
+            this.layoutControl.Root = this.lcgRoot;
+            this.layoutControl.Size = new System.Drawing.Size(584, 481);
+            this.layoutControl.TabIndex = 16;
+            this.layoutControl.Text = "layoutControl";
+            // 
+            // btnStart
+            // 
+            this.aclMain.SetAction(this.btnStart, this.actBegin);
+            this.btnStart.Appearance.Options.UseTextOptions = true;
+            this.btnStart.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.btnStart.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.btnStart.ImageOptions.ImageToTextIndent = 5;
+            this.btnStart.Location = new System.Drawing.Point(22, 437);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(140, 22);
+            this.btnStart.StyleController = this.layoutControl;
+            this.btnStart.TabIndex = 1;
+            this.btnStart.TabStop = false;
+            this.btnStart.Text = "Начать рассылку";
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(164, 439);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(396, 18);
+            this.progressBar.StyleController = this.layoutControl;
+            this.progressBar.TabIndex = 1;
+            // 
+            // btnSendToMe
+            // 
+            this.aclMain.SetAction(this.btnSendToMe, this.actSendToMe);
+            this.btnSendToMe.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSendToMe.ImageOptions.Image")));
+            this.btnSendToMe.Location = new System.Drawing.Point(24, 385);
+            this.btnSendToMe.Name = "btnSendToMe";
+            this.btnSendToMe.Size = new System.Drawing.Size(532, 22);
+            this.btnSendToMe.StyleController = this.layoutControl;
+            this.btnSendToMe.TabIndex = 0;
+            this.btnSendToMe.Text = "Отправить разработчику";
+            // 
+            // memoReport
+            // 
+            this.memoReport.Location = new System.Drawing.Point(24, 62);
+            this.memoReport.Name = "memoReport";
+            this.memoReport.Properties.AllowFocused = false;
+            this.memoReport.Properties.ReadOnly = true;
+            this.memoReport.Properties.UseReadOnlyAppearance = false;
+            this.memoReport.Size = new System.Drawing.Size(532, 319);
+            this.memoReport.StyleController = this.layoutControl;
+            this.memoReport.TabIndex = 1;
+            this.memoReport.TabStop = false;
+            // 
+            // lcgRoot
+            // 
+            this.lcgRoot.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.lcgRoot.GroupBordersVisible = false;
+            this.lcgRoot.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.masterPages,
+            this.startGroup});
+            this.lcgRoot.Name = "Root";
+            this.lcgRoot.Size = new System.Drawing.Size(584, 481);
+            this.lcgRoot.TextVisible = false;
+            // 
+            // masterPages
+            // 
+            this.masterPages.Location = new System.Drawing.Point(0, 0);
+            this.masterPages.Name = "masterPages";
+            this.masterPages.SelectedTabPage = this.lgReport;
+            this.masterPages.SelectedTabPageIndex = 1;
+            this.masterPages.Size = new System.Drawing.Size(564, 415);
+            this.masterPages.Spacing = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+            this.masterPages.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.settingPage,
+            this.lgReport});
+            this.masterPages.Text = "Main";
+            // 
+            // lgReport
+            // 
+            this.lgReport.CustomizationFormText = "Отправка";
+            this.lgReport.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcSendToMe,
+            this.lcErrorMemo});
+            this.lgReport.Location = new System.Drawing.Point(0, 0);
+            this.lgReport.Name = "Report";
+            this.lgReport.Size = new System.Drawing.Size(536, 365);
+            this.lgReport.Text = "Отправка";
+            // 
+            // lcSendToMe
+            // 
+            this.lcSendToMe.Control = this.btnSendToMe;
+            this.lcSendToMe.Location = new System.Drawing.Point(0, 339);
+            this.lcSendToMe.Name = "lcSendToMe";
+            this.lcSendToMe.Size = new System.Drawing.Size(536, 26);
+            this.lcSendToMe.Text = "Send to Me";
+            this.lcSendToMe.TextSize = new System.Drawing.Size(0, 0);
+            this.lcSendToMe.TextVisible = false;
+            // 
+            // lcErrorMemo
+            // 
+            this.lcErrorMemo.Control = this.memoReport;
+            this.lcErrorMemo.Location = new System.Drawing.Point(0, 0);
+            this.lcErrorMemo.Name = "lcErrorMemo";
+            this.lcErrorMemo.Size = new System.Drawing.Size(536, 339);
+            this.lcErrorMemo.Text = "Отчёт о выполнении";
+            this.lcErrorMemo.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lcErrorMemo.TextSize = new System.Drawing.Size(106, 13);
+            // 
+            // settingPage
+            // 
+            this.settingPage.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.settigPages});
+            this.settingPage.Location = new System.Drawing.Point(0, 0);
+            this.settingPage.Name = "settingPage";
+            this.settingPage.Size = new System.Drawing.Size(536, 365);
+            this.settingPage.Text = "Установки";
+            // 
+            // settigPages
+            // 
+            this.settigPages.Location = new System.Drawing.Point(0, 0);
+            this.settigPages.Name = "settigPages";
+            this.settigPages.SelectedTabPage = null;
+            this.settigPages.SelectedTabPageIndex = -1;
+            this.settigPages.Size = new System.Drawing.Size(536, 365);
+            this.settigPages.Text = "Страницы установки ";
+            // 
+            // startGroup
+            // 
+            this.startGroup.CustomizationFormText = "Start Group";
+            this.startGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcStart,
+            this.lcProgress});
+            this.startGroup.Location = new System.Drawing.Point(0, 415);
+            this.startGroup.Name = "startGroup";
+            this.startGroup.OptionsItemText.TextToControlDistance = 5;
+            this.startGroup.Size = new System.Drawing.Size(564, 46);
+            this.startGroup.Text = "Start Group";
+            this.startGroup.TextVisible = false;
+            this.startGroup.Visibility = DevExpress.XtraLayout.Utils.LayoutVisibility.OnlyInRuntime;
+            // 
+            // lcStart
+            // 
+            this.lcStart.Control = this.btnStart;
+            this.lcStart.Location = new System.Drawing.Point(0, 0);
+            this.lcStart.MaxSize = new System.Drawing.Size(150, 22);
+            this.lcStart.MinSize = new System.Drawing.Size(117, 22);
+            this.lcStart.Name = "lcStart";
+            this.lcStart.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.lcStart.Size = new System.Drawing.Size(140, 22);
+            this.lcStart.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.lcStart.Text = "Start";
+            this.lcStart.TextSize = new System.Drawing.Size(0, 0);
+            this.lcStart.TextVisible = false;
+            // 
+            // lcProgress
+            // 
+            this.lcProgress.Control = this.progressBar;
+            this.lcProgress.Location = new System.Drawing.Point(140, 0);
+            this.lcProgress.Name = "lcProgress";
+            this.lcProgress.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
+            this.lcProgress.Size = new System.Drawing.Size(400, 22);
+            this.lcProgress.Spacing = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+            this.lcProgress.Text = "Progress";
+            this.lcProgress.TextSize = new System.Drawing.Size(0, 0);
+            this.lcProgress.TextVisible = false;
+            // 
+            // aclMain
+            // 
+            this.aclMain.Actions.Add(this.actBegin);
+            this.aclMain.Actions.Add(this.actSendToMe);
+            this.aclMain.Actions.Add(this.actExitProgram);
+            this.aclMain.Owner = this;
+            // 
+            // actExitProgram
+            // 
+            this.actExitProgram.Caption = "Закрыть программу";
+            this.actExitProgram.Image = ((System.Drawing.Image)(resources.GetObject("actExitProgram.Image")));
+            this.actExitProgram.LargeImage = ((System.Drawing.Image)(resources.GetObject("actExitProgram.LargeImage")));
+            this.actExitProgram.Tag = null;
+            this.actExitProgram.ToolTipText = "Закрыть программу";
+            this.actExitProgram.Execute += new System.EventHandler(this.actExitProgram_Execute);
+            // 
+            // actBegin
+            // 
+            this.actBegin.Caption = "Начать рассылку";
+            this.actBegin.Image = ((System.Drawing.Image)(resources.GetObject("actBegin.Image")));
+            this.actBegin.Tag = null;
+            this.actBegin.ToolTipText = "Начать рассылку каталога новинок";
+            this.actBegin.Execute += new System.EventHandler(this.ActBegin_Execute);
+            this.actBegin.Update += new System.EventHandler(this.ActBegin_Update);
+            // 
+            // actSendToMe
+            // 
+            this.actSendToMe.Caption = "Отправить разработчику";
+            this.actSendToMe.Image = ((System.Drawing.Image)(resources.GetObject("actSendToMe.Image")));
+            this.actSendToMe.Tag = null;
+            this.actSendToMe.ToolTipText = "Отправить отчет разработчику ";
+            this.actSendToMe.Execute += new System.EventHandler(this.ActSendToMe_Execute);
+            this.actSendToMe.Update += new System.EventHandler(this.ActSendToMe_Update);
+            // 
+            // NewsMakerForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(584, 481);
+            this.ContextMenuStrip = this.contextMenu;
+            this.Controls.Add(this.layoutControl);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(594, 513);
+            this.Name = "NewsMakerForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Рассылка обновлений BridgeNote";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewsMakerForm_FormClosing);
+            this.contextMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imageCollection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.progressBar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memoReport.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcgRoot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.masterPages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lgReport)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcSendToMe)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcErrorMemo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settingPage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.settigPages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.startGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcStart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcProgress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aclMain)).EndInit();
+            this.ResumeLayout(false);
+        }
+        #endregion
+        private System.Windows.Forms.Timer workTimer;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem miClose;
+        private GH.Components.ActionList aclMain;
+        private GH.Components.ActionGh actBegin;
+        private GH.Components.ActionGh actSendToMe;
+        private GH.Controls.LayoutControlGh layoutControl;
+        private DevExpress.XtraEditors.SimpleButton btnStart;
+        private DevExpress.XtraEditors.ProgressBarControl progressBar;
+        private DevExpress.XtraEditors.SimpleButton btnSendToMe;
+        private DevExpress.XtraEditors.MemoEdit memoReport;
+        private DevExpress.XtraLayout.LayoutControlGroup lcgRoot;
+        private DevExpress.XtraLayout.TabbedControlGroup masterPages;
+        private DevExpress.XtraLayout.LayoutControlGroup settingPage;
+        private DevExpress.XtraLayout.TabbedControlGroup settigPages;
+        private DevExpress.XtraLayout.LayoutControlGroup lgReport;
+        private DevExpress.XtraLayout.LayoutControlItem lcSendToMe;
+        private DevExpress.XtraLayout.LayoutControlItem lcErrorMemo;
+        private DevExpress.XtraLayout.LayoutControlGroup startGroup;
+        private DevExpress.XtraLayout.LayoutControlItem lcStart;
+        private DevExpress.XtraLayout.LayoutControlItem lcProgress;
+        private DevExpress.Utils.ImageCollection imageCollection;
+        private GH.Components.ActionGh actExitProgram;
+    }
+}

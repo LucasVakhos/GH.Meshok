@@ -1,0 +1,16 @@
+﻿namespace MeshokBrowser.Workers
+{
+    public class WorkerCreateCSV : WorkerCsvTemplate
+    {
+        string _bridgenote = "https://bridgenote.com";
+
+
+        public WorkerCreateCSV(IMainForm form) : base(form)
+        {
+            sql_cnt = "SELECT COUNT(*) AS CNT FROM stock_for_exp";
+            sql = "SELECT BAR_CODE, ARTIST, TITLE, YEAR_OF, L_NAME, M_NAME, CTR_NAME, ST_NAME, QUALITY, ART_ID, CATEGORY, PRICE, NEW, PICT FROM stock_for_exp";
+            ProcessName = "Создание CSV-файлов для импорта";
+            Begin_url = _bridgenote;
+        }
+    }
+}

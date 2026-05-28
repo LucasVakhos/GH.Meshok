@@ -1,0 +1,82 @@
+using GH.Browser;
+using System;
+using System.Threading.Tasks;
+namespace MeshokBrowser.Workers
+{
+    public class WorkerRemoveLots : Worker
+    {
+        private const string profile_url = "https://meshok.net/profile.php";
+        private readonly string commit_page = profile_url + "?submit=1&what=sale";
+        public WorkerRemoveLots(IMainForm form) : base(form)
+        {
+            ProcessName = "Удаление лотов";
+            Begin_url = profile_url + $"?num_of_lines={cfgMeshok.OnPageForDelete}&opt=1&sort=pic&way=asc&what=sale";
+        }
+        protected override async void OnDocumentCompleted(string url)
+        {
+            if (url == Begin_url)
+            {
+                if (!ProcScreen.HasQty(MainMeshok.sale_token))
+                    WorkDone();
+                else
+                    await SetProgressTotalAsync();
+            }
+            else if (url == commit_page)
+            {
+                if (!ProcScreen.HasQty(MainMeshok.sale_token))
+                    WorkDone();
+                else if (await DeletePageAsync())
+                    clearGC = true;
+                else
+                    WorkDone();
+            }
+        }
+        protected async Task SetProgressTotalAsync()
+        {
+            string text = await ProcScreen.GetElementTextAsync(".p_l_count") ?? "1";
+            string find = "Страница 1 из";
+            int cnt = text.IndexOf(find, StringComparison.OrdinalIgnoreCase);
+            text = cnt == -1 ? "1" : text.Substring(cnt + find.Length).Trim();
+            if (int.TryParse(text, out int count) && count > 0)
+            {
+                TotalSteps = count;
+                await DeletePageAsync();
+            }
+            else
+            {
+                WorkDone();
+            }
+        }
+        private async Task<bool> DeletePageAsync()
+        {
+            ClearCash();
+            bool result = await ProcScreen.ExecuteBoolScriptAsync("""
+                (() => {
+                    const checkboxes = Array.from(document.querySelectorAll('input[name="work[]"]'));
+                    if (checkboxes.length === 0) return false;
+                    for (const checkbox of checkboxes) {
+                        checkbox.checked = true;
+                        checkbox.dispatchEvent(new Event("input", { bubbles: true }));
+                        checkbox.dispatchEvent(new Event("change", { bubbles: true }));
+                    }
+                    const div = document.getElementById("saleBAction");
+                    const select = div ? div.querySelector('select[name="do_work"]') : null;
+                    const submit = document.getElementById("submitDoWork");
+                    if (!select || !submit) return false;
+                    select.focus();
+                    select.value = "D";
+                    select.dispatchEvent(new Event("input", { bubbles: true }));
+                    select.dispatchEvent(new Event("change", { bubbles: true }));
+                    submit.click();
+                    return true;
+                })()
+            """);
+            if (result)
+                IncCurrentStep();
+            return result;
+        }
+        protected override void DoExecute()
+        {
+        }
+    }
+}

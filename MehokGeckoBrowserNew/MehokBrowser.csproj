@@ -1,0 +1,360 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<PublishReadyToRun>true</PublishReadyToRun>
+		<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+	</PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons8_MaxCDN.ico</ApplicationIcon>
+    <DefineConstants>TRACE;DEBUG;_TEST_EMAIL_MESSAGE;  _USE_TEST_LABEL; _TEST_NEXT_STATUS; _NOT_UNION; TEST_CREATE_LOTS</DefineConstants>
+  </PropertyGroup>
+  
+  
+  <ItemGroup>
+    <Compile Include="Application\AppContextMB.cs" />
+    <Compile Include="Application\FactoryCriatorMB.cs" />
+    <Compile Include="Common\DeliveryMethod.cs" />
+    <Compile Include="Common\MessageCase.cs" />
+    <Compile Include="Common\OrderStatus.cs" />
+    <Compile Include="Common\PaymentMethod.cs" />
+    <Compile Include="Configs\Cfg\CfgCDUchet.cs" />
+    <Compile Include="Configs\Cfg\CfgIShop.cs" />
+    <Compile Include="Configs\Cfg\CfgMeshok.cs" />
+    <Compile Include="Configs\Forms\CfgFormIShop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configs\Forms\LoginFormIShop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameBridgenote.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameBridgenote.Designer.cs">
+      <DependentUpon>CfgFrameBridgenote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameCDUchet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameIShop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameMeshok.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameMeshok.Designer.cs">
+      <DependentUpon>CfgFrameMeshok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configs\Frames\LoginFrameIShop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\MySqlConnectionFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Browser\GeckoHelper.cs" />
+    <Compile Include="Controls\Browser\GhBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\LoadingHelper.cs" />
+    <Compile Include="Workers\LotNamesHelper.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\CsvHelper.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.Designer.cs">
+      <DependentUpon>BeginRelistLotsFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Main\MainConfigFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Main\MainConfigFrame.Designer.cs">
+      <DependentUpon>MainConfigFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\MainWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\MainWB.Designer.cs">
+      <DependentUpon>MainWB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ProcessorWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\SettingFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\TestBibbon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\TestBibbon.Designer.cs">
+      <DependentUpon>TestBibbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ScanHelper.InfoProcess.cs" />
+    <Compile Include="Helpers\ScanHelper.InfoCollect.cs" />
+    <Compile Include="Interfaces\IBaseFormInterface.cs" />
+    <Compile Include="Interfaces\ILayoutLoadSaveInterface.cs" />
+    <Compile Include="NHibernate\AddToBase\ClientCallBack.cs" />
+    <Compile Include="NHibernate\CheckClient.cs" />
+    <Compile Include="NHibernate\CheckSite.cs" />
+    <Compile Include="NHibernate\ModeDelivery.cs" />
+    <Compile Include="NHibernate\AddToBase\OrderCallBack.cs" />
+    <Compile Include="NHibernate\AddToBase\OrderLineCallBack.cs" />
+    <Compile Include="NHibernate\SiteStatus.cs" />
+    <Compile Include="NHibernate\CheckMesage.cs" />
+    <Compile Include="NHibernate\CheckOrder.cs" />
+    <Compile Include="Helpers\FbHelper.cs" />
+    <Compile Include="Helpers\ScanHelper.SplitUnion.cs" />
+    <Compile Include="NHibernate\RelBaseSiteStatus.cs" />
+    <Compile Include="NHibernate\BaseStatus.cs" />
+    <Compile Include="NHibernate\MessagesSet.cs" />
+    <Compile Include="NHibernate\AddToBase\TitleCallBack.cs" />
+    <Compile Include="NHibernate\User.cs" />
+    <Compile Include="Interfaces\IProcessNotify.cs" />
+    <Compile Include="Helpers\ProcessRunHelper.cs" />
+    <Compile Include="Workers\AbstractWorker.cs" />
+    <Compile Include="Workers\ProcOrders\WorkerProcessingOrders.cs" />
+    <Compile Include="Workers\Worker.cs" />
+    <Compile Include="Workers\WorkerTemplate.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerCreateCSV.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerCsvTemplate.cs" />
+    <Compile Include="Workers\WorkWithLots\SoldPurchase\WorkerAddPrix.cs" />
+    <Compile Include="Workers\WorkWithLots\WorkerLoadingLots.cs" />
+    <Compile Include="Workers\WorkWithLots\SoldPurchase\WorkerRemoveRasx.cs" />
+    <Compile Include="Workers\WorkWithLots\WorkerRemoveLots.cs" />
+    <Compile Include="ScanObjects\AllPackets.cs" />
+    <Compile Include="ScanObjects\Client.cs" />
+    <Compile Include="ScanObjects\DeliveryObject.cs" />
+    <Compile Include="ScanObjects\IDeliveryObject.cs" />
+    <Compile Include="ScanObjects\OrderLine.cs" />
+    <Compile Include="ScanObjects\DeliveryPacket.cs" />
+    <Compile Include="ScanObjects\IOrder.cs" />
+    <Compile Include="ScanObjects\NeedUnion.cs" />
+    <Compile Include="ScanObjects\Order.cs" />
+    <Compile Include="ScanObjects\BaseScanEntity.cs" />
+    <Compile Include="Helpers\ScanHelper.cs" />
+    <Compile Include="Helpers\ScanParams.cs" />
+    <Compile Include="Helpers\ScanSetting.cs" />
+    <Compile Include="ScanObjects\ScanStatus.cs" />
+    <Compile Include="ScanObjects\StatusRelation.cs" />
+    <Compile Include="ScanObjects\Title.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\DisposableTask.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\ParsingTask.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskCloseDeals.cs" />
+    <Compile Include="Frames\ScanSettingFrames\BeginFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\BeginFrame.Designer.cs">
+      <DependentUpon>BeginFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingLostDeals.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingLostDeals.Designer.cs">
+      <DependentUpon>ScanSettingLostDeals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\ProcOrders\Parsing\TaskClientParse.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskPostMessage.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskTitleParse.cs" />
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMeshok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMeshok.Designer.cs">
+      <DependentUpon>MainMeshok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingClients.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingClients.Designer.cs">
+      <DependentUpon>ScanSettingClients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Messages\SettingMessageesFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Messages\SettingMessageesFrame.Designer.cs">
+      <DependentUpon>SettingMessageesFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ScanWebFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ScanWebFrame.Designer.cs">
+      <DependentUpon>ScanWebFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\InnerWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\InnerWB.Designer.cs">
+      <DependentUpon>InnerWB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frames\BaseFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerRelistLots.cs" />
+    <EmbeddedResource Include="Configs\Forms\CfgFormIShop.resx">
+      <DependentUpon>CfgFormIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameBridgeNote.resx">
+      <DependentUpon>CfgFrameBridgenote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameCDUchet.resx">
+      <DependentUpon>CfgFrameCDUchet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameIShop.resx">
+      <DependentUpon>CfgFrameIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameMeshok.resx">
+      <DependentUpon>CfgFrameMeshok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\LoginFrameIShop.resx">
+      <DependentUpon>LoginFrameIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\MySqlConnectionFrame.resx">
+      <DependentUpon>MySqlConnectionFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.resx">
+      <DependentUpon>BeginRelistLotsFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\Main\MainConfigFrame.resx">
+      <DependentUpon>MainConfigFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\MainWB.resx">
+      <DependentUpon>MainWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\ProcessorWB.resx">
+      <DependentUpon>ProcessorWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\BeginFrame.resx">
+      <DependentUpon>BeginFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingLostDeals.resx">
+      <DependentUpon>ScanSettingLostDeals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingFrame.resx">
+      <DependentUpon>ScanSettingFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\SettingFrame.resx">
+      <DependentUpon>SettingFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\TestBibbon.resx">
+      <DependentUpon>TestBibbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainMeshok.resx">
+      <DependentUpon>MainMeshok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingClients.resx">
+      <DependentUpon>ScanSettingClients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\Messages\SettingMessageesFrame.resx">
+      <DependentUpon>SettingMessageesFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\ScanWebFrame.resx">
+      <DependentUpon>ScanWebFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\InnerWB.resx">
+      <DependentUpon>InnerWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\BaseFrame.resx">
+      <DependentUpon>BaseFrame.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="bin\Debug\Logs\Errors.log" />
+    <None Include="bin\Debug\MeshokBrowser.exe.config" />
+    <None Include="bin\Debug\MeshokBrowser.ini" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\ConfigIShop.datasource" />
+    <None Include="Properties\DataSources\GH.Components.AppUser.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.BridgeNote.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.IShop.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.Meshok.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.NH.User.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.NH.zStatusesCod.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.Objects.DealMessage.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ClientOrder.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.Deal.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.MyAdapter.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.MyPropertySet.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.Order.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.OrderLine.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ScanHelper.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ScanSetting.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icons8_MaxCDN.ico" />
+  </ItemGroup>
+  
+  
+  <ItemGroup>
+    <Folder Include="bin\Debug\Configs\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <MoveToLibFolder Include="$(OutputPath)*.dll ; $(OutputPath)*.xml" />
+    </ItemGroup>
+    <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)lib" OverwriteReadOnlyFiles="true" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <ItemGroup>
+    <Analyzer Include="C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.6-pre-26075\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 25.2\Components\Offline Packages\devexpress.data\25.2.6-pre-26075\analyzers\dotnet\DevExpress.Generator.dll')" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Win.Design" Version="25.2.7" />
+  </ItemGroup>  
+</Project>

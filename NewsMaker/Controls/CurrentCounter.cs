@@ -1,0 +1,30 @@
+﻿namespace NewsMaker
+{
+    public class CurrentCounter
+    {
+        protected int _current;
+        protected SimpleInfoText _text;
+        public CurrentCounter(SimpleInfoText text)
+        {
+            _text = text;
+        }
+        protected void SetText()
+        {
+            _text.SetText(GetText());
+        }
+        public void IncCurrent()
+        {
+            _current++;
+            SetText();
+        }
+        internal virtual string GetText()
+        {
+            return $"{_current}";
+        }
+        internal virtual void Reset()
+        {
+            _current = 0;
+            SetText();
+        }
+    }
+}

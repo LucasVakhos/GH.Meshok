@@ -1,0 +1,68 @@
+﻿using GH.Configs;
+using MeshokBrowser.NHibernate;
+using MeshokBrowser.Workers;
+using System;
+using System.Threading;
+using System.Windows.Forms;
+namespace MeshokBrowser.Helpers
+{
+    [Serializable]
+    public class ScanSetting
+    {
+        CfgMeshok cfgMeshok = IniHelper.Cfg<CfgMeshok>();
+        public int ShowOnPage { get; set; } = 20;
+        public bool AddLostDeals
+        {
+            get => _scanStatus == ScanStatus.ScanLostDeals;
+            set
+            {
+                if (value)
+                    _scanStatus = ScanStatus.ScanLostDeals;
+                else
+                    _scanStatus = ScanStatus.ScanNew;
+            }
+        }
+        private static ScanStatus _scanStatus = ScanStatus.ScanNew;
+        public static ScanStatus ScanStatus { get => _scanStatus; set => _scanStatus = value; }
+        public ScanSetting()
+        {
+            RestoreSetting();
+        }
+        public void IncScanStatus()
+        {
+            if (_scanStatus == ScanStatus.Finished)
+                return;
+            _scanStatus++;
+            if (_scanStatus == ScanStatus.ScanNewMess)
+                _scanStatus++;
+        }
+        public void RestoreSetting()
+        {
+            ShowOnPage = cfgMeshok.OnPageForScan;
+        }
+        public void SaveSetting()
+        {
+            if (ShowOnPage != cfgMeshok.OnPageForScan)
+            {
+                cfgMeshok.OnPageForScan = ShowOnPage;
+                cfgMeshok.Save();
+            }
+        }
+        public static bool Begin(IMainForm form)
+        {
+            using (BeginingForm beginForm = new BeginingForm(new ScanSetting()))
+            {
+                form.AddPage(beginForm);
+                while (true)
+                {
+                    Application.DoEvents();
+                    if (beginForm.DialogFinised)
+                        break;
+                    Thread.Sleep(100);
+                }
+                form.RemovePage(beginForm);
+                return beginForm.DialogResult;
+            }
+        }
+    }
+}

@@ -1,0 +1,229 @@
+﻿namespace MeshokBrowser.processors
+{
+    partial class BeginForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.layoutControl = new DevExpress.XtraDataLayout.DataLayoutControl();
+            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnOK = new DevExpress.XtraEditors.SimpleButton();
+            this.cboOnPage = new DevExpress.XtraEditors.LookUpEdit();
+            this.bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.checkAddLost = new DevExpress.XtraEditors.CheckEdit();
+            this.grpRoot = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.laiOnPage = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcOK = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcCancel = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcAddLost = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOnPage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAddLost.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpRoot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.laiOnPage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcOK)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcCancel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddLost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.Controls.Add(this.btnCancel);
+            this.layoutControl.Controls.Add(this.btnOK);
+            this.layoutControl.Controls.Add(this.cboOnPage);
+            this.layoutControl.Controls.Add(this.checkAddLost);
+            this.layoutControl.DataSource = this.bindingSource;
+            this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl.Name = "layoutControl";
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(792, 159, 450, 400);
+            this.layoutControl.Root = this.grpRoot;
+            this.layoutControl.Size = new System.Drawing.Size(245, 125);
+            this.layoutControl.TabIndex = 9;
+            this.layoutControl.Text = "dataLayoutControl1";
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(124, 91);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(109, 22);
+            this.btnCancel.StyleController = this.layoutControl;
+            this.btnCancel.TabIndex = 9;
+            this.btnCancel.Text = "Выход";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(12, 91);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(108, 22);
+            this.btnOK.StyleController = this.layoutControl;
+            this.btnOK.TabIndex = 8;
+            this.btnOK.Text = "Приступить";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // cboOnPage
+            // 
+            this.cboOnPage.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bindingSource, "ShowOnPage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cboOnPage.Location = new System.Drawing.Point(12, 28);
+            this.cboOnPage.Name = "cboOnPage";
+            this.cboOnPage.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboOnPage.Properties.DisplayMember = "Value";
+            this.cboOnPage.Properties.ShowFooter = false;
+            this.cboOnPage.Properties.ShowHeader = false;
+            this.cboOnPage.Properties.ValueMember = "Key";
+            this.cboOnPage.Size = new System.Drawing.Size(221, 20);
+            this.cboOnPage.StyleController = this.layoutControl;
+            this.cboOnPage.TabIndex = 5;
+            // 
+            // bindingSource
+            // 
+            this.bindingSource.AllowNew = false;
+            this.bindingSource.DataSource = typeof(MeshokBrowser.processors.ScanHelper);
+            // 
+            // checkAddLost
+            // 
+            this.checkAddLost.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bindingSource, "AddLostDeals", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkAddLost.Location = new System.Drawing.Point(12, 52);
+            this.checkAddLost.Name = "checkAddLost";
+            this.checkAddLost.Properties.Caption = "Добавить пропущенные сделки";
+            this.checkAddLost.Size = new System.Drawing.Size(221, 19);
+            this.checkAddLost.StyleController = this.layoutControl;
+            this.checkAddLost.TabIndex = 10;
+            // 
+            // grpRoot
+            // 
+            this.grpRoot.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.grpRoot.GroupBordersVisible = false;
+            this.grpRoot.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.laiOnPage,
+            this.lcOK,
+            this.lcCancel,
+            this.lcAddLost,
+            this.emptySpaceItem1});
+            this.grpRoot.Location = new System.Drawing.Point(0, 0);
+            this.grpRoot.Name = "Root";
+            this.grpRoot.Size = new System.Drawing.Size(245, 125);
+            this.grpRoot.TextVisible = false;
+            // 
+            // laiOnPage
+            // 
+            this.laiOnPage.Control = this.cboOnPage;
+            this.laiOnPage.Location = new System.Drawing.Point(0, 0);
+            this.laiOnPage.Name = "laiOnPage";
+            this.laiOnPage.OptionsTableLayoutItem.ColumnSpan = 3;
+            this.laiOnPage.OptionsTableLayoutItem.RowIndex = 4;
+            this.laiOnPage.Size = new System.Drawing.Size(225, 40);
+            this.laiOnPage.Text = "Показывать на странице";
+            this.laiOnPage.TextLocation = DevExpress.Utils.Locations.Top;
+            this.laiOnPage.TextSize = new System.Drawing.Size(127, 13);
+            // 
+            // lcOK
+            // 
+            this.lcOK.Control = this.btnOK;
+            this.lcOK.Location = new System.Drawing.Point(0, 79);
+            this.lcOK.Name = "lcOK";
+            this.lcOK.OptionsTableLayoutItem.ColumnIndex = 1;
+            this.lcOK.OptionsTableLayoutItem.RowIndex = 6;
+            this.lcOK.Size = new System.Drawing.Size(112, 26);
+            this.lcOK.TextSize = new System.Drawing.Size(0, 0);
+            this.lcOK.TextVisible = false;
+            // 
+            // lcCancel
+            // 
+            this.lcCancel.Control = this.btnCancel;
+            this.lcCancel.Location = new System.Drawing.Point(112, 79);
+            this.lcCancel.Name = "lcCancel";
+            this.lcCancel.OptionsTableLayoutItem.ColumnIndex = 2;
+            this.lcCancel.OptionsTableLayoutItem.RowIndex = 6;
+            this.lcCancel.Size = new System.Drawing.Size(113, 26);
+            this.lcCancel.TextSize = new System.Drawing.Size(0, 0);
+            this.lcCancel.TextVisible = false;
+            // 
+            // lcAddLost
+            // 
+            this.lcAddLost.Control = this.checkAddLost;
+            this.lcAddLost.Location = new System.Drawing.Point(0, 40);
+            this.lcAddLost.Name = "lcAddLost";
+            this.lcAddLost.Size = new System.Drawing.Size(225, 23);
+            this.lcAddLost.Text = "Добавить пропущенные сделки";
+            this.lcAddLost.TextSize = new System.Drawing.Size(0, 0);
+            this.lcAddLost.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 63);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(225, 16);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // BeginForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
+            this.ClientSize = new System.Drawing.Size(245, 125);
+            this.ControlBox = false;
+            this.Controls.Add(this.layoutControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Name = "BeginForm";
+            this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "Обработка сделок";
+            this.Shown += new System.EventHandler(this.OrderTypeForm_Shown);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cboOnPage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAddLost.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grpRoot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.laiOnPage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcOK)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcCancel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddLost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            this.ResumeLayout(false);
+        }
+        #endregion
+        private DevExpress.XtraDataLayout.DataLayoutControl layoutControl;
+        private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraEditors.SimpleButton btnOK;
+        private DevExpress.XtraEditors.LookUpEdit cboOnPage;
+        private System.Windows.Forms.BindingSource bindingSource;
+        private DevExpress.XtraLayout.LayoutControlGroup grpRoot;
+        private DevExpress.XtraLayout.LayoutControlItem laiOnPage;
+        private DevExpress.XtraLayout.LayoutControlItem lcCancel;
+        private DevExpress.XtraLayout.LayoutControlItem lcOK;
+        private DevExpress.XtraEditors.CheckEdit checkAddLost;
+        private DevExpress.XtraLayout.LayoutControlItem lcAddLost;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+    }
+}

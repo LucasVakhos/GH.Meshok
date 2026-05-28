@@ -1,0 +1,187 @@
+﻿using System;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
+using GH.Components;
+using DevExpress.XtraBars.Ribbon;
+using GH.Controls;
+using GH.AppContext;
+using GH.Interfaces;
+namespace MeshokBrowser.Frames
+{
+    public class SettingFrame : SavedFrame, IRibbonControlFrame
+    {
+        private IContainer components = null;
+        public RibbonControl MainRibbonControl
+        {
+            get
+            {
+                if (RunContext.Instance.MainForm == null)
+                    return null;
+                return RunContext.Instance.MainForm.Controls.OfType<Control>().FirstOrDefault(x => x is RibbonControl) as RibbonControl;
+            }
+        }
+        RibbonControl _ribbonControl;
+        public RibbonControl RibbonControl
+        {
+            get => _ribbonControl;
+            set
+            {
+                _ribbonControl = value;
+                if (value != null)
+                    Controls.Add(value);
+            }
+        }
+        public RibbonBarManager Manager => _ribbonControl.Manager;
+        RibbonStatusBar _ribbonStatusBar;
+        public RibbonStatusBar RibbonStatusBar
+        {
+            get => _ribbonStatusBar;
+            set
+            {
+                _ribbonStatusBar = value;
+                if (value != null)
+                {
+                    value.Ribbon = _ribbonControl;
+                    Controls.Add(value);
+                }
+            }
+        }
+        private RibbonPage _editPage;
+        public RibbonPage EditPage
+        {
+            get => _editPage;
+            set
+            {
+                _editPage = value;
+                if (value != null)
+                {
+                    _ribbonControl.Pages.Add(value);
+                    value.MergeOrder = 0;
+                    value.Name = "editPage";
+                    value.Text = Text.ToUpper();
+                }
+            }
+        }
+        public bool DlgResult;
+        public ActionList actionList;
+        public DataSource dataSource;
+        public SettingFrame()
+        {
+            InitializeComponent();
+        }
+        protected override void OnEnter(EventArgs e)
+        {
+            ShowRibbon();
+            base.OnEnter(e);
+        }
+        protected override void OnLeave(EventArgs e)
+        {
+            base.OnLeave(e);
+            HideRibbon();
+        }
+        protected override void OnParentChanged(EventArgs e)
+        {
+            if (!IsDesignMode)
+            {
+                if (Parent != null)
+                {
+                    if (RunContext.AppRunning)
+                    {
+                        LoadControls();
+                        ShowRibbon();
+                        OpenData();
+                    }
+                    else
+                    {
+                        HideRibbon();
+                        SaveControls();
+                    }
+                }
+            }
+            base.OnParentChanged(e);
+        }
+        public virtual void ShowRibbon()
+        {
+            if (MainRibbonControl == null)
+                return;
+            if (RibbonControl != null)
+            {
+                MainRibbonControl.MergeRibbon(RibbonControl);
+                if (RibbonStatusBar != null)
+                    MainRibbonControl.StatusBar.MergeStatusBar(RibbonStatusBar);
+                MainRibbonControl.SelectedPage = RibbonControl.Pages[0];
+                RibbonPage page = MainRibbonControl.Pages.GetPageByName("rpSettigs");
+                if (page != null)
+                {
+                    MainRibbonControl.MergedPages.Remove(page);
+                    //MainRibbonControl.MergedPages.Insert(MainRibbonControl.MergedPages.Count, page);
+                }
+            }
+        }
+        public virtual void HideRibbon()
+        {
+            if (MainRibbonControl == null)
+                return;
+            if (RibbonControl != null)
+            {
+                if (MainRibbonControl.MergedRibbon == RibbonControl)
+                {
+                    RibbonPage page = MainRibbonControl.MergedPages.GetPageByName("rpSettigs");
+                    if (page != null)
+                        MainRibbonControl.Pages.Add(page);
+                    MainRibbonControl.UnMergeRibbon();
+                    MainRibbonControl.StatusBar.UnMergeStatusBar();
+                }
+            }
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                HideRibbon();
+                SaveControls();
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+        private void dataSource_AfterOpen(object sender, EventArgs e)
+        {
+            //lblInfo.Caption = $"Записей: {dataSource.Count}";
+        }
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.dataSource = new GH.Components.DataSource(this.components);
+            this.actionList = new GH.Components.ActionList();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dataSource
+            // 
+            this.dataSource.ActionList = this.actionList;
+            this.dataSource.Owner = this;
+            this.dataSource.State = GH.Components.DataState.Inactive;
+            this.dataSource.AfterOpen += new System.EventHandler(this.dataSource_AfterOpen);
+            // 
+            // actionList
+            // 
+            this.actionList.Owner = this;
+            // 
+            // SettingFrame
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
+            this.Name = "SettingFrame";
+            this.Size = new System.Drawing.Size(800, 600);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            this.ResumeLayout(false);
+        }
+    }
+}

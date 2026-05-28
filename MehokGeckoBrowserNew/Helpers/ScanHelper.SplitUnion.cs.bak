@@ -1,0 +1,151 @@
+﻿using Gecko;
+using Gecko.Collections;
+using Gecko.DOM;
+using Gecko.Events;
+using MeshokBrowser.NHibernate;
+using MeshokBrowser.Workers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
+
+namespace MeshokBrowser.Helpers
+{
+    public class WaiterDoumentComplete
+    {
+        private readonly Func<bool> _callback;
+
+        public WaiterDoumentComplete(Func<bool> callback)
+        {
+            _callback = callback;
+        }
+
+        public bool Wait()
+        {
+            ProcessRunHelper.EnableBaseDocumrntComplete = false;
+            ProcessRunHelper.ProcScreen.webBrowser.DocumentCompleted += WebBrowser_DocumentCompleted;
+
+            bool result = _callback.Invoke();
+
+            while (!ProcessRunHelper.EnableBaseDocumrntComplete)
+                Application.DoEvents();
+
+            return result;
+        }
+
+        private void WebBrowser_DocumentCompleted(object sender, GeckoDocumentCompletedEventArgs e)
+        {
+            ProcessRunHelper.ProcScreen.webBrowser.DocumentCompleted -= WebBrowser_DocumentCompleted;
+            ProcessRunHelper.EnableBaseDocumrntComplete = true;
+        }
+    }
+
+    public partial class ScanHelper
+    {
+        private const string actSplit = "K";
+        private const string actUnion = "J";
+
+
+        /*
+        private bool SplitOrders()
+        {
+            // процесс разделения сделки
+#if !TEST_EMAIL_MESSAGE
+            List<OrderLine> orderLines = AllPackets.OrderLines.Where(x => x.need_split).ToList( );
+            if (orderLines.Count > 0)
+            {
+                _processor.SetTotalSteps(orderLines.Count);
+
+                foreach (OrderLine orderLine in orderLines)
+                {
+                    AllPackets.Splited.Add(orderLine);
+                    orderLine.CheckRow( );
+                    _processor.IncCurrentStep( );
+                }
+
+                return new WaiterDoumentComplete(() => { return FireBAction(actSplit); }).Wait( );
+            }
+#endif
+            // нет таких сделок
+            return false;
+        }
+        */
+
+        private bool FireBAction(string actName)
+        {
+            GeckoInputElement submit = webDocument.GetElementById("submitDoWork") as GeckoInputElement;
+            if (submit == null)
+                return false;
+
+            GeckoElement div = webDocument.GetElementById("saleBAction");
+            foreach (GeckoSelectElement item in div.GetElementsByTagName("select").Where(x => x.GetAttribute("name") == "do_work"))
+            {
+                item.Focus();
+                item.Value = actName;
+                submit.Click();
+                Application.DoEvents();
+                return true;
+            }
+            return false;
+        }
+
+        private bool Union()
+        {
+#if NOT_UNION
+            return false;
+#else
+            int union_count = 0;
+            List<DeliveryPacket> packets = AllPackets.DeliveryPackets.Where(d => d.NeedUnion).ToList();
+            if (packets.Count > 0)
+            {
+                foreach (DeliveryPacket packet in packets)
+                {
+                    foreach (int month in packet.OrderLines.Where(x => x.NeedUnion).Select(x => x.date.Month).Distinct())
+                    {
+                        List<OrderLine> orderLines = packet.OrderLines.Where(x => x.NeedUnion && x.date.Month == month).ToList();
+                        if (orderLines.Count > 1)
+                        {
+                            if (union_count > 0)
+                                RefreshRows(orderLines);
+
+                            foreach (OrderLine orderLine in orderLines)
+                                orderLine.CheckRow();
+
+                            bool res = new WaiterDoumentComplete(() => { return FireBAction(actUnion); }).Wait();
+
+                            if (res)
+                                union_count++;
+                        }
+                    }
+                }
+            }
+
+            return union_count > 0;
+#endif
+        }
+
+        private void RefreshRows(List<OrderLine> orderLines)
+        {
+            CollectForm();
+            ScanParams scanParams = ScanParams.Instance();
+            IEnumerable<GeckoElement> rows = scanParams.scan_table.GetElementsByTagName("tr").
+                    Where(x => x.GetAttribute("class") == "r1" || x.GetAttribute("class") == "r2");
+
+            foreach (OrderLine orderLine in orderLines)
+            {
+                foreach (GeckoHtmlElement row in rows)
+                {
+                    GeckoElement a = row.GetElementsByTagName("a").Where(x => x.HasAttribute("href") &&
+                        x.GetAttribute("href").Contains(orderLine.Url)).FirstOrDefault();
+                    if (a != null)
+                    {
+                        orderLine.HtmlRow = row;
+                        break;
+                    }
+                }
+            }
+        }
+
+    }
+
+}

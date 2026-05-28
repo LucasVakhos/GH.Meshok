@@ -1,0 +1,107 @@
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
+using DevExpress.XtraSplashScreen;
+namespace MeshokBrowser
+{
+    public partial class DefSplashScreen : SplashScreen
+    {
+        static DefSplashScreen instance = null;
+        public DefSplashScreen()
+        {
+            InitializeComponent();
+            instance = this;
+        }
+        public static DefSplashScreen Instance => instance;
+        public override void ProcessCommand(Enum cmd, object arg)
+        {
+            base.ProcessCommand(cmd, arg);
+            SplashScreenCommand command = (SplashScreenCommand)cmd;
+            SplashCommandArgs args = arg as SplashCommandArgs;
+            switch (command)
+            {
+                case SplashScreenCommand.SetProgressMax:
+                    progressBar.Properties.Maximum = args.Max;
+                    break;
+                case SplashScreenCommand.SetProgress:
+                    if (marqueeProgress.Visible)
+                    {
+                        progressBar.Visible = true;
+                        marqueeProgress.Visible = false;
+                    }
+                    if (progressBar.Properties.Maximum != args.Max)
+                        progressBar.Properties.Maximum = args.Max;
+                    progressBar.Position = args.Value;
+                    break;
+                case SplashScreenCommand.EndProgress:
+                    progressBar.Visible = false;
+                    marqueeProgress.Visible = true;
+                    break;
+                case SplashScreenCommand.Activate:
+                    if (args.Value == 0)
+                        WindowState = FormWindowState.Minimized;
+                    else
+                    {
+                        WindowState = FormWindowState.Normal;
+                        Activate();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        public static string AssemblyTitle
+        {
+            get
+            {
+                object[] customAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+                if (customAttributes.Length > 0)
+                {
+                    AssemblyTitleAttribute assemblyTitleAttribute = (AssemblyTitleAttribute)customAttributes[0];
+                    if (!string.IsNullOrEmpty(assemblyTitleAttribute.Title))
+                        return assemblyTitleAttribute.Title;
+                }
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+            }
+        }
+        public static string AssemblyCopyright
+        {
+            get
+            {
+                object[] customAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
+                if (customAttributes.Length == 0)
+                    return "";
+                return ((AssemblyCopyrightAttribute)customAttributes[0]).Copyright;
+            }
+        }
+        public enum SplashScreenCommand
+        {
+            SetProgressMax,
+            SetProgress,
+            EndProgress,
+            Activate
+        }
+        public class SplashCommandArgs
+        {
+            int _max = 0;
+            int _value = 0;
+            public SplashCommandArgs(int max, int value)
+            {
+                _max = max;
+                _value = value;
+            }
+            public int Value { get => _value; }
+            public int Max { get => _max; }
+        }
+        private void DefSplashScreen_Load(object sender, EventArgs e)
+        {
+            if (DesignMode)
+                return;
+            progressBar.Hide();
+            progressBar.Bounds = marqueeProgress.Bounds;
+            labelCopyrith.Text = AssemblyCopyright;
+            labelRunBegin.Text = "Запуск " + AssemblyTitle;
+        }
+    }
+}

@@ -1,0 +1,164 @@
+﻿using System;
+using System.Windows.Forms;
+using System.ComponentModel;
+using System.Linq;
+using DevExpress.XtraBars.Ribbon;
+using GH.UserForms;
+using GH.Interfaces;
+
+namespace MeshokBrowser
+{
+    public class BaseForm : SimpleForm, IBaseFormInterface
+    {
+        private bool _saveLayout = true;
+        [Browsable(true)]
+        [DefaultValue(true)]
+        public bool SaveLayout { get => _saveLayout; set => _saveLayout = value; }
+
+        protected void InvokeIfRequired(MethodInvoker action)
+        {
+            if (Disposing)
+                return;
+
+            if (InvokeRequired)
+            {
+                Invoke(action);
+            }
+            else
+            {
+                action();
+            }
+        }
+
+        protected bool IsMain()
+        {
+            return (this is MainForm);
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            if (!IsDesignMode)
+            {
+                ShowInTaskbar = IsMain();
+
+                LoadFromIni();
+            }
+
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            SaveToIni();
+
+            base.OnClosed(e);
+        }
+
+        protected bool NeedSave()
+        {
+            return !IsDesignMode && SaveLayout && StartPosition == FormStartPosition.Manual;
+        }
+
+        public virtual void LoadControls()
+        {
+            foreach (var item in Controls)
+            {
+                if (item is ISavedControl saved)
+                    saved.LoadControls();
+            }
+        }
+
+        public virtual void SaveControls()
+        {
+            foreach (var item in Controls)
+            {
+                if (item is ISavedControl saved)
+                    saved.SaveControls();
+            }
+        }
+
+        public virtual void LoadFromIni()
+        {
+            if (NeedSave())
+            {
+                LoadControls();
+            }
+        }
+
+
+        public virtual void SaveToIni()
+        {
+            if (NeedSave())
+            {
+                SaveControls();
+            }
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // BaseForm
+            // 
+            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.Name = "BaseForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.ResumeLayout(false);
+
+        }
+    }
+
+    public class MainForm : BaseForm
+    {
+
+
+        [Browsable(false)]
+        [DefaultValue(null)]
+        public virtual RibbonControl Ribbon { get; set; }
+        [Browsable(false)]
+        [DefaultValue(null)]
+        public RibbonStatusBar RibbonStatusBar { get; set; }
+
+        public MainForm()
+        {
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            if (!DesignMode)
+            {
+                Ribbon = FindRibbon(this.Controls);
+                if (Ribbon != null)
+                    RibbonStatusBar = Ribbon.StatusBar;
+            }
+            base.OnLoad(e);
+        }
+
+        private RibbonControl FindRibbon(Control.ControlCollection controls)
+        {
+            RibbonControl res = controls.OfType<Control>().FirstOrDefault(x => x is RibbonControl) as RibbonControl;
+            if (res != null)
+                return res;
+            foreach (Control control in controls)
+            {
+                if (control.HasChildren)
+                {
+                    res = FindRibbon(control.Controls);
+                    if (res != null)
+                        return res;
+                }
+            }
+            return null;
+        }
+
+        //private IEnumerable<Component> EnumerateComponents()
+        //{
+        //    return from field in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
+        //           where typeof(Component).IsAssignableFrom(field.FieldType)
+        //           let component = (Component)field.GetValue(this)
+        //           where component != null
+        //           select component;
+        //}
+    }
+}

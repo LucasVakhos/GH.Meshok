@@ -1,0 +1,263 @@
+﻿namespace MeshokBrowser.Workers
+{
+    partial class ScanSettingLostDeals
+    {
+        /// <summary>
+        /// Обязательная переменная конструктора.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Освободить все используемые ресурсы.
+        /// </summary>
+        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        /// <summary>
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScanSettingLostDeals));
+            this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+            this.gridControl = new DevExpress.XtraGrid.GridControl();
+            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colNeedAdd = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealTitle = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colClient = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCurrStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.checkNeedAdd = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.rootGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.actionCheckAll = new GH.Components.ActionGh();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkNeedAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // actionList
+            // 
+            this.actionList.Actions.Add(this.actionCheckAll);
+            // 
+            // dataSource
+            // 
+            this.dataSource.DataSource = typeof(MeshokBrowser.NHibernate.OrderLine);
+            this.dataSource.Grid = this.gridControl;
+            this.dataSource.OnOpen += new GH.Components.OpenHandler(this.dataSource_OnOpen);
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.Controls.Add(this.gridControl);
+            this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl.Name = "layoutControl";
+            this.layoutControl.Root = this.rootGroup;
+            this.layoutControl.Size = new System.Drawing.Size(891, 546);
+            this.layoutControl.TabIndex = 2;
+            this.layoutControl.Text = "layoutControl1";
+            // 
+            // gridControl
+            // 
+            this.gridControl.DataSource = this.dataSource;
+            this.gridControl.Location = new System.Drawing.Point(12, 12);
+            this.gridControl.MainView = this.gridView;
+            this.gridControl.Name = "gridControl";
+            this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.checkNeedAdd});
+            this.gridControl.Size = new System.Drawing.Size(867, 522);
+            this.gridControl.TabIndex = 5;
+            this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView});
+            // 
+            // gridView
+            // 
+            this.gridView.ActiveFilterEnabled = false;
+            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colNeedAdd,
+            this.colDealId,
+            this.colDealTitle,
+            this.colDealPrice,
+            this.colDealDate,
+            this.colClient,
+            this.colCurrStatus});
+            this.gridView.GridControl = this.gridControl;
+            this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowGroupExpandAnimation = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsBehavior.CacheValuesOnRowUpdating = DevExpress.Data.CacheRowValuesMode.Disabled;
+            this.gridView.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.Inplace;
+            this.gridView.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView.OptionsCustomization.AllowFilter = false;
+            this.gridView.OptionsCustomization.AllowSort = false;
+            this.gridView.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView.OptionsDetail.ShowDetailTabs = false;
+            this.gridView.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridView.OptionsView.EnableAppearanceOddRow = true;
+            this.gridView.OptionsView.ShowGroupPanel = false;
+            // 
+            // colNeedAdd
+            // 
+            this.colNeedAdd.FieldName = "NeedAdd";
+            this.colNeedAdd.Name = "colNeedAdd";
+            this.colNeedAdd.OptionsColumn.FixedWidth = true;
+            this.colNeedAdd.UnboundType = DevExpress.Data.UnboundColumnType.Boolean;
+            this.colNeedAdd.Visible = true;
+            this.colNeedAdd.VisibleIndex = 0;
+            // 
+            // colDealId
+            // 
+            this.colDealId.FieldName = "deal_id";
+            this.colDealId.Name = "colDealId";
+            this.colDealId.OptionsColumn.AllowEdit = false;
+            this.colDealId.OptionsColumn.ReadOnly = true;
+            this.colDealId.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colDealId.Visible = true;
+            this.colDealId.VisibleIndex = 2;
+            this.colDealId.Width = 62;
+            // 
+            // colDealTitle
+            // 
+            this.colDealTitle.FieldName = "deal_title";
+            this.colDealTitle.Name = "colDealTitle";
+            this.colDealTitle.OptionsColumn.AllowEdit = false;
+            this.colDealTitle.OptionsColumn.ReadOnly = true;
+            this.colDealTitle.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colDealTitle.Visible = true;
+            this.colDealTitle.VisibleIndex = 3;
+            this.colDealTitle.Width = 326;
+            // 
+            // colDealPrice
+            // 
+            this.colDealPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealPrice.FieldName = "price";
+            this.colDealPrice.Name = "colDealPrice";
+            this.colDealPrice.OptionsColumn.AllowEdit = false;
+            this.colDealPrice.OptionsColumn.ReadOnly = true;
+            this.colDealPrice.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            this.colDealPrice.Visible = true;
+            this.colDealPrice.VisibleIndex = 5;
+            this.colDealPrice.Width = 64;
+            // 
+            // colDealDate
+            // 
+            this.colDealDate.FieldName = "date";
+            this.colDealDate.Name = "colDealDate";
+            this.colDealDate.OptionsColumn.AllowEdit = false;
+            this.colDealDate.OptionsColumn.ReadOnly = true;
+            this.colDealDate.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
+            this.colDealDate.Visible = true;
+            this.colDealDate.VisibleIndex = 4;
+            this.colDealDate.Width = 63;
+            // 
+            // colClient
+            // 
+            this.colClient.FieldName = "nick_name";
+            this.colClient.Name = "colClient";
+            this.colClient.OptionsColumn.AllowEdit = false;
+            this.colClient.OptionsColumn.ReadOnly = true;
+            this.colClient.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colClient.Visible = true;
+            this.colClient.VisibleIndex = 1;
+            this.colClient.Width = 176;
+            // 
+            // colCurrStatus
+            // 
+            this.colCurrStatus.FieldName = "site_status";
+            this.colCurrStatus.Name = "colCurrStatus";
+            this.colCurrStatus.OptionsColumn.AllowEdit = false;
+            this.colCurrStatus.OptionsColumn.ReadOnly = true;
+            this.colCurrStatus.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colCurrStatus.Visible = true;
+            this.colCurrStatus.VisibleIndex = 6;
+            this.colCurrStatus.Width = 83;
+            // 
+            // checkNeedAdd
+            // 
+            this.checkNeedAdd.AutoHeight = false;
+            this.checkNeedAdd.Name = "checkNeedAdd";
+            this.checkNeedAdd.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
+            this.checkNeedAdd.ValueGrayed = false;
+            // 
+            // rootGroup
+            // 
+            this.rootGroup.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.rootGroup.GroupBordersVisible = false;
+            this.rootGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem1});
+            this.rootGroup.Name = "rootGroup";
+            this.rootGroup.Size = new System.Drawing.Size(891, 546);
+            this.rootGroup.TextVisible = false;
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.gridControl;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(871, 526);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // actionCheckAll
+            // 
+            this.actionCheckAll.Caption = "Отметить все";
+            this.actionCheckAll.Category = "Дополнительно";
+            this.actionCheckAll.Image = ((System.Drawing.Image)(resources.GetObject("actionCheckAll.Image")));
+            this.actionCheckAll.LargeImage = ((System.Drawing.Image)(resources.GetObject("actionCheckAll.LargeImage")));
+            this.actionCheckAll.Tag = null;
+            this.actionCheckAll.ToolTipText = "Отметит все заказы в списке";
+            this.actionCheckAll.Execute += new System.EventHandler(this.actionCheckAll_Execute);
+            this.actionCheckAll.Update += new System.EventHandler(this.actionCheckAll_Update);
+            // 
+            // ScanSettingLostDeals
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Caption = "Добавление пропущенных заказов";
+            this.Controls.Add(this.layoutControl);
+            this.Name = "ScanSettingLostDeals";
+            this.Size = new System.Drawing.Size(891, 546);
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkNeedAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            this.ResumeLayout(false);
+        }
+        private DevExpress.XtraLayout.LayoutControl layoutControl;
+        private DevExpress.XtraLayout.LayoutControlGroup rootGroup;
+        private DevExpress.XtraGrid.GridControl gridControl;
+        internal DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealId;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealTitle;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colClient;
+        private DevExpress.XtraGrid.Columns.GridColumn colCurrStatus;
+        private DevExpress.XtraGrid.Columns.GridColumn colNeedAdd;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit checkNeedAdd;
+        private GH.Components.ActionGh actionCheckAll;
+    }
+}

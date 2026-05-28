@@ -1,0 +1,330 @@
+﻿using FirebirdSql.Data.FirebirdClient;
+using Gecko;
+using Gecko.DOM;
+using GH.Configs;
+using GH.Utils;
+//using RestSharp.Contrib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Web;
+using System.Windows.Forms;
+
+namespace MeshokBrowser.Workers
+{
+    public class WorkerRemoveRasx : Worker
+    {
+        const string query_init = "select * from rdb$database";
+        const string query_full_name =
+@"select distinct
+  s.st_id ||'-'||
+  c.catlogue_id||'-'||
+  case
+    when su.skl_id is null
+    then 0
+    else s.skl_id
+  end id,
+  c.title,
+  c.sub_title,
+  u.unit_name,
+  case
+    when su.skl_id is null
+      then 'NEW'
+    when su.note is null
+      then trim(pg.uc_nic) || '/' || trim(cd.uc_nic)
+    else trim(pg.uc_nic) || '/' || trim(cd.uc_nic) || '-' || trim(su.note)
+  end quality,
+  c.barcode
+  from docrasx dr
+    inner join rasx r
+          on (dr.doc_id = r.doc_id)
+    inner join skl s
+          on (r.skl_id = s.skl_id)
+    left join(skl_used su inner join used_classifier cd
+          on (cd.uc_id = su.self_uc_id) inner join used_classifier pg
+          on (pg.uc_id = su.cover_uc_id))
+          on (su.skl_id = s.skl_id)
+    inner join catlogue c
+          on (s.catlogue_id = c.catlogue_id)
+    inner join units u
+          on (c.unit_id = u.unit_id)
+  where ((dr.close_date > @start_date) and
+        (dr.status = 3) and
+        (s.qty_free = 0))
+  order by c.title, c.sub_title";
+
+        private const string profile_url = "https://meshok.net/profile.php";
+        private const string done_url = profile_url + "?submit=1&what=sale";
+
+        public WorkerRemoveRasx(IMainForm form) : base(form)
+        {
+            ProcessName = "Удаление проданных лотов";
+
+        }
+
+        FbConnection fbConnection;
+
+        private bool CreateConnection()
+        {
+            try
+            {
+                fbConnection = CfgCDUchet.CreateConnection();
+                fbConnection.Open();
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                Logger.Error(ex);
+                return false;
+            }
+            return true;
+        }
+
+        private void CloseConnection()
+        {
+            if (fbConnection != null && fbConnection.State == System.Data.ConnectionState.Open)
+                fbConnection.Close();
+
+            fbConnection.Dispose();
+            fbConnection = null;
+        }
+
+
+        protected void SetBeginUrl(KeyValuePair<string, string> pair)
+        {
+            string Convert(int inParam)
+            {
+                if (inParam < 10)
+                    return "0" + inParam.ToString();
+                else
+                    return inParam.ToString();
+            }
+
+            string Encode(string parName, string parValue, int index = 0)
+            {
+                string result = index == 0 ? HttpUtility.UrlEncode(parName) + "=" + parValue : parName + "=" + HttpUtility.UrlEncode(parValue);
+
+                if (result.Contains("'"))
+                    result = result.Replace("'", "%27");
+                if (result.Contains("%u2013"))
+                    result = result.Replace("%u2013", "%25u2013");
+                if (result.Contains("%u2019"))
+                    result = result.Replace("%u2019", "%25u2019");
+
+                return result + "&";
+            }
+
+            DateTime date = DateTime.Now;
+            string query = "submit=1&what=sale&";
+            query += Encode("R[range]", "All");
+            query += Encode("R[fd]", Convert(date.Day));
+            query += Encode("R[fm]", Convert(date.Month));
+            query += Encode("R[fy]", Convert(date.Year));
+            query += Encode("R[td]", Convert(date.Day));
+            query += Encode("R[tm]", Convert(date.Month));
+            query += Encode("R[ty]", Convert(date.Year));
+            query += "f_f=start&f_item_id&";
+            query += Encode("kw", pair.Value, 1);
+            query += "good1=0&ut";
+
+            Begin_url = profile_url + "?" + query;
+
+            string[] keys = pair.Key.Split('-');
+            FbHelper.SetIdToRelist(int.Parse(keys[0]), int.Parse(keys[1]), int.Parse(keys[2]));
+        }
+
+        private DateTime _dateRasxTo = DateTime.MinValue;
+
+        private DateTime _dateRasxFrom = DateTime.MinValue;
+
+        Dictionary<string, string> _lotNameList = null;
+
+
+        protected override void DoExecute()
+        {
+            //ProcScreen.ShowMessage("Ждите! Идет сбор информации для удаления проданных лотов...");
+
+
+            var cfg = IniHelper.Cfg<CfgMeshok>();
+
+            if (cfg.DateRasxFrom == DateTime.MinValue)
+            {
+                ProcessRunHelper.Executing = false;
+                Thread.Sleep(10);
+                DlgHelper.DlgInfo("Установите дату продаж!!!");
+                WorkDone();
+                return;
+            }
+            _dateRasxFrom = cfg.DateRasxFrom;
+
+            if (cfg.DateRasxTo == DateTime.MinValue ||  cfg.DateRasxFrom == cfg.DateRasxTo)
+            {
+                cfg.DateRasxTo = DateTime.Now;
+                cfg.Save(true);
+            }
+            _dateRasxTo = cfg.DateRasxTo;
+
+            _lotNameList = cfg.RasxLotNames;
+
+            if (_lotNameList.Count == 0)
+            {
+                if (CreateConnection())
+                {
+
+                    try
+                    {
+                        using (FbCommand cmd = new FbCommand(query_init, fbConnection))
+                        {
+                            cmd.ExecuteScalar();
+                            cmd.CommandText = query_full_name;
+                            FbParameter parameter = new FbParameter("start_date", FbDbType.Date)
+                            {
+                                Value = _dateRasxFrom
+                            };
+                            cmd.Parameters.Add(parameter);
+                            
+                            FbDataReader reader = cmd.ExecuteReader ();
+                            
+                            try
+                            {
+                                while (reader.Read() && ProcessRunHelper.Executing)
+                                {
+                                    string id = reader["ID"].ToString();
+                                    string artist = reader["TITLE"].ToString();
+                                    string title = reader["SUB_TITLE"].ToString();
+                                    string format = reader["UNIT_NAME"].ToString();
+                                    string quality = reader["QUALITY"].ToString();
+                                    string barcode = reader["BARCODE"].ToString();
+
+                                    string tmp = LotNamesHelper.CreateLotName(artist, title, format, quality, barcode);
+
+                                    _lotNameList.Add(id, tmp);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Error(ex);
+                            }
+                            finally
+                            {
+                                reader.Close();
+                            }
+
+                        };
+                    }
+                    finally
+                    {
+                        CloseConnection();
+                    }
+                }
+            }
+
+            TotalSteps = _lotNameList.Count;
+            NavigateNext();
+        }
+
+        protected void NavigateNext()
+        {
+            if (_lotNameList.Count > 0 && ProcessRunHelper.Executing)
+            {
+                KeyValuePair<string, string> first = _lotNameList.First();
+                SetBeginUrl(first);
+                _lotNameList.Remove(first.Key);
+
+                ProcScreen.Navigate(Begin_url);
+            }
+            else
+                WorkDone();
+        }
+
+        protected override void WorkDone()
+        {
+            if (_dateRasxFrom < _dateRasxTo)
+            {
+                CfgMeshok cfg = IniHelper.Cfg<CfgMeshok>();
+                if (ProcessRunHelper.Executing)
+                {
+                    cfg.DateRasxFrom = _dateRasxTo;
+                }
+
+                cfg.RasxLotNames = _lotNameList;
+                cfg.Save(true);
+            }
+            base.WorkDone();
+        }
+
+        bool UrlIsEqual(string str1, string str2)
+        {
+            if (str1 == null || str2 == null)
+                return false;
+
+
+            return str1.ToUpper() == str2.ToUpper();
+        }
+
+        protected override void OnDocumentCompleted(string url)
+        {
+            if (url == done_url)
+            {
+                NavigateNext();
+            }
+            else if (UrlIsEqual(url, Begin_url))
+            {
+                if (!ProcScreen.HasQty(MainMeshok.sale_token))
+                    WorkDone();
+                else
+                if (DeletePage())
+                {
+                    clearGC = true;
+                    Application.DoEvents();
+                    IncCurrentStep();
+                    if (!_lotFounded)
+                    {
+                        NavigateNext();
+                    }
+                }
+                else
+                    WorkDone();
+            }
+        }
+
+        bool _lotFounded = false;
+
+        private bool DeletePage()
+        {
+            ClearCash();
+
+            _lotFounded = false;
+
+            using (GeckoDocument doc = ProcScreen.Document)
+            {
+                foreach (GeckoInputElement checkbox in doc.GetElementsByTagName("input").Where(x => x.GetAttribute("name") == "work[]"))
+                {
+                    _lotFounded = true;
+                    checkbox.Checked = true;
+                }
+                if (_lotFounded == false)
+                    return true;
+
+                Application.DoEvents();
+
+                GeckoElement div = doc.GetElementById("saleBAction");
+                if (!(doc.GetElementById("submitDoWork") is GeckoInputElement submit))
+                    return false;
+
+                foreach (GeckoSelectElement item in div.GetElementsByTagName("select").Where(x => x.GetAttribute("name") == "do_work"))
+                {
+                    item.Focus();
+                    item.Value = "D";
+                    Application.DoEvents();
+                    submit.Click();
+                    return true;
+                }
+                return false;
+            }
+        }
+
+
+    }
+}

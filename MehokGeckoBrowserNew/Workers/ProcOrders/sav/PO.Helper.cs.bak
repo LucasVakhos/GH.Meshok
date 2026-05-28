@@ -1,0 +1,241 @@
+﻿using Meshok.BL;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MeshokBrowser.processors
+{
+    public class ProcSetting
+    {
+        protected string Section { get => this.GetType().Name; }
+
+        public Dictionary<ProcessStatus, string> processTypes = new Dictionary<ProcessStatus, string>
+        {
+            [ProcessStatus.None] = "",
+            [ProcessStatus.New] = "Новая",
+            [ProcessStatus.Discution] = "Переговоры",
+            [ProcessStatus.WaitForPayment] = "Ожидаю оплаты",
+            [ProcessStatus.PayedOrdering] = "Оплачено, формирую заказ",
+            [ProcessStatus.PayedWaitForOrderSend] = "Оплачено, ожидает отправки",
+            [ProcessStatus.PayedOrderSent] = "Оплачено, отправлено",
+            [ProcessStatus.NpOrdering] = "НП, формирую заказ",
+            [ProcessStatus.NpWaitForOrderSend] = "НП, ожидает отправки",
+            [ProcessStatus.NpOrderSent] = "НП, отправлен",
+            [ProcessStatus.NpReceived] = "НП, получен",
+            [ProcessStatus.DealOK] = "Состоялась",
+            [ProcessStatus.DealCanceled] = "Не состоялась"
+        };
+        private bool _auto = false;
+        private ProcessStatus _currentStatus = ProcessStatus.New;
+        private ProcessStatus _forStatus = ProcessStatus.PayedOrderSent;
+        private int _showOnPage = 20;
+        private List<HtmlElement> _dealList = new List<HtmlElement>();
+        private bool _firstTime = true;
+
+        public bool Restart { get; set; }
+        public List<HtmlElement> DealList { get => _dealList; set => _dealList = value; }
+        public ProcessStatus CurrentStatus
+        {
+            get => _currentStatus;
+            set
+            {
+                if (value < ProcessStatus.New)
+                    value = ProcessStatus.New;
+                _currentStatus = value;
+                if (_forStatus < _currentStatus)
+                    _forStatus = _currentStatus;
+            }
+        }
+        public bool Auto { get => _auto; set => _auto = value; }
+        public bool FirstTime { get => _firstTime; set => _firstTime = value; }
+        public ProcessStatus ForStatus
+        {
+            get => _forStatus;
+            set
+            {
+                if (value < _currentStatus)
+                    value = _currentStatus;
+
+                _forStatus = value;
+            }
+        }
+        public bool ApplyNextStatus { get; set; }
+        public int ShowOnPage { get => _showOnPage; set => _showOnPage = value; }
+
+        public string CurrentStatusText { get { return processTypes[CurrentStatus]; } }
+        public string NextStatusText
+        {
+            get
+            {
+                ProcessStatus next = CurrentStatus;
+                next++;
+                return processTypes[next]; ;
+            }
+        }
+        public string NextStatusIndexText
+        {
+            get
+            {
+                ProcessStatus next = CurrentStatus;
+                next++;
+                return ((int)next).ToString();
+            }
+        }
+
+        public string FromStatusIndex { get { return ((int)CurrentStatus).ToString(); } }
+        public string ShowOnPageValue { get { return ShowOnPage.ToString(); } }
+
+        public bool Finished { get { return _currentStatus == _forStatus; } }
+
+        public ProcSetting()
+        {
+            RestoreSetting();
+        }
+
+        public void RestoreSetting()
+        {
+            IniFile ini = IniFile.DefaultInstance();
+            ini.Section = Section;
+            CurrentStatus = (ProcessStatus)ini.ReadInteger("FromStatus", (int)CurrentStatus);
+            Auto = ini.ReadBool("Auto", Auto);
+            ForStatus = (ProcessStatus)ini.ReadInteger("ForStatus", (int)ForStatus);
+            ShowOnPage = ini.ReadInteger("ShowOnPage", ShowOnPage);
+            ApplyNextStatus = ini.ReadBool("SetNextStatus", ApplyNextStatus);
+        }
+
+        public void SaveSetting()
+        {
+            IniFile ini = IniFile.DefaultInstance();
+            ini.Section = Section;
+            
+            ini.WriteInteger("FromStatus", (int)CurrentStatus);
+            ini.WriteBool("Auto", Auto);
+            ini.WriteInteger("ForStatus", (int)ForStatus);
+            ini.WriteInteger("ShowOnPage", ShowOnPage);
+            ini.WriteBool("SetNextStatus", ApplyNextStatus);
+        }
+
+
+        public void NextStatus()
+        {
+            if (Auto && CurrentStatus < ForStatus)
+                _currentStatus++;
+        }
+    }
+
+    public class OrderHelper
+    {
+        HtmlDocument doc = null;
+        List<HtmlElement> _deals = new List<HtmlElement>();
+        bool _InProcess;
+        HtmlElement _form = null;
+        HtmlElement _table = null;
+        ProcSetting setting;
+
+        public OrderHelper(HtmlDocument doc, ref bool inProcess)
+        {
+            this.doc = doc;
+            _InProcess = inProcess;
+        }
+
+        public bool CollectDeals(ProcSetting setting)
+        {
+            this.setting = setting;
+            this.setting.Restart = false;
+            _deals = new List<HtmlElement>();
+            if (!GetForm() || !CheckUnions())
+                return false;
+
+            foreach (HtmlElement row in _table.GetElementsByTagName("tr"))
+            {
+                if (row.InnerHtml.Contains(@"<td class=""list"" style=""padding: 4px;""><a href=""/item/") &&
+                    row.InnerHtml.Contains(setting.CurrentStatusText))
+                {
+                    _deals.Add(row);
+                }
+            }
+            this.setting.DealList = _deals;
+            return _deals.Count > 0;
+        }
+
+        bool GetForm()
+        {
+            foreach (HtmlElement item in doc.GetElementsByTagName("form"))
+            {
+                if (item.Id == "form2" && item.GetAttribute("method") == "POST")
+                {
+                    foreach (HtmlElement table in item.GetElementsByTagName("table"))
+                    {
+                        if (table.OuterHtml.Contains("class=\"standart_listing\""))
+                        {
+                            _table = table;
+                            _form = item;
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        bool CheckUnions()
+        {
+            if (setting.CurrentStatus != ProcessStatus.New)
+                return true;
+            int chk = 0;
+
+            foreach (HtmlElement row in _table.GetElementsByTagName("tr"))
+            {
+                if (!_InProcess)
+                    return false;
+
+                if (row.InnerHtml.Contains(@"<td class=""list"" style=""padding: 4px;""><a href=""/item/") &&
+                    row.InnerHtml.Contains(setting.CurrentStatusText) &&
+                    row.InnerHtml.Contains("<span class=\"atten\">+"))
+                {
+                    chk++;
+                    foreach (HtmlElement checkbox in row.GetElementsByTagName("input"))
+                    {
+                        if (checkbox.Name == "deal_work[]")
+                        {
+                            checkbox.InvokeMember("click");
+                            Application.DoEvents();
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (chk > 0)
+            {
+                setting.Restart = true;
+                HtmlElement div = doc.GetElementById("saleBAction");
+                
+                foreach (HtmlElement item in div.GetElementsByTagName("select"))
+                {
+                    if (item.Name == "do_work")
+                    {
+                        item.SetAttribute("value", "K");
+                        Application.DoEvents();
+                        break;
+                    }
+                }
+
+                foreach (HtmlElement item in div.GetElementsByTagName("input"))
+                {
+                    if (item.GetAttribute("value") == "Применить")
+                    {
+                        item.InvokeMember("click");
+                        Application.DoEvents();
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+}

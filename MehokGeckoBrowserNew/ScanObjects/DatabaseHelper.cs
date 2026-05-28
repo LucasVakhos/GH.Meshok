@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FirebirdSql.Data.FirebirdClient;
+using MeshokBrowser.NH;
+namespace MeshokBrowser.Helpers
+{
+    public class DatabaseHelper : IDisposable
+    {
+        FbConnection conn = null;
+        FbCommand cmd = null;
+        public DatabaseHelper()
+        {
+            conn = IShop.GetConnection();
+            conn.Open();
+            cmd = new FbCommand("", conn);
+        }
+        public void GetClientInfos(List<Order> packets)
+        {
+        }
+        public void Dispose()
+        {
+            cmd.Dispose();
+            conn.Dispose();
+        }
+    }
+}

@@ -1,0 +1,16 @@
+﻿using FluentNHibernate.Mapping;
+using GH.NHibernate;
+namespace MeshokBrowser.NHibernate
+{
+    public class ClientCallBack : BaseEntity
+    {
+    }
+    public class ClientCallBackMap : ClassMap<ClientCallBack>
+    {
+        public ClientCallBackMap()
+        {
+            Table("z$import_clients");
+            Id(x => x.id, "c_id");
+        }
+    }
+}

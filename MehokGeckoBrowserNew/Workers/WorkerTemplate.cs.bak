@@ -1,0 +1,119 @@
+﻿using GH.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
+namespace MeshokBrowser.Workers
+{
+    public class WorkerTemplate
+    {
+        string yesNoText;
+        Type processorType;
+
+        public Func<bool> DialogAction { get; set; } = null;
+
+        public WorkerTemplate(Type processorType, string yesNoText = null)
+        {
+            this.yesNoText = yesNoText;
+            this.processorType = processorType;
+        }
+
+        public bool CanDo()
+        {
+            if (DialogAction != null)
+            {
+                return DialogAction();
+            }
+            else
+            if (yesNoText == null)
+                return true;
+            return DlgHelper.DlgYesNo(yesNoText);
+        }
+
+        public Type ProcessorType { get { return processorType; } }
+
+        public AbstractWorker CreateNew(params object[] constructorArguments)
+        {
+            // try to find the matching constructor
+            ConstructorInfo constructor = null;
+            Type[] suppliedArgTypes = (from param in constructorArguments select param == null ? typeof(object) : param.GetType()).ToArray();
+
+            foreach (ConstructorInfo ctor in processorType.GetConstructors())
+            {
+                ParameterInfo[] ctorParams = ctor.GetParameters();
+                Type paramArrayType = (
+                    ctorParams.LastOrDefault() != null &&
+                    ctorParams.Last().GetCustomAttributes(typeof(ParamArrayAttribute), false).Length > 0
+                ) ? ctorParams.Last().ParameterType : null;
+                constructor = ctor;
+
+                // first check explicitly supplied arguments
+                for (int i = 0; i < suppliedArgTypes.Length; ++i)
+                {
+                    // if there are more supplied arguments than parameter types, see if they match param type
+                    if (
+                        i >= ctorParams.Length &&
+                        (paramArrayType == null || !paramArrayType.IsAssignableFrom(suppliedArgTypes[i]))
+                    )
+                    {
+                        constructor = null;
+                        continue;
+                    }
+                    // if supplied argument type is mismatch, then constructor is a bad match
+                    if (
+                        !ctorParams[i].ParameterType.IsAssignableFrom(suppliedArgTypes[i]) ||
+                        (suppliedArgTypes[i] == null && !ctorParams[i].ParameterType.IsClass)
+                    )
+                    {
+                        constructor = null;
+                    }
+                }
+
+                // if candidate is a match, see if it has any further parameters
+                if (constructor != null && ctorParams.Length > suppliedArgTypes.Length)
+                {
+                    List<object> newArgs = new List<object>(constructorArguments);
+                    for (int i = suppliedArgTypes.Length; i < ctorParams.Length; ++i)
+                    {
+                        // candidate is a mistmatch if the argument is not optional, or is not the params argument
+                        if (!ctorParams[i].IsOptional && !(paramArrayType != null && i == ctorParams.Length - 1))
+                        {
+                            constructor = null;
+                        }
+                        else if (ctorParams[i].IsOptional)
+                        {
+                            newArgs.Add(ctorParams[i].DefaultValue);
+                        }
+                    }
+                    // if candidate is still a match, append missing arguments
+                    if (constructor != null)
+                    {
+                        constructorArguments = newArgs.ToArray();
+                    }
+                }
+                // break out if the candidate is still valid
+                if (constructor != null)
+                {
+                    break;
+                }
+            }
+            if (constructor == null)
+            {
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                foreach (Type type in suppliedArgTypes)
+                {
+                    sb.AppendFormat(", {0}", type);
+                }
+                throw new ArgumentException(
+                    "constructorArguments",
+                    string.Format(
+                        "No constructor found for {0} matching method signature [{1}].",
+                        processorType, sb.Length > 0 ? sb.ToString().Substring(2) : ""
+                    )
+                );
+            }
+            return constructor.Invoke(constructorArguments) as AbstractWorker;
+        }
+    }
+}

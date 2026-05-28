@@ -1,0 +1,12 @@
+﻿using DevExpress.XtraEditors;
+using GH.Interfaces;
+using GH.NHibernate;
+namespace GH.Configs
+{
+    public partial class MySqlConnectionFrame : CfgConnectFrameType<CfgBridgeNote>
+    {
+        public MySqlConnectionFrame()
+        {
+        }
+    }
+}

@@ -1,0 +1,50 @@
+﻿using System.IO;
+using System.Text;
+using System.Windows.Forms;
+
+namespace Meshok.BL
+{
+
+    public static class TextMan 
+    {
+
+        public static bool IsExist(string filePath)
+        {
+            bool isExist = File.Exists(filePath);
+            return isExist;
+        }
+
+        public static string GetContent(string filePath)
+        {
+            return GetContent(filePath, Encoding.GetEncoding(1251));
+        }
+
+        public static string GetContent(string filePath, Encoding encoding)
+        {
+            string content = File.ReadAllText(filePath, encoding);
+            return content;
+        }
+
+        public static void SaveContent(string content, string filePath)
+        {
+            SaveContent(content, filePath, Encoding.GetEncoding(1251));
+        }
+
+        public static void SaveContent(string content, string filePath, Encoding encoding)
+        {
+            filePath = Application.StartupPath + @"\expors\" + Path.GetFileName(filePath);
+            string dir = Path.GetDirectoryName(filePath);
+            
+            if (!Directory.Exists(dir))             
+                Directory.CreateDirectory(dir);
+            
+            File.WriteAllText(filePath, content, encoding);
+        }
+
+        public static int GetSymbolCount(string content)
+        {
+            int count = content.Length;
+            return count;
+        }
+    }
+}

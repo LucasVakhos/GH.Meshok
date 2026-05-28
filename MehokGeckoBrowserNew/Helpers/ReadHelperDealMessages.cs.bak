@@ -1,0 +1,83 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FirebirdSql.Data.FirebirdClient;
+using MeshokBrowser.NH;
+
+namespace MeshokBrowser.Helpers
+{
+    public class ReadHelperDealMessages : ReaderHelperBase
+    {
+        public int cod_id;
+        public int c_id;
+        public string c_name;
+        public int md_id;
+        public string md_name;
+        public int mp_id;
+        public string mp_name;
+        public int cs_id;
+        public string cs_name;
+        public double dp_totalsumm;
+        public bool dp_packed;
+        public string md_address;
+        public string md_treck_num;
+        public string md_tracking_url;
+        public MessageCase zsc_case;
+        public string zsc_message;
+
+        public ReadHelperDealMessages(FbDataReader recs) : base(recs)
+        {
+        }
+
+        public override bool Read()
+        {
+            if (base.Read())
+            {
+                cod_id = (int)recs["cod_id"];
+
+                c_id = (int)recs["c_id"];
+                c_name = recs["c_name"].ToString();
+
+                md_id = (int)recs["md_id"];
+                md_name = recs["md_name"].ToString();
+
+                mp_id = (int)recs["mp_id"];
+                mp_name = recs["mp_name"].ToString();
+
+                cs_id = (int)recs["cs_id"];
+                cs_name = recs["cs_name"].ToString();
+
+                dp_totalsumm = (double)recs["dp_totalsumm"];
+                dp_packed = (int)recs["dp_packed"] == 1 ? true : false;
+
+                md_address = recs["md_address"].ToString();
+                md_treck_num = recs["md_treck_num"].ToString();
+                md_tracking_url = recs["md_tracking_url"].ToString();
+                zsc_case = (MessageCase)(int)recs["zsc_case"];
+                zsc_message = recs["zsc_message"].ToString();
+
+                for (int i = 0; i < recs.FieldCount; i++)
+                {
+                    string s_from = $"#{recs.GetName(i).ToLower()}#";
+                    string s_for = recs[i]?.ToString().Trim();
+
+                    zsc_message = zsc_message.Replace(s_from, s_for);
+                }
+
+                return true;
+            }
+            return false;
+        }
+
+        public void SetDealMessagesFor(OrderLine orderLine)
+        {
+            List<DealMessage> dealMessages = new List<DealMessage>();
+            while (Read())
+            {
+                new DealMessage(orderLine, this);
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+﻿using FluentNHibernate.Mapping;
+using GH.NHibernate;
+namespace MeshokBrowser.NHibernate
+{
+    public class CheckClient : BaseEntity
+    {
+        public CheckClient()
+        {
+        }
+        public virtual int c_md_id { get; set; }
+        public virtual int c_mp_id { get; set; }
+        public virtual string c_email { get; set; }
+        public virtual bool c_enabled { get; set; }
+        public virtual string c_phone { get; set; }
+        public virtual string c_zipcode { get; set; }
+        public virtual string c_address { get; set; }
+    }
+    public class CheckClientMap : ClassMap<CheckClient>
+    {
+        public CheckClientMap()
+        {
+            Table("z$import_clients_inf");
+            Id(x => x.id, "c_id");
+            Map(x => x.Name, "c_name");
+            Map(x => x.c_md_id, "c_md_id");
+            Map(x => x.c_mp_id, "c_mp_id");
+            Map(x => x.c_email, "c_email");
+            Map(x => x.c_enabled, "c_enabled");
+            Map(x => x.c_phone, "c_phone");
+            Map(x => x.c_zipcode, "c_zipcode");
+            Map(x => x.c_address, "c_address");
+        }
+    }
+}

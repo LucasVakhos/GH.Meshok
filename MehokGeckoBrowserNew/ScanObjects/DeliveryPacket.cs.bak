@@ -1,0 +1,117 @@
+﻿using Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace MeshokBrowser.NHibernate
+{
+    public class DeliveryPacket : DeliveryObject, IOrder
+    {
+
+        private string _nick;
+        public string nick { get => _nick; set => _nick = value; }
+
+
+        private DateTime? _date;
+        public DateTime? date { get => _date; set => _date = value; }
+
+        private double _total = 0;
+        public double total { get => _total; set => _total = value; }
+
+        public DeliveryMethod deliveryMethod => (DeliveryMethod)md_id;
+
+        public PaymentMethod paymentMethod => (PaymentMethod)mp_id;
+
+
+        private bool _packed = false;
+        public bool packed { get => _packed; set => _packed = value; }
+
+        public bool NeedUnion
+        {
+            get
+            {
+                return (base_status >= 4 && base_status <= 6) && OrderLines.Where(x => x.NeedUnion).ToList().Count > 1;
+            }
+        }
+
+        public int c_id { get; set; }
+        private Client _client;
+
+
+        public Client Client { get => _client; set => _client = value; }
+
+        private readonly List<Order> _orders = new List<Order>();
+        public List<Order> Orders => _orders;
+
+        private readonly List<OrderLine> _orderLines = new List<OrderLine>();
+        public List<OrderLine> OrderLines => _orderLines;
+
+        public DeliveryPacket(OrderLine orderLine, CheckOrder check)
+        {
+            nick = orderLine.nick;
+            Client = orderLine.Client;
+            if (check != null)
+            {
+                base_id = check.dp_id;
+                date = check.dp_creation_date;
+                total = check.dp_totalsumm;
+                md_id = check.dp_md_id;
+                mp_id = check.dp_mp_id;
+                base_status = check.dp_status;
+                packed = check.dp_packed;
+                c_id = check.dp_c_id;
+            }
+        }
+
+
+        public void AddOrderLine(OrderLine orderLine, CheckOrder check)
+        {
+            if (!OrderLines.Contains(orderLine))
+                OrderLines.Add(orderLine);
+            Order order = null;
+
+            if (check != null)
+                order = Orders.FirstOrDefault(x => x.base_id == check.co_id &&
+                    x.c_id == check.co_c_id && x.md_id == check.co_md_id && x.mp_id == check.co_mp_id && x.nick == orderLine.nick);
+
+            if (order == null)
+            {
+                order = new Order(orderLine, check);
+                Orders.Add(order);
+            }
+
+            order.base_status = check.co_status;
+            order.AddOrderLine(orderLine);
+        }
+
+        public void Clear()
+        {
+            _client = null;
+            _orders.Clear();
+            _orderLines.Clear();
+        }
+
+
+        public override int GetHashCode()
+        {
+            var hashCode = 118648490;
+            hashCode = hashCode * -1521134295 + base_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(nick);
+            hashCode = hashCode * -1521134295 + md_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + mp_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + c_id.GetHashCode();
+            return hashCode;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var packet = obj as DeliveryPacket;
+            return packet != null &&
+                   base_id == packet.base_id &&
+                   nick == packet.nick &&
+                   md_id == packet.md_id &&
+                   mp_id == packet.mp_id &&
+                   c_id == packet.c_id;
+        }
+    }
+}

@@ -1,0 +1,386 @@
+﻿namespace MeshokBrowser
+{
+    partial class ConfigMeshokFrame
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.UserTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ItemForUser = new DevExpress.XtraLayout.LayoutControlItem();
+            this.PassWrdTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ItemForPassWrd = new DevExpress.XtraLayout.LayoutControlItem();
+            this.CursTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ComissionTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.PriceCityTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.PriceCountryTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.PriceWorldTextEdit = new DevExpress.XtraEditors.TextEdit();
+            this.ItemForCurs = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForComission = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForPriceCity = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForPriceCountry = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForPriceWorld = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForAddInfo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.AddInfoTextEdit = new DevExpress.XtraEditors.MemoEdit();
+            this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+            this.labelInfo = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lgRoot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForUser)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PassWrdTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPassWrd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CursTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComissionTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCityTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCountryTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceWorldTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForCurs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForComission)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceCity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceCountry)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceWorld)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForAddInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddInfoTextEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.Controls.Add(this.labelInfo);
+            this.layoutControl.Controls.Add(this.UserTextEdit);
+            this.layoutControl.Controls.Add(this.PassWrdTextEdit);
+            this.layoutControl.Controls.Add(this.CursTextEdit);
+            this.layoutControl.Controls.Add(this.ComissionTextEdit);
+            this.layoutControl.Controls.Add(this.PriceCityTextEdit);
+            this.layoutControl.Controls.Add(this.PriceCountryTextEdit);
+            this.layoutControl.Controls.Add(this.PriceWorldTextEdit);
+            this.layoutControl.Controls.Add(this.AddInfoTextEdit);
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(709, 167, 692, 773);
+            this.layoutControl.OptionsFocus.AllowFocusGroups = false;
+            this.layoutControl.OptionsFocus.AllowFocusReadonlyEditors = false;
+            this.layoutControl.OptionsFocus.AllowFocusTabbedGroups = false;
+            this.layoutControl.Size = new System.Drawing.Size(763, 523);
+            // 
+            // lgRoot
+            // 
+            this.lgRoot.OptionsItemText.TextToControlDistance = 5;
+            this.lgRoot.Size = new System.Drawing.Size(763, 523);
+            // 
+            // EditGroup
+            // 
+            this.EditGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.ItemForUser,
+            this.ItemForPassWrd,
+            this.ItemForCurs,
+            this.ItemForPriceCity,
+            this.layoutControlItem1,
+            this.ItemForAddInfo,
+            this.ItemForComission,
+            this.ItemForPriceCountry,
+            this.ItemForPriceWorld});
+            this.EditGroup.OptionsItemText.TextToControlDistance = 5;
+            this.EditGroup.Size = new System.Drawing.Size(763, 221);
+            this.EditGroup.Text = "Meshok.ru";
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 221);
+            this.emptySpaceItem1.Size = new System.Drawing.Size(763, 302);
+            // 
+            // dataSource
+            // 
+            this.dataSource.PageSupport.EditGroup = this.EditGroup;
+            // 
+            // UserTextEdit
+            // 
+            this.UserTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "User", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.UserTextEdit.Location = new System.Drawing.Point(113, 26);
+            this.UserTextEdit.Name = "UserTextEdit";
+            this.UserTextEdit.Size = new System.Drawing.Size(163, 20);
+            this.UserTextEdit.StyleController = this.layoutControl;
+            this.UserTextEdit.TabIndex = 0;
+            // 
+            // ItemForUser
+            // 
+            this.ItemForUser.Control = this.UserTextEdit;
+            this.ItemForUser.Location = new System.Drawing.Point(0, 0);
+            this.ItemForUser.MaxSize = new System.Drawing.Size(278, 0);
+            this.ItemForUser.MinSize = new System.Drawing.Size(278, 30);
+            this.ItemForUser.Name = "ItemForUser";
+            this.ItemForUser.OptionsToolTip.ToolTip = "Пользователь";
+            this.ItemForUser.Size = new System.Drawing.Size(757, 30);
+            this.ItemForUser.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForUser.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // PassWrdTextEdit
+            // 
+            this.PassWrdTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "PassWrd", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PassWrdTextEdit.Location = new System.Drawing.Point(113, 56);
+            this.PassWrdTextEdit.Name = "PassWrdTextEdit";
+            this.PassWrdTextEdit.Size = new System.Drawing.Size(163, 20);
+            this.PassWrdTextEdit.StyleController = this.layoutControl;
+            this.PassWrdTextEdit.TabIndex = 2;
+            // 
+            // ItemForPassWrd
+            // 
+            this.ItemForPassWrd.Control = this.PassWrdTextEdit;
+            this.ItemForPassWrd.Location = new System.Drawing.Point(0, 30);
+            this.ItemForPassWrd.MaxSize = new System.Drawing.Size(278, 0);
+            this.ItemForPassWrd.MinSize = new System.Drawing.Size(278, 30);
+            this.ItemForPassWrd.Name = "ItemForPassWrd";
+            this.ItemForPassWrd.OptionsToolTip.ToolTip = "Пароль";
+            this.ItemForPassWrd.Size = new System.Drawing.Size(757, 30);
+            this.ItemForPassWrd.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForPassWrd.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // CursTextEdit
+            // 
+            this.CursTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "Curs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.CursTextEdit.Location = new System.Drawing.Point(113, 86);
+            this.CursTextEdit.Name = "CursTextEdit";
+            this.CursTextEdit.Properties.Appearance.Options.UseTextOptions = true;
+            this.CursTextEdit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.CursTextEdit.Properties.Mask.EditMask = "F";
+            this.CursTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.CursTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.CursTextEdit.Size = new System.Drawing.Size(24, 20);
+            this.CursTextEdit.StyleController = this.layoutControl;
+            this.CursTextEdit.TabIndex = 3;
+            // 
+            // ComissionTextEdit
+            // 
+            this.ComissionTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "Comission", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.ComissionTextEdit.Location = new System.Drawing.Point(252, 86);
+            this.ComissionTextEdit.Name = "ComissionTextEdit";
+            this.ComissionTextEdit.Properties.Appearance.Options.UseTextOptions = true;
+            this.ComissionTextEdit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.ComissionTextEdit.Properties.Mask.EditMask = "F";
+            this.ComissionTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.ComissionTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.ComissionTextEdit.Size = new System.Drawing.Size(24, 20);
+            this.ComissionTextEdit.StyleController = this.layoutControl;
+            this.ComissionTextEdit.TabIndex = 4;
+            // 
+            // PriceCityTextEdit
+            // 
+            this.PriceCityTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "PriceCity", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PriceCityTextEdit.Location = new System.Drawing.Point(113, 116);
+            this.PriceCityTextEdit.Name = "PriceCityTextEdit";
+            this.PriceCityTextEdit.Properties.Appearance.Options.UseTextOptions = true;
+            this.PriceCityTextEdit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.PriceCityTextEdit.Properties.Mask.EditMask = "F";
+            this.PriceCityTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.PriceCityTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.PriceCityTextEdit.Size = new System.Drawing.Size(24, 20);
+            this.PriceCityTextEdit.StyleController = this.layoutControl;
+            this.PriceCityTextEdit.TabIndex = 5;
+            // 
+            // PriceCountryTextEdit
+            // 
+            this.PriceCountryTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "PriceCountry", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PriceCountryTextEdit.Location = new System.Drawing.Point(252, 116);
+            this.PriceCountryTextEdit.Name = "PriceCountryTextEdit";
+            this.PriceCountryTextEdit.Properties.Appearance.Options.UseTextOptions = true;
+            this.PriceCountryTextEdit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.PriceCountryTextEdit.Properties.Mask.EditMask = "F";
+            this.PriceCountryTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.PriceCountryTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.PriceCountryTextEdit.Size = new System.Drawing.Size(24, 20);
+            this.PriceCountryTextEdit.StyleController = this.layoutControl;
+            this.PriceCountryTextEdit.TabIndex = 6;
+            // 
+            // PriceWorldTextEdit
+            // 
+            this.PriceWorldTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "PriceWorld", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.PriceWorldTextEdit.Location = new System.Drawing.Point(391, 116);
+            this.PriceWorldTextEdit.Name = "PriceWorldTextEdit";
+            this.PriceWorldTextEdit.Properties.Appearance.Options.UseTextOptions = true;
+            this.PriceWorldTextEdit.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+            this.PriceWorldTextEdit.Properties.Mask.EditMask = "F";
+            this.PriceWorldTextEdit.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.PriceWorldTextEdit.Properties.Mask.UseMaskAsDisplayFormat = true;
+            this.PriceWorldTextEdit.Size = new System.Drawing.Size(24, 20);
+            this.PriceWorldTextEdit.StyleController = this.layoutControl;
+            this.PriceWorldTextEdit.TabIndex = 7;
+            // 
+            // ItemForCurs
+            // 
+            this.ItemForCurs.Control = this.CursTextEdit;
+            this.ItemForCurs.Location = new System.Drawing.Point(0, 60);
+            this.ItemForCurs.MaxSize = new System.Drawing.Size(139, 30);
+            this.ItemForCurs.MinSize = new System.Drawing.Size(139, 30);
+            this.ItemForCurs.Name = "ItemForCurs";
+            this.ItemForCurs.OptionsToolTip.ToolTip = "Курс для товара";
+            this.ItemForCurs.Size = new System.Drawing.Size(139, 30);
+            this.ItemForCurs.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForCurs.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // ItemForComission
+            // 
+            this.ItemForComission.Control = this.ComissionTextEdit;
+            this.ItemForComission.Location = new System.Drawing.Point(139, 60);
+            this.ItemForComission.MaxSize = new System.Drawing.Size(139, 30);
+            this.ItemForComission.MinSize = new System.Drawing.Size(139, 30);
+            this.ItemForComission.Name = "ItemForComission";
+            this.ItemForComission.OptionsToolTip.ToolTip = "Комиссия сайта";
+            this.ItemForComission.Size = new System.Drawing.Size(618, 30);
+            this.ItemForComission.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForComission.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // ItemForPriceCity
+            // 
+            this.ItemForPriceCity.Control = this.PriceCityTextEdit;
+            this.ItemForPriceCity.Location = new System.Drawing.Point(0, 90);
+            this.ItemForPriceCity.MaxSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCity.MinSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCity.Name = "ItemForPriceCity";
+            this.ItemForPriceCity.OptionsToolTip.ToolTip = "Стоимость доставки";
+            this.ItemForPriceCity.Size = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCity.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForPriceCity.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // ItemForPriceCountry
+            // 
+            this.ItemForPriceCountry.Control = this.PriceCountryTextEdit;
+            this.ItemForPriceCountry.Location = new System.Drawing.Point(139, 90);
+            this.ItemForPriceCountry.MaxSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCountry.MinSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCountry.Name = "ItemForPriceCountry";
+            this.ItemForPriceCountry.OptionsToolTip.ToolTip = "Стоимость доставки";
+            this.ItemForPriceCountry.Size = new System.Drawing.Size(139, 30);
+            this.ItemForPriceCountry.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForPriceCountry.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // ItemForPriceWorld
+            // 
+            this.ItemForPriceWorld.Control = this.PriceWorldTextEdit;
+            this.ItemForPriceWorld.Location = new System.Drawing.Point(278, 90);
+            this.ItemForPriceWorld.MaxSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceWorld.MinSize = new System.Drawing.Size(139, 30);
+            this.ItemForPriceWorld.Name = "ItemForPriceWorld";
+            this.ItemForPriceWorld.OptionsToolTip.ToolTip = "Стоимость доставки";
+            this.ItemForPriceWorld.Size = new System.Drawing.Size(479, 30);
+            this.ItemForPriceWorld.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForPriceWorld.TextSize = new System.Drawing.Size(100, 13);
+            // 
+            // ItemForAddInfo
+            // 
+            this.ItemForAddInfo.Control = this.AddInfoTextEdit;
+            this.ItemForAddInfo.Location = new System.Drawing.Point(0, 143);
+            this.ItemForAddInfo.MaxSize = new System.Drawing.Size(500, 54);
+            this.ItemForAddInfo.MinSize = new System.Drawing.Size(500, 54);
+            this.ItemForAddInfo.Name = "ItemForAddInfo";
+            this.ItemForAddInfo.OptionsToolTip.ToolTip = "Дополнительные условия доставки";
+            this.ItemForAddInfo.Size = new System.Drawing.Size(757, 54);
+            this.ItemForAddInfo.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForAddInfo.TextSize = new System.Drawing.Size(0, 0);
+            this.ItemForAddInfo.TextVisible = false;
+            // 
+            // AddInfoTextEdit
+            // 
+            this.AddInfoTextEdit.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "AddInfo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.AddInfoTextEdit.Location = new System.Drawing.Point(8, 169);
+            this.AddInfoTextEdit.Name = "AddInfoTextEdit";
+            this.AddInfoTextEdit.Properties.MaxLength = 200;
+            this.AddInfoTextEdit.Size = new System.Drawing.Size(490, 44);
+            this.AddInfoTextEdit.StyleController = this.layoutControl;
+            this.AddInfoTextEdit.TabIndex = 1;
+            this.AddInfoTextEdit.EditValueChanged += new System.EventHandler(this.AddInfoTextEdit_EditValueChanged);
+            // 
+            // layoutControlItem1
+            // 
+            this.layoutControlItem1.Control = this.labelInfo;
+            this.layoutControlItem1.Location = new System.Drawing.Point(0, 120);
+            this.layoutControlItem1.Name = "layoutControlItem1";
+            this.layoutControlItem1.Size = new System.Drawing.Size(757, 23);
+            this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+            this.layoutControlItem1.TextVisible = false;
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Horizontal;
+            this.labelInfo.Location = new System.Drawing.Point(8, 146);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(183, 13);
+            this.labelInfo.StyleController = this.layoutControl;
+            this.labelInfo.TabIndex = 1;
+            this.labelInfo.Text = "Условия доставки (0 из 200 знаков)";
+            // 
+            // ConfigMeshokFrame
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Caption = "Meshok.ru";
+            this.Name = "ConfigMeshokFrame";
+            this.Size = new System.Drawing.Size(763, 523);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            this.layoutControl.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lgRoot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EditGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.UserTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForUser)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PassWrdTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPassWrd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CursTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComissionTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCityTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceCountryTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PriceWorldTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForCurs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForComission)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceCity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceCountry)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForPriceWorld)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForAddInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AddInfoTextEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
+            this.ResumeLayout(false);
+        }
+        private DevExpress.XtraEditors.TextEdit UserTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForUser;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForPassWrd;
+        private DevExpress.XtraEditors.TextEdit PassWrdTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForAddInfo;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForCurs;
+        private DevExpress.XtraEditors.TextEdit CursTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForComission;
+        private DevExpress.XtraEditors.TextEdit ComissionTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForPriceCity;
+        private DevExpress.XtraEditors.TextEdit PriceCityTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForPriceCountry;
+        private DevExpress.XtraEditors.TextEdit PriceCountryTextEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForPriceWorld;
+        private DevExpress.XtraEditors.TextEdit PriceWorldTextEdit;
+        private DevExpress.XtraEditors.MemoEdit AddInfoTextEdit;
+        private DevExpress.XtraEditors.LabelControl labelInfo;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+    }
+}

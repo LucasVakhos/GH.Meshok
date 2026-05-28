@@ -1,0 +1,59 @@
+using GH.AppContext;
+using GH.Browser;
+using GH.Configs;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace MeshokBrowser.Workers
+{
+    public static class LoadingHelper
+    {
+        public static List<string> GetFileList()
+        {
+            string filePath = Path.Combine(Application.StartupPath, RunContext.AppCfg.ExportPath);
+            List<string> files = new List<string>();
+
+            DirectoryInfo dir = new DirectoryInfo(filePath);
+
+            foreach (FileInfo item in dir.GetFiles("мешок*.txt"))
+                files.Add(item.FullName);
+
+            return files;
+        }
+
+        public static async Task<bool> FillBeginPageAsync(GhBrowser browser, string file)
+        {
+            if (!await browser.ExistsAsync("input[name='bulk_data']"))
+                return false;
+
+            CfgMeshok cfg = IniHelper.Cfg();
+
+            await browser.SetElementValueAsync("select[name='format']", "891");
+            await browser.SetElementValueAsync("select[name='sale_type']", "Sale");
+            await browser.SetElementValueAsync("select[name='num_per']", "100");
+            await browser.SetElementValueAsync("select[name='curency']", "2");
+            await browser.SetElementValueAsync("select[name='new']", "Y");
+            await browser.SetElementValueAsync("select[name='repeat']", "0");
+            await browser.SetElementValueAsync("select[name='d_local']", "CHARGE");
+            await browser.SetElementValueAsync("select[name='d_abrod']", "WORLD");
+            await browser.SetElementValueAsync("select[name='file_type']", "csv");
+
+            await browser.SetElementValueAsync("textarea[name='d_add']", cfg.AddInfo);
+
+            await browser.SetPayMethodAsync("CASH", true);
+            await browser.SetPayMethodAsync("NALOZH", true);
+            await browser.SetPayMethodAsync("CARD", true);
+
+            await browser.SetElementValueAsync("input[name='d_local_p']", cfg.PriceCity.ToString());
+            await browser.SetElementValueAsync("input[name='d_country_p']", cfg.PriceCountry.ToString());
+            await browser.SetElementValueAsync("input[name='d_world_p']", cfg.PriceWorld.ToString());
+
+            await browser.SetElementCheckedAsync("input[name='notify']", true);
+            await browser.SetElementCheckedAsync("input[name='replace']", false);
+
+            return await browser.SetFileInputAsync("input[name='bulk_data']", file);
+        }
+    }
+}

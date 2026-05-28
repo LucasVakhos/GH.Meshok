@@ -1,0 +1,186 @@
+﻿using Gecko;
+using GH.Utils;
+using MeshokBrowser.NHibernate;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using static GH.Utils.UtilsGh;
+
+namespace MeshokBrowser.Workers
+{
+    public class TaskClientParse : ParsingTask<Client>
+    {
+        public TaskClientParse()
+        {
+            CaptionOfTask = "Сканирование данных покупателя";
+        }
+
+        protected override void WorkWithDocument()
+        {
+            currentObject.ParsingSaccess = false;
+            GeckoHtmlElement a = null;
+            string nick = currentObject.nick;
+            a = doc.GetElementsByTagName("a").Where(x => (nick != string.Empty && x.TextContent.Contains(nick)) || (x.ClassName == "un" && x.TextContent == string.Empty)).FirstOrDefault();
+
+            if (a == null)
+                return;
+            else
+            {
+                string id = a.GetAttribute("href");
+                int pos = id.IndexOf('/');
+                while (pos >= 0)
+                {
+                    if (pos != -1)
+                    {
+                        pos++;
+                        id = id.Substring(pos);
+                        pos = id.IndexOf('/');
+                    }
+                }
+                currentObject.site_id = int.Parse(id);
+            }
+            GeckoHtmlElement city = a.Parent.Parent;
+            string cityName = "";
+            if (city.TagName == "P")
+            {
+                string[] separatingChars = { "<br>", "</br>", "<b>", "</b>", "<p>", "</p>" };
+                string[] splitText = city.InnerHtml.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries);
+                cityName = splitText[1].Trim();
+            }
+
+            currentObject.ParsingSaccess = true;
+
+            string addres = "Адрес доставки и контактная информация";
+            foreach (GeckoHtmlElement p_div in doc.GetElementsByTagName("div").Where(x => x.TextContent.Contains(addres)))
+            {
+                string innerText = p_div.TextContent;
+                string[] separatingChars = { "\n", "\t" };
+                List<string> addressLines = innerText.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+                while (addressLines.Count > 0)
+                {
+                    string text = addressLines[0];
+                    addressLines.RemoveAt(0);
+                    if (text.Contains(addres))
+                        break;
+                }
+
+                string site_city = "";
+                StringBuilder info = new StringBuilder();
+                //string site_address = "";
+
+
+                while (addressLines.Count > 0)
+                {
+                    string text = addressLines[0];
+                    addressLines.RemoveAt(0);
+
+                    info.AppendLine(text);
+                    string[] curr = text.Split(':');
+
+                    if (curr[0].ToUpper() == "КОНТАКТНОЕ ЛИЦО")
+                    {
+                        currentObject.c_name = curr[1].Trim().ToProperCase();
+                    }
+                    else
+                    if (curr[0].ToUpper() == "ТЕЛЕФОН ДЛЯ СВЯЗИ")
+                    {
+                        currentObject.c_phone = curr[1].Trim();
+                    }
+                    else
+                    if (curr[0].ToUpper() == "ИНДЕКС")
+                    {
+                        currentObject.c_zipcode = curr[1].Trim();
+                    }
+                    else
+                    if (curr[0].ToUpper() == "ГОРОД")
+                    {
+
+                        site_city = curr[1].Trim().ToUpper();
+                    }
+                    else
+                    if (curr[0].ToUpper() == "АДРЕС ДОСТАВКИ")
+                    {
+                        currentObject.site_address = curr[1].Trim().ToUpper();
+                        if (!currentObject.site_address.Contains(site_city))
+                        {
+                            currentObject.site_address = site_city + ", " + currentObject.site_address;
+                        }
+                    }
+
+                }
+                currentObject.site_address = FormatAdress(currentObject.site_address).ToProperCase();
+                currentObject.c_full_info = info.ToString();
+
+                if (!currentObject.IsComplete)
+                {
+                    currentObject.DeleteCurrent();
+                    if (currentObject.Url != "")
+                        currentObject.ParsingSaccess = false;
+                }
+                return;
+
+
+                //foreach (GeckoHtmlElement td in p_div.GetElementsByTagName("td").Where(x => x.TextContent.Contains(addres)))
+                //{
+                //    string addressText = td.InnerHtml;
+                //    //string[] separatingChars = { "<br>", "</br>", "<b>", "</b>", "<p>", "</p>" };
+                //    List<string> splitText = addressText.Split(separatingChars, StringSplitOptions.RemoveEmptyEntries).ToList<string>();
+                //    while (splitText.Count > 0)
+                //    {
+                //        string text = splitText[0];
+                //        splitText.RemoveAt(0);
+                //        if (text.Contains(addres))
+                //            break;
+                //    }
+
+                //    bool isOld = splitText.Count > 5;
+
+
+                //    //StringBuilder info = new StringBuilder();
+                //    string site_address = "";
+                //    for (int pos = 0; pos < splitText.Count; pos++)
+                //    {
+                //        string trimText = splitText[pos].Trim();
+                //        info.AppendLine(trimText);
+                //        if (isOld && pos == 0)
+                //        {
+                //            currentObject.c_name = trimText.ToProperCase();
+                //        }
+                //        else if (!isOld && pos == 2)
+                //        {
+                //            currentObject.c_name = trimText.ToProperCase();
+                //        }
+                //        else if (IsZip(trimText))
+                //        {
+                //            currentObject.c_zipcode = trimText;
+                //        }
+                //        else if (IsPhone(trimText))
+                //        {
+                //            currentObject.c_phone = trimText;
+                //        }
+                //        else
+                //        {
+                //            if (site_address == "")
+                //                site_address += trimText;
+                //            else
+                //                site_address += ", " + trimText;
+                //        }
+                //    }
+
+                //    currentObject.site_address = FormatAdress(site_address);
+                //    currentObject.c_full_info = info.ToString();
+
+                //    if (!currentObject.IsComplete)
+                //    {
+                //        currentObject.DeleteCurrent();
+                //        if (currentObject.Url != "")
+                //            currentObject.ParsingSaccess = false;
+                //    }
+                //    return;
+                //}
+            }
+        }
+    }
+}
+

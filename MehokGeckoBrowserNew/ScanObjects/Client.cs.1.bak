@@ -1,0 +1,142 @@
+﻿using System.ComponentModel;
+namespace MeshokBrowser.NHibernate
+{
+    public class Client : DeliveryObject
+    {
+        #region для обновления базы
+        //":site_id, " +
+        [DisplayName("ID Сайта")]
+        public int site_id { get; set; } = 0;
+        string _c_name = "";
+        //":md_id, " +
+        //":mp_id, " +
+        //":c_name, " +
+        [DisplayName("Ф.И.О.")]
+        public string c_name {
+            get
+            {
+                if (string.IsNullOrEmpty(_c_name))
+                    return nick + " (" + site_id + ")";
+                return _c_name;
+            }
+            set => _c_name = value;
+        }
+        //":c_phone, " +
+        private string _c_phone = "";
+        [DisplayName("Телефон")]
+        public string c_phone { get => _c_phone; set => _c_phone = TrimValue(value, 32); }
+        //":c_email, " +
+        [DisplayName("E-Mail")]
+        public string c_email { get; set; } = "";
+        //":c_zipcode, " +
+        private string _c_zipcode = "";
+        [DisplayName("Индекс")]
+        public string c_zipcode { get => _c_zipcode; set => _c_zipcode = TrimValue(value, 16); }
+        //":cls_address, " +
+        private string _site_address = "";
+        [DisplayName("Адрес с сайта")]
+        public string site_address { get => _site_address; set => _site_address = value; }
+        //":change_address"
+        private bool _change_address = true;
+        [DisplayName("Изменить адрес")]
+        public bool change_address { get => _change_address; set => _change_address = value; }
+        #endregion
+        [DisplayName("Активен")]
+        public bool c_enabled { get; set; } = true;
+        [DisplayName("Nic")]
+        public string nick { get; set; } = "";
+        public string c_full_info { get; set; } = "";
+        private string _c_address = "";
+        [DisplayName("Адрес из базы")]
+        public string c_address
+        {
+            get => _c_address;
+            set
+            {
+                _c_address = value;
+                if (!string.IsNullOrEmpty(value))
+                {
+                    if (string.IsNullOrEmpty(site_address))
+                    {
+                        site_address = value;
+                    }
+                }
+            }
+        }
+        private CheckClient _base_info;
+        public CheckClient base_info
+        {
+            get => _base_info;
+            set
+            {
+                _base_info = value;
+                if (value != null)
+                {
+                    if (value.id > 0)
+                    {
+                        base_id = value.id;
+                        if (string.IsNullOrEmpty(c_name))
+                        {
+                            c_name = value.Name;
+                        }
+                        md_id = value.c_md_id;
+                        mp_id = value.c_mp_id;
+                        c_email = value.c_email;
+                        c_enabled = value.c_enabled;
+                        if (string.IsNullOrEmpty(c_phone))
+                        {
+                            c_phone = value.c_phone;
+                        }
+                        if (string.IsNullOrEmpty(c_zipcode))
+                        {
+                            c_zipcode = value.c_zipcode;
+                        }
+                        c_address = value.c_address;
+                        change_address = !c_name.ToLower().Equals(value.Name.ToLower()) || !c_phone.ToLower().Equals(value.c_phone.ToLower()) ||
+                            !c_zipcode.ToLower().Equals(value.c_zipcode.ToLower()) || !c_address.ToLower().Equals(site_address.ToLower());
+                    }
+                    else
+                        change_address = true;
+                }
+            }
+        }
+        public bool IsComplete
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_c_phone))
+                    return false;
+                if (string.IsNullOrEmpty(_c_zipcode))
+                    return false;
+                if (string.IsNullOrEmpty(_site_address))
+                    return false;
+                return true;
+            }
+        }
+        public Client(string url, string nick)
+        {
+            Url = url;
+            this.nick = nick;
+        }
+        string TrimValue(string value, int len)
+        {
+            if (!string.IsNullOrEmpty(value))
+                if (value.Length > len)
+                    return value.Substring(0, len).Trim();
+            return value;
+        }
+        public override bool Equals(object obj)
+        {
+            var client = obj as Client;
+            return client != null &&
+                   site_id == client.site_id &&
+                   nick == client.nick &&
+                   Url == client.Url &&
+                   base_id == client.base_id;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode( );
+        }
+    }
+}

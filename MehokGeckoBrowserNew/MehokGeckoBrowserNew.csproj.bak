@@ -1,0 +1,652 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7D52F9E5-FD21-4D42-9641-86F80FA8F9AC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MeshokBrowser</RootNamespace>
+    <AssemblyName>MeshokBrowser</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;_TEST_EMAIL_MESSAGE;  _USE_TEST_LABEL; _TEST_NEXT_STATUS; _NOT_UNION; TEST_CREATE_LOTS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icons8_MaxCDN.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;use_test_label</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="BouncyCastle.Cryptography, Version=2.0.0.0, Culture=neutral, PublicKeyToken=072edcf4a5328938, processorArchitecture=MSIL">
+      <HintPath>..\packages\BouncyCastle.Cryptography.2.6.2\lib\net461\BouncyCastle.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.Images.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.2.UI, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraVerticalGrid.v17.2, Version=17.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FirebirdSql.Data.FirebirdClient, Version=10.3.4.0, Culture=neutral, PublicKeyToken=3750abcc3150b00c, processorArchitecture=MSIL">
+      <HintPath>..\packages\FirebirdSql.Data.FirebirdClient.10.3.4\lib\net48\FirebirdSql.Data.FirebirdClient.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentNHibernate, Version=3.4.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentNHibernate.3.4.1\lib\net461\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Geckofx-Core, Version=60.0.55.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86">
+      <HintPath>..\packages\Geckofx60.32.60.0.55\lib\net45\Geckofx-Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Geckofx-Winforms, Version=60.0.55.0, Culture=neutral, PublicKeyToken=3209ac31600d1857, processorArchitecture=x86">
+      <HintPath>..\packages\Geckofx60.32.60.0.55\lib\net45\Geckofx-Winforms.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.34.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.34.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=4.1.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Iesi.Collections.4.1.1\lib\net462\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.3.8\lib\net462\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.3.8.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.3.8\lib\net462\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.8.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.8\lib\net462\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=3.3.0.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.3.3.0\lib\net462\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.5\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=10.0.0.5, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.10.0.5\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=10.0.0.5, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.10.0.5\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=9.6.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.9.6.0\lib\net48\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.EntityFramework, Version=9.6.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.EntityFramework.9.6.0\lib\net48\MySql.Data.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="MySqlConnector, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d33d3e53aa5f8c92, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySqlConnector.2.5.0\lib\net48\MySqlConnector.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=5.6.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <HintPath>..\packages\NHibernate.5.6.0\lib\net48\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Renci.SshNet, Version=2025.1.0.1, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2025.1.0\lib\net462\Renci.SshNet.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=114.0.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.114.0.0\lib\net48\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Configuration.ConfigurationManager.8.0.0\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.10.0.5\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Formats.Asn1, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Formats.Asn1.10.0.5\lib\net462\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.10.0.5\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Text.Encodings.Web, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.10.0.5\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=10.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.10.0.5\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.ValueTuple" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ZstdSharp, Version=0.8.6.0, Culture=neutral, PublicKeyToken=8d151af33a4ad5cf, processorArchitecture=MSIL">
+      <HintPath>..\packages\ZstdSharp.Port.0.8.6\lib\net462\ZstdSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\AppContextMB.cs" />
+    <Compile Include="Application\FactoryCriatorMB.cs" />
+    <Compile Include="Common\DeliveryMethod.cs" />
+    <Compile Include="Common\MessageCase.cs" />
+    <Compile Include="Common\OrderStatus.cs" />
+    <Compile Include="Common\PaymentMethod.cs" />
+    <Compile Include="Configs\Cfg\CfgBridgeNote.cs" />
+    <Compile Include="Configs\Cfg\CfgCDUchet.cs" />
+    <Compile Include="Configs\Cfg\CfgIShop.cs" />
+    <Compile Include="Configs\Cfg\CfgMeshok.cs" />
+    <Compile Include="Configs\Forms\CfgFormIShop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configs\Forms\LoginFormIShop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameBridgenote.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameBridgenote.Designer.cs">
+      <DependentUpon>CfgFrameBridgenote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameCDUchet.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameIShop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameMeshok.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\CfgFrameMeshok.Designer.cs">
+      <DependentUpon>CfgFrameMeshok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configs\Frames\LoginFrameIShop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Configs\Frames\MySqlConnectionFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Browser\GeckoHelper.cs" />
+    <Compile Include="Controls\Browser\GhBrowser.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Workers\LoadingHelper.cs" />
+    <Compile Include="Workers\LotNamesHelper.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\CsvHelper.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.Designer.cs">
+      <DependentUpon>BeginRelistLotsFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Main\MainConfigFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Main\MainConfigFrame.Designer.cs">
+      <DependentUpon>MainConfigFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SplashScreen.Designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\MainWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\MainWB.Designer.cs">
+      <DependentUpon>MainWB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ProcessorWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\SettingFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\TestBibbon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\TestBibbon.Designer.cs">
+      <DependentUpon>TestBibbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ScanHelper.InfoProcess.cs" />
+    <Compile Include="Helpers\ScanHelper.InfoCollect.cs" />
+    <Compile Include="Interfaces\IBaseFormInterface.cs" />
+    <Compile Include="Interfaces\ILayoutLoadSaveInterface.cs" />
+    <Compile Include="NHibernate\AddToBase\ClientCallBack.cs" />
+    <Compile Include="NHibernate\CheckClient.cs" />
+    <Compile Include="NHibernate\CheckSite.cs" />
+    <Compile Include="NHibernate\ModeDelivery.cs" />
+    <Compile Include="NHibernate\AddToBase\OrderCallBack.cs" />
+    <Compile Include="NHibernate\AddToBase\OrderLineCallBack.cs" />
+    <Compile Include="NHibernate\SiteStatus.cs" />
+    <Compile Include="NHibernate\CheckMesage.cs" />
+    <Compile Include="NHibernate\CheckOrder.cs" />
+    <Compile Include="Helpers\FbHelper.cs" />
+    <Compile Include="Helpers\ScanHelper.SplitUnion.cs" />
+    <Compile Include="NHibernate\RelBaseSiteStatus.cs" />
+    <Compile Include="NHibernate\BaseStatus.cs" />
+    <Compile Include="NHibernate\MessagesSet.cs" />
+    <Compile Include="NHibernate\AddToBase\TitleCallBack.cs" />
+    <Compile Include="NHibernate\User.cs" />
+    <Compile Include="Interfaces\IProcessNotify.cs" />
+    <Compile Include="Helpers\ProcessRunHelper.cs" />
+    <Compile Include="Workers\AbstractWorker.cs" />
+    <Compile Include="Workers\ProcOrders\WorkerProcessingOrders.cs" />
+    <Compile Include="Workers\Worker.cs" />
+    <Compile Include="Workers\WorkerTemplate.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerCreateCSV.cs" />
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerCsvTemplate.cs" />
+    <Compile Include="Workers\WorkWithLots\SoldPurchase\WorkerAddPrix.cs" />
+    <Compile Include="Workers\WorkWithLots\WorkerLoadingLots.cs" />
+    <Compile Include="Workers\WorkWithLots\SoldPurchase\WorkerRemoveRasx.cs" />
+    <Compile Include="Workers\WorkWithLots\WorkerRemoveLots.cs" />
+    <Compile Include="ScanObjects\AllPackets.cs" />
+    <Compile Include="ScanObjects\Client.cs" />
+    <Compile Include="ScanObjects\DeliveryObject.cs" />
+    <Compile Include="ScanObjects\IDeliveryObject.cs" />
+    <Compile Include="ScanObjects\OrderLine.cs" />
+    <Compile Include="ScanObjects\DeliveryPacket.cs" />
+    <Compile Include="ScanObjects\IOrder.cs" />
+    <Compile Include="ScanObjects\NeedUnion.cs" />
+    <Compile Include="ScanObjects\Order.cs" />
+    <Compile Include="ScanObjects\BaseScanEntity.cs" />
+    <Compile Include="Helpers\ScanHelper.cs" />
+    <Compile Include="Helpers\ScanParams.cs" />
+    <Compile Include="Helpers\ScanSetting.cs" />
+    <Compile Include="ScanObjects\ScanStatus.cs" />
+    <Compile Include="ScanObjects\StatusRelation.cs" />
+    <Compile Include="ScanObjects\Title.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\DisposableTask.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\ParsingTask.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskCloseDeals.cs" />
+    <Compile Include="Frames\ScanSettingFrames\BeginFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\BeginFrame.Designer.cs">
+      <DependentUpon>BeginFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingLostDeals.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingLostDeals.Designer.cs">
+      <DependentUpon>ScanSettingLostDeals.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Workers\ProcOrders\Parsing\TaskClientParse.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskPostMessage.cs" />
+    <Compile Include="Workers\ProcOrders\Parsing\TaskTitleParse.cs" />
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMeshok.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainMeshok.Designer.cs">
+      <DependentUpon>MainMeshok.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingClients.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\ScanSettingFrames\ScanSettingClients.Designer.cs">
+      <DependentUpon>ScanSettingClients.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Messages\SettingMessageesFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\SettingFrames\Messages\SettingMessageesFrame.Designer.cs">
+      <DependentUpon>SettingMessageesFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ScanWebFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\ScanWebFrame.Designer.cs">
+      <DependentUpon>ScanWebFrame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Frames\WebFrames\InnerWB.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Frames\WebFrames\InnerWB.Designer.cs">
+      <DependentUpon>InnerWB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Frames\BaseFrame.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Workers\WorkWithLots\CreateCSV\WorkerRelistLots.cs" />
+    <EmbeddedResource Include="Configs\Forms\CfgFormIShop.resx">
+      <DependentUpon>CfgFormIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameBridgeNote.resx">
+      <DependentUpon>CfgFrameBridgenote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameCDUchet.resx">
+      <DependentUpon>CfgFrameCDUchet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameIShop.resx">
+      <DependentUpon>CfgFrameIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\CfgFrameMeshok.resx">
+      <DependentUpon>CfgFrameMeshok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\LoginFrameIShop.resx">
+      <DependentUpon>LoginFrameIShop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Configs\Frames\MySqlConnectionFrame.resx">
+      <DependentUpon>MySqlConnectionFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Workers\WorkWithLots\CreateCSV\BeginRelistLotsFrame.resx">
+      <DependentUpon>BeginRelistLotsFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\Main\MainConfigFrame.resx">
+      <DependentUpon>MainConfigFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\MainWB.resx">
+      <DependentUpon>MainWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\ProcessorWB.resx">
+      <DependentUpon>ProcessorWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\BeginFrame.resx">
+      <DependentUpon>BeginFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingLostDeals.resx">
+      <DependentUpon>ScanSettingLostDeals.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingFrame.resx">
+      <DependentUpon>ScanSettingFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\SettingFrame.resx">
+      <DependentUpon>SettingFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\TestBibbon.resx">
+      <DependentUpon>TestBibbon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainMeshok.resx">
+      <DependentUpon>MainMeshok.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\ScanSettingFrames\ScanSettingClients.resx">
+      <DependentUpon>ScanSettingClients.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\SettingFrames\Messages\SettingMessageesFrame.resx">
+      <DependentUpon>SettingMessageesFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\ScanWebFrame.resx">
+      <DependentUpon>ScanWebFrame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\WebFrames\InnerWB.resx">
+      <DependentUpon>InnerWB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Frames\BaseFrame.resx">
+      <DependentUpon>BaseFrame.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="bin\Debug\Logs\Errors.log" />
+    <None Include="bin\Debug\MeshokBrowser.exe.config" />
+    <None Include="bin\Debug\MeshokBrowser.ini" />
+    <None Include="Firefox\omni.ja" />
+    <None Include="Firefox\platform.ini" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\ConfigIShop.datasource" />
+    <None Include="Properties\DataSources\GH.Components.AppUser.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.BridgeNote.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.IShop.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.common.Meshok.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.NH.User.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.NH.zStatusesCod.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.Objects.DealMessage.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ClientOrder.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.Deal.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.MyAdapter.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.MyPropertySet.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.Order.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.OrderLine.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ScanHelper.datasource" />
+    <None Include="Properties\DataSources\MeshokBrowser.processors.ScanSetting.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Firefox\AccessibleHandler.dll" />
+    <Content Include="Firefox\AccessibleMarshal.dll" />
+    <Content Include="Firefox\breakpadinjector.dll" />
+    <Content Include="Firefox\d3dcompiler_47.dll" />
+    <Content Include="Firefox\freebl3.dll" />
+    <Content Include="Firefox\IA2Marshal.dll" />
+    <Content Include="Firefox\lgpllibs.dll" />
+    <Content Include="Firefox\libEGL.dll" />
+    <Content Include="Firefox\libGLESv2.dll" />
+    <Content Include="Firefox\mozavcodec.dll" />
+    <Content Include="Firefox\mozavutil.dll" />
+    <Content Include="Firefox\mozglue.dll" />
+    <Content Include="Firefox\nss3.dll" />
+    <Content Include="Firefox\nssckbi.dll" />
+    <Content Include="Firefox\nssdbm3.dll" />
+    <Content Include="Firefox\plugin-container.exe" />
+    <Content Include="Firefox\plugin-hang-ui.exe" />
+    <Content Include="Firefox\qipcap.dll" />
+    <Content Include="Firefox\softokn3.dll" />
+    <Content Include="Firefox\xul.dll" />
+    <Content Include="icons8_MaxCDN.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SHDocVw">
+      <Guid>{EAB22AC0-30C1-11CF-A7EB-0000C05BAE0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>1</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\Configs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GH.Controls\Controls\GH.Components.csproj">
+      <Project>{03af1818-71d1-40e0-a3c8-89a695c1be7c}</Project>
+      <Name>GH.Components</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="AfterBuild">
+    <ItemGroup>
+      <MoveToLibFolder Include="$(OutputPath)*.dll ; $(OutputPath)*.xml" />
+    </ItemGroup>
+    <Move SourceFiles="@(MoveToLibFolder)" DestinationFolder="$(OutputPath)lib" OverwriteReadOnlyFiles="true" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Geckofx60.32.60.0.55\build\Geckofx60.32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Geckofx60.32.60.0.55\build\Geckofx60.32.targets'))" />
+    <Error Condition="!Exists('..\packages\Geckofx60.32.Windows.0.19.0\build\Geckofx60.32.Windows.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Geckofx60.32.Windows.0.19.0\build\Geckofx60.32.Windows.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.5.1\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets'))" />
+  </Target>
+  <Import Project="..\packages\Geckofx60.32.60.0.55\build\Geckofx60.32.targets" Condition="Exists('..\packages\Geckofx60.32.60.0.55\build\Geckofx60.32.targets')" />
+  <Import Project="..\packages\Geckofx60.32.Windows.0.19.0\build\Geckofx60.32.Windows.targets" Condition="Exists('..\packages\Geckofx60.32.Windows.0.19.0\build\Geckofx60.32.Windows.targets')" />
+  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets" Condition="Exists('..\packages\System.ValueTuple.4.6.2\build\net471\System.ValueTuple.targets')" />
+</Project>

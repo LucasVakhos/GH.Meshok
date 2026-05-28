@@ -1,0 +1,244 @@
+﻿using Gecko;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace MeshokBrowser.Workers
+{
+    public class AbstractWorker : IDisposable, IProcessNotify
+    {
+        #region fields
+
+        protected bool _workIsDone = false;
+        private string _currentStepText = "";
+        private string _currentStepSuffix = "";
+
+        static private object _locker = new object();
+        private int _currentStep = 0;
+        private int _byStep = 0;
+        private int _totalSteps = 0;
+        protected ProcessorWB ProcScreen { get => ProcessRunHelper.ProcScreen; set => ProcessRunHelper.ProcScreen = value; }
+        protected IMainForm MainForm { get => ProcessRunHelper.MainForm; set => ProcessRunHelper.MainForm = value; }
+        protected GeckoDocument Document
+        {
+            get { return ProcScreen.webBrowser.Document; }
+        }
+
+        Task main_thread = null;
+        Task exec_thread = null;
+
+        protected string ProcessName { get; set; }
+
+        protected int TotalSteps
+        {
+            get => _totalSteps;
+            set
+            {
+                _totalSteps = value;
+                _byStep = Math.Max(1, _totalSteps / 100);
+                _currentStep = 0;
+                NotifyProgressMax();
+            }
+        }
+
+        protected int CurrentStep { get => _currentStep; }
+        #endregion
+
+        #region реализация IProcessor
+        public void SetTotalSteps(int value)
+        {
+            TotalSteps = value;
+        }
+
+        public void IncCurrentStep()
+        {
+            _currentStep++;
+            if (_currentStep < _totalSteps && _currentStep % _byStep == 0 || _currentStep == _totalSteps || (_currentStep < _totalSteps && _totalSteps < 1000))
+            {
+                _currentStepText = ProcessName + $"=> обработано {CurrentStep} из {_totalSteps}";
+
+                NotifyProgress();
+                NotifyStatus(_currentStepText + _currentStepSuffix);
+            }
+        }
+
+        public void SendMessage(string value)
+        {
+            NotifyStatus(value);
+        }
+        #endregion IProcessor
+
+        public AbstractWorker(IMainForm form)
+        {
+            MainForm = form;
+
+            ProcScreen = new ProcessorWB();
+            ProcScreen.Name = GetType().Name;
+            //ProcScreen.ScriptErrorsSuppressed = true;
+
+            exec_thread = new Task(DoExecute);
+
+            main_thread = new Task(WaitExeute);
+
+        }
+
+        void WaitExeute()
+        {
+            int step = 0;
+            string Steps()
+            {
+                string steps = " =";
+
+                for (int i = 0; i < step; i++)
+                    steps += ">";
+
+                step++;
+                if (step == 11)
+                    step = 0;
+
+                return steps;
+            }
+
+            OnCreate();
+
+
+            while (ProcessRunHelper.Executing)
+            {
+                _currentStepSuffix = Steps();
+                NotifyStatus(_currentStepText + _currentStepSuffix);
+                Thread.Sleep(250);
+            }
+        }
+
+        protected virtual void OnCreate()
+        {
+
+        }
+
+        protected virtual void DoExecute()
+        {
+            throw new NotImplementedException("Перезапишите метод DoExecute()");
+        }
+
+
+
+        private void NotifyProgressMax()
+        {
+            if (!_workIsDone)
+                ProcScreen.SetProgressMax(_totalSteps);
+        }
+
+        private void NotifyProgress()
+        {
+            if (!_workIsDone)
+                ProcScreen.SetProgress(CurrentStep);
+        }
+
+        private void NotifyStatus(string info)
+        {
+            if (!_workIsDone)
+                ProcScreen.SetStatus(info);
+        }
+
+        private void NotifyDone()
+        {
+            lock (_locker)
+            {
+                if (!_workIsDone && MainForm != null)
+                    MainForm.Proces_Finished();
+                _workIsDone = true;
+            }
+        }
+
+
+        public virtual void Execute()
+        {
+            ProcessRunHelper.Executing = true;
+
+            ProcScreen.Caption = ProcessName;
+            MainForm.AddPage(ProcScreen);
+
+
+
+            MainForm.Proces_Begined();
+
+            _currentStepText = ProcessName + "=> процесс начат";
+            NotifyStatus(_currentStepText);
+
+            List<Task> treads = new List<Task>();
+
+            main_thread.Start();
+            treads.Add(main_thread);
+
+            exec_thread.Start();
+            treads.Add(exec_thread);
+
+            Task.Factory.StartNew(() =>
+            {
+                Task.WaitAll(treads.ToArray());
+                WorkDone();
+            });
+
+        }
+
+
+
+        protected virtual void WorkDone()
+        {
+            if (!disposedValue)
+            {
+                ProcessRunHelper.Executing = false;
+                Thread.Sleep(10);
+                NotifyDone();
+            }
+        }
+
+        protected bool clearGC = false;
+
+        protected void ClearCash()
+        {
+            if (clearGC)
+            {
+                Xpcom.GetService<nsIMemory>("@mozilla.org/xpcom/memory-service;1").HeapMinimize(true);
+                //ImageCache.ClearCache(true);
+                //ImageCache.ClearCache(false);
+                //CacheService.Clear(CacheStoragePolicy.InMemory);
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                GC.Collect();
+                clearGC = false;
+            }
+        }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // Для определения избыточных вызовов
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    ProcessRunHelper.Executing = false;
+                    MainForm.RemovePage(ProcScreen);
+                    //ProcScreen.ScriptErrorsSuppressed = false;
+                    ProcScreen.Dispose();
+                    ProcScreen = null;
+                    MainForm = null;
+
+                    MainForm = null;
+                }
+
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        #endregion
+    }
+}

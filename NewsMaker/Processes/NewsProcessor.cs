@@ -1,0 +1,283 @@
+﻿using GH.AppContext;
+using NewsMaker.Common;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+namespace NewsMaker
+{
+    public interface IProcessor
+    {
+    }
+    public class CountItem
+    {
+        public int Count;
+        public string Name;
+        public CountItem(int count, string name)
+        {
+            Count = count;
+            Name = name;
+        }
+    }
+    public class NewsProcessor : ResultList<CountItem>, IProcessor
+    {
+        private static readonly object Locker = new object();
+        private readonly bool Auto;
+        private bool ErrorBreak;
+        private readonly Task ExecThread;
+        protected IMainForm MainForm => RunContext.AppMainForm as IMainForm;
+        public NewsProcessor(bool auto, bool regIt = true) : base("Рассылка обновлений Bridgenote.com", regIt)
+        {
+            Auto = auto;
+            ExecThread = new Task(DoExecute);
+        }
+        protected override void NotifyInfo()
+        {
+            switch (Status)
+            {
+                case WorkStatuses.Begin:
+                    break;
+                case WorkStatuses.Prepare:
+                    if (Count < 2)
+                    {
+                        if (Count == 0)
+                            Info.FireInfo("Списоки для рассылки пусты...", true);
+                        else
+                            foreach (CountItem item in this)
+                                if (item.Name == nameof(Subscribers))
+                                {
+                                    Info.FireInfo("Список подписки пуст...", true);
+                                    return;
+                                }
+                                else if (item.Name == nameof(Excel))
+                                {
+                                    Info.FireInfo("Список новинок пуст...", true);
+                                    return;
+                                }
+                    }
+                    break;
+                case WorkStatuses.Process:
+                    Info.FireInfo("Рассылка сообщений...");
+                    if (!AppContextNM.Executing || ErrorBreak)
+                        Info.FireInfo("Работа остановлена...", true);
+                    break;
+                case WorkStatuses.Finish:
+                    Info.FireInfo("Работа завершина...", true);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public void SendError(string value)
+        {
+            Info.RegError(value);
+        }
+        protected void DoExecute()
+        {
+            Status = WorkStatuses.Prepare;
+            if (AppContextNM.Executing)
+            {
+                bool has = MySqlHelper.HasNews(ErrorBreak);
+                if (ErrorBreak)
+                {
+                    string err_text = "Работа остановлена по причине того, " +
+                        "что список обновлений не получен по причине ошибки...";
+                    SendError(err_text);
+                    AppContextNM.Executing = false;
+                }
+                else
+                {
+                    if (has)
+                    {
+                        Info.FireInfo("Еесть новости, продолжаем работу...", InfoType.SummaryOfProcess);
+                    }
+                    else
+                    {
+                        Info.FireInfo("Новости отсутствуют, завершаем работу...", InfoType.Errors);
+                        string err_text = "Работа остановлена по причине того, " +
+                            "что на данный момент список обновлений пуст...";
+                        SendError(err_text);
+                        ResetStartDate();
+                        AppContextNM.Executing = false;
+                    }
+                }
+            }
+            if (AppContextNM.Executing)
+            {
+                bool has = MySqlHelper.HasSubsSubscribers(ErrorBreak);
+                if (ErrorBreak)
+                {
+                    string err_text = "Работа остановлена по причине того, " +
+                        "что список подписчиков не получен по причине ошибки...";
+                    SendError(err_text);
+                    AppContextNM.Executing = false;
+                }
+                else
+                {
+                    if (has)
+                    {
+                        Info.FireInfo("Есть подпищики, продолжаем работу...", InfoType.SummaryOfProcess);
+                    }
+                    else
+                    {
+                        Info.FireInfo("Подпищиков нет или все отписались, завершаем работу...", InfoType.Errors);
+                        string err = "Работа остановлена по причине того, " +
+                            "что на данный момент список подписчиков пуст...";
+                        SendError(err);
+                        ResetStartDate();
+                        AppContextNM.Executing = false;
+                    }
+                }
+            }
+            if (AppContextNM.Executing)
+            {
+                using (Excel excel = new Excel("Создание списка новинок..."))
+                {
+                    ErrorBreak = !excel.WriteToExcel();
+                    Add(new CountItem(excel.DataCount, nameof(excel)));
+                }
+            }
+            if (AppContextNM.Executing && !ErrorBreak)
+            {
+                using (Subscribers subscribers = new Subscribers(this))
+                {
+                    ErrorBreak = subscribers.GetSubscribers();
+                    if (ErrorBreak || !AppContextNM.Executing)
+                        return;
+                    Add(new CountItem(subscribers.Count, nameof(subscribers)));
+                    if (!ErrorBreak && AppContextNM.Executing)
+                    {
+                        Info.TotalCount = subscribers.Count;
+                        Status = WorkStatuses.Process;
+                        WaithForLimit();
+                        if (AppContextNM.Executing)
+                        {
+                            List<Task<SendCallBack>> tasks = new List<Task<SendCallBack>>();
+                            Task<SendCallBack> bt = Task<SendCallBack>.Factory.StartNew(() =>
+                                {
+                                    return subscribers.SendAllMails();
+                                },
+                                TaskCreationOptions.LongRunning);
+                            tasks.Add(bt);
+                            while (subscribers.Count > 0 && !ErrorBreak)
+                            {
+                                int index = Task.WaitAny(tasks.ToArray());
+                                var res = tasks[index].Result;
+                                tasks.RemoveAt(index);
+                                ErrorBreak = CheckCriticalError(res);
+                                if (subscribers.Count == 0 || !AppContextNM.Executing || ErrorBreak)
+                                    break;
+                                WaithForLimit();
+                                if (!AppContextNM.Executing)
+                                    break;
+                                Task<SendCallBack> t = Task<SendCallBack>.Factory.StartNew(() =>
+                                    {
+                                        return subscribers.SendAllMails();
+                                    },
+                                    TaskCreationOptions.LongRunning);
+                                tasks.Add(t);
+                            }
+                        }
+                        if (AppContextNM.Executing && !ErrorBreak)
+                        {
+                            if (MySqlHelper.HasData() == 0)
+                                ResetStartDate();
+                        }
+                    }
+                }
+                if (AppContextNM.Executing && !ErrorBreak)
+                    Status = WorkStatuses.Finish;
+            }
+            NotifyInfo();
+        }
+        private void ResetStartDate()
+        {
+            sendService.ResetStartDate();            
+        }
+        private bool CheckCriticalError(SendCallBack callBack)
+        {
+            const string unprocess_description = nameof(UnprocessReason);
+            //const string error_message = "error_message";
+            if (callBack.HasError)
+            {
+                Dictionary<string, object> content = callBack.Content;
+                if (content.TryGetValue(unprocess_description, out object value))
+                {
+                    switch ((UnprocessReason)value)
+                    {
+                        case UnprocessReason.ApiKeyNotFound:
+                        case UnprocessReason.UserDomainNotFound:
+                        case UnprocessReason.TemplateMailUserNotFoundById:
+                        case UnprocessReason.MailUuidNotFound:
+                        case UnprocessReason.TemplateNotFound:
+                        case UnprocessReason.AanotherUnSentReason:
+                            Info.RegError(content.ToString());
+                            //Info.RegError(content[error_message].ToString());
+                            break;
+                        case UnprocessReason.ReceiverUnsubscribed:
+                        case UnprocessReason.ReceiverComplained:
+                        case UnprocessReason.ReceiverNotExist:
+                        case UnprocessReason.ReceiverUnavailable:
+                            return false;
+                        default:
+                            Info.RegError(content.ToString());
+                            //                            Info.RegError(content[error_message].ToString());
+                            break;
+                    }
+                }
+                return true;
+            }
+            else
+                return false;
+        }
+        private void WaithForLimit()
+        {
+            if (!AppContextNM.Executing || ErrorBreak || MainForm == null)
+                return;
+            while (sendService.NeedWait)
+            {
+                if (MainForm == null || !AppContextNM.Executing)
+                {
+                    return;
+                }
+                Application.DoEvents();
+            }
+        }
+        private void NotifyDone()
+        {
+            lock (Locker)
+            {
+                MainForm?.Proces_Finished();
+            }
+        }
+        public virtual void Execute()
+        {
+            List<Task> treads = new List<Task>();
+            ExecThread.Start();
+            treads.Add(ExecThread);
+            Task.Factory.StartNew(() =>
+            {
+                Task.WaitAny(treads.ToArray());
+                WorkDone();
+            });
+        }
+        protected void WorkDone()
+        {
+            Application.DoEvents();
+            if (!_disposedValue)
+                NotifyDone();
+        }
+        private bool _disposedValue; // Для определения избыточных вызовов
+        protected override void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                }
+                _disposedValue = true;
+            }
+            base.Dispose(disposing);
+        }
+    }
+}

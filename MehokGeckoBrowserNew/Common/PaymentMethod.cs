@@ -1,0 +1,15 @@
+﻿using System.ComponentModel.DataAnnotations;
+namespace Common
+{
+    public enum PaymentMethod
+    {
+        [Display(Name = "Наличным")]
+        Cash = 1,
+        [Display(Name = "Квитанция Сбербанка")]
+        CheckOfSavingsBank = 2,
+        [Display(Name = "Наложенный платеж")]
+        PayOnDelivery = 3,
+        [Display(Name = "Эквайринг")]
+        Acquiring = 4,
+    }
+}

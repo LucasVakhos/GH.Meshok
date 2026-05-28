@@ -1,0 +1,227 @@
+﻿namespace MeshokBrowser
+{
+    partial class InnerWB
+    {
+        /// <summary> 
+        /// Обязательная переменная конструктора.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary> 
+        /// Освободить все используемые ресурсы.
+        /// </summary>
+        /// <param name="disposing">истинно, если управляемый ресурс должен быть удален; иначе ложно.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Код, автоматически созданный конструктором компонентов
+        /// <summary> 
+        /// Требуемый метод для поддержки конструктора — не изменяйте 
+        /// содержимое этого метода с помощью редактора кода.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+            this.wbMain = new GH.Components.GhBrowser();
+            this.textBox1 = new DevExpress.XtraEditors.TextEdit();
+            this.btnBack = new DevExpress.XtraEditors.SimpleButton();
+            this.btnRefresh = new DevExpress.XtraEditors.SimpleButton();
+            this.rootGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcBack = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcAddress = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcRefresh = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcBrowser = new DevExpress.XtraLayout.LayoutControlItem();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.wbMain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textBox1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcBack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddress)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcRefresh)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcBrowser)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.Controls.Add(this.wbMain);
+            this.layoutControl.Controls.Add(this.textBox1);
+            this.layoutControl.Controls.Add(this.btnBack);
+            this.layoutControl.Controls.Add(this.btnRefresh);
+            this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl.Location = new System.Drawing.Point(5, 5);
+            this.layoutControl.Name = "layoutControl";
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(642, 97, 450, 400);
+            this.layoutControl.Root = this.rootGroup;
+            this.layoutControl.Size = new System.Drawing.Size(590, 371);
+            this.layoutControl.TabIndex = 7;
+            this.layoutControl.Text = "root";
+            // 
+            // wbMain
+            // 
+            this.wbMain.ConsoleMessageEventReceivesConsoleLogCalls = true;
+            this.wbMain.FrameEventsPropagateToMainWindow = false;
+            this.wbMain.Location = new System.Drawing.Point(12, 38);
+            this.wbMain.Name = "wbMain";
+            this.wbMain.Size = new System.Drawing.Size(566, 321);
+            this.wbMain.TabIndex = 9;
+            this.wbMain.UseHttpActivityObserver = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(82, 13);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Properties.Appearance.BackColor = System.Drawing.Color.White;
+            this.textBox1.Properties.Appearance.Options.UseBackColor = true;
+            this.textBox1.Properties.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(496, 20);
+            this.textBox1.StyleController = this.layoutControl;
+            this.textBox1.TabIndex = 7;
+            this.textBox1.TabStop = false;
+            // 
+            // btnBack
+            // 
+            this.btnBack.ImageOptions.ImageUri.Uri = "DoublePrev;Size16x16";
+            this.btnBack.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnBack.Location = new System.Drawing.Point(12, 12);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.btnBack.Size = new System.Drawing.Size(31, 22);
+            this.btnBack.StyleController = this.layoutControl;
+            this.btnBack.TabIndex = 4;
+            this.btnBack.TabStop = false;
+            this.btnBack.ToolTip = "Вернуться";
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.ImageOptions.ImageUri.Uri = "Refresh;Size16x16";
+            this.btnRefresh.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.MiddleCenter;
+            this.btnRefresh.Location = new System.Drawing.Point(47, 12);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(31, 22);
+            this.btnRefresh.StyleController = this.layoutControl;
+            this.btnRefresh.TabIndex = 8;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.ToolTip = "Обновить";
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // rootGroup
+            // 
+            this.rootGroup.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.rootGroup.GroupBordersVisible = false;
+            this.rootGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcBack,
+            this.lcAddress,
+            this.lcRefresh,
+            this.lcBrowser});
+            this.rootGroup.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
+            this.rootGroup.Name = "Root";
+            columnDefinition1.SizeType = System.Windows.Forms.SizeType.Absolute;
+            columnDefinition1.Width = 35D;
+            columnDefinition2.SizeType = System.Windows.Forms.SizeType.Absolute;
+            columnDefinition2.Width = 35D;
+            columnDefinition3.SizeType = System.Windows.Forms.SizeType.Percent;
+            columnDefinition3.Width = 100D;
+            this.rootGroup.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] {
+            columnDefinition1,
+            columnDefinition2,
+            columnDefinition3});
+            rowDefinition1.Height = 26D;
+            rowDefinition1.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition2.Height = 100D;
+            rowDefinition2.SizeType = System.Windows.Forms.SizeType.Percent;
+            this.rootGroup.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] {
+            rowDefinition1,
+            rowDefinition2});
+            this.rootGroup.Size = new System.Drawing.Size(590, 371);
+            this.rootGroup.TextVisible = false;
+            // 
+            // lcBack
+            // 
+            this.lcBack.Control = this.btnBack;
+            this.lcBack.Location = new System.Drawing.Point(0, 0);
+            this.lcBack.MinSize = new System.Drawing.Size(28, 26);
+            this.lcBack.Name = "lcBack";
+            this.lcBack.Size = new System.Drawing.Size(35, 26);
+            this.lcBack.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.lcBack.TextSize = new System.Drawing.Size(0, 0);
+            this.lcBack.TextVisible = false;
+            // 
+            // lcAddress
+            // 
+            this.lcAddress.Control = this.textBox1;
+            this.lcAddress.Location = new System.Drawing.Point(70, 0);
+            this.lcAddress.Name = "lcAddress";
+            this.lcAddress.OptionsTableLayoutItem.ColumnIndex = 2;
+            this.lcAddress.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 3, 2);
+            this.lcAddress.Size = new System.Drawing.Size(500, 26);
+            this.lcAddress.TextSize = new System.Drawing.Size(0, 0);
+            this.lcAddress.TextVisible = false;
+            // 
+            // lcRefresh
+            // 
+            this.lcRefresh.Control = this.btnRefresh;
+            this.lcRefresh.Location = new System.Drawing.Point(35, 0);
+            this.lcRefresh.Name = "lcRefresh";
+            this.lcRefresh.OptionsTableLayoutItem.ColumnIndex = 1;
+            this.lcRefresh.Size = new System.Drawing.Size(35, 26);
+            this.lcRefresh.TextSize = new System.Drawing.Size(0, 0);
+            this.lcRefresh.TextVisible = false;
+            this.lcRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // lcBrowser
+            // 
+            this.lcBrowser.Control = this.wbMain;
+            this.lcBrowser.Location = new System.Drawing.Point(0, 26);
+            this.lcBrowser.Name = "lcBrowser";
+            this.lcBrowser.OptionsTableLayoutItem.ColumnSpan = 3;
+            this.lcBrowser.OptionsTableLayoutItem.RowIndex = 1;
+            this.lcBrowser.Size = new System.Drawing.Size(570, 325);
+            this.lcBrowser.TextSize = new System.Drawing.Size(0, 0);
+            this.lcBrowser.TextVisible = false;
+            // 
+            // InnerWB
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Caption = "Основной браузер";
+            this.Controls.Add(this.layoutControl);
+            this.Name = "InnerWB";
+            this.Padding = new System.Windows.Forms.Padding(5);
+            this.SaveLayout = false;
+            this.Size = new System.Drawing.Size(600, 381);
+            this.Load += new System.EventHandler(this.InnerWB_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.wbMain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textBox1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcBack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddress)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcRefresh)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcBrowser)).EndInit();
+            this.ResumeLayout(false);
+        }
+        #endregion
+        private DevExpress.XtraEditors.TextEdit textBox1;
+        private DevExpress.XtraEditors.SimpleButton btnBack;
+        private DevExpress.XtraLayout.LayoutControlGroup rootGroup;
+        private DevExpress.XtraLayout.LayoutControlItem lcBack;
+        private DevExpress.XtraLayout.LayoutControlItem lcAddress;
+        internal DevExpress.XtraLayout.LayoutControl layoutControl;
+        private DevExpress.XtraEditors.SimpleButton btnRefresh;
+        private DevExpress.XtraLayout.LayoutControlItem lcRefresh;
+        private GH.Components.GhBrowser wbMain;
+        private DevExpress.XtraLayout.LayoutControlItem lcBrowser;
+    }
+}

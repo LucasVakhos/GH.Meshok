@@ -1,0 +1,595 @@
+﻿namespace MeshokBrowser.Workers
+{
+    partial class MessagesSetting
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.pmuMessage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mniFish = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.dataLayout = new GH.Controls.LayoutControlGh();
+            this.comboZSC_CASE = new DevExpress.XtraEditors.LookUpEdit();
+            this.gridControl = new GH.Grids.GridGh();
+            this.gridView = new GH.Grids.ViewGh();
+            this.colid = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colcs_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.baseStatusCombo = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colzs_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.siteStatusCombo = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colmd_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.deliveryCombo = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colzsc_case = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.caseCombo = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.comboCS_ID = new DevExpress.XtraEditors.LookUpEdit();
+            this.comboZS_ID = new DevExpress.XtraEditors.LookUpEdit();
+            this.comboMD_ID = new DevExpress.XtraEditors.LookUpEdit();
+            this.memMessage = new DevExpress.XtraEditors.MemoEdit();
+            this.rootGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.Pages = new DevExpress.XtraLayout.TabbedControlGroup();
+            this.PageView = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcGrig = new DevExpress.XtraLayout.LayoutControlItem();
+            this.PageEdit = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.groupEdit = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.ItemForzsc_cs_id = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForzsc_zs_id = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForzsc_md_id = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForzsc_case = new DevExpress.XtraLayout.LayoutControlItem();
+            this.ItemForzsc_message = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            this.pmuMessage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataLayout)).BeginInit();
+            this.dataLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.comboZSC_CASE.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseStatusCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.siteStatusCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deliveryCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.caseCombo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboCS_ID.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboZS_ID.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboMD_ID.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memMessage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pages)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PageView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGrig)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PageEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_cs_id)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_zs_id)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_md_id)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_case)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_message)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dataSource
+            // 
+            this.dataSource.DataSource = typeof(MeshokBrowser.NHibernate.MessagesSet);
+            this.dataSource.Grid = this.gridControl;
+            this.dataSource.PageSupport.EditGroup = this.groupEdit;
+            this.dataSource.PageSupport.PageForEdit = this.PageEdit;
+            this.dataSource.PageSupport.PageForView = this.PageView;
+            this.dataSource.RefreshAfterPost = false;
+            this.dataSource.GetRepository += new GH.Components.GetRepository(this.bindingSource_GetRepository);
+            this.dataSource.GetSqlString += new GH.Components.OnGetSqlString(this.bindingSource_GetSqlString);
+            // 
+            // pmuMessage
+            // 
+            this.pmuMessage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mniFish,
+            this.toolStripSeparator1});
+            this.pmuMessage.Name = "pmuMessage";
+            this.pmuMessage.Size = new System.Drawing.Size(104, 32);
+            // 
+            // mniFish
+            // 
+            this.actionList.SetAction(this.mniFish, null);
+            this.mniFish.Name = "mniFish";
+            this.mniFish.Size = new System.Drawing.Size(103, 22);
+            this.mniFish.Text = "Рыба";
+            this.mniFish.Click += new System.EventHandler(this.mniFish_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            // 
+            // dataLayout
+            // 
+            this.dataLayout.AllowCustomization = false;
+            this.dataLayout.Controls.Add(this.comboZSC_CASE);
+            this.dataLayout.Controls.Add(this.gridControl);
+            this.dataLayout.Controls.Add(this.comboCS_ID);
+            this.dataLayout.Controls.Add(this.comboZS_ID);
+            this.dataLayout.Controls.Add(this.comboMD_ID);
+            this.dataLayout.Controls.Add(this.memMessage);
+            this.dataLayout.DataSource = this.dataSource;
+            this.dataLayout.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataLayout.Location = new System.Drawing.Point(0, 0);
+            this.dataLayout.Name = "dataLayout";
+            this.dataLayout.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(945, 272, 657, 400);
+            this.dataLayout.OptionsFocus.AllowFocusGroups = false;
+            this.dataLayout.OptionsFocus.AllowFocusReadonlyEditors = false;
+            this.dataLayout.OptionsFocus.AllowFocusTabbedGroups = false;
+            this.dataLayout.Owner = this;
+            this.dataLayout.Root = this.rootGroup;
+            this.dataLayout.Size = new System.Drawing.Size(1002, 504);
+            this.dataLayout.TabIndex = 3;
+            this.dataLayout.Text = "dataLayoutControl1";
+            // 
+            // comboZSC_CASE
+            // 
+            this.comboZSC_CASE.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "zsc_case", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboZSC_CASE.Location = new System.Drawing.Point(111, 132);
+            this.comboZSC_CASE.Name = "comboZSC_CASE";
+            this.comboZSC_CASE.Properties.Appearance.Options.UseTextOptions = true;
+            this.comboZSC_CASE.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.comboZSC_CASE.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboZSC_CASE.Properties.DataSource = this.dataSource;
+            this.comboZSC_CASE.Properties.ShowFooter = false;
+            this.comboZSC_CASE.Properties.ShowHeader = false;
+            this.comboZSC_CASE.Size = new System.Drawing.Size(432, 20);
+            this.comboZSC_CASE.StyleController = this.dataLayout;
+            this.comboZSC_CASE.TabIndex = 1;
+            // 
+            // gridControl
+            // 
+            this.gridControl.DataSource = this.dataSource;
+            this.gridControl.Location = new System.Drawing.Point(7, 29);
+            this.gridControl.MainView = this.gridView;
+            this.gridControl.Name = "gridControl";
+            this.gridControl.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.caseCombo,
+            this.baseStatusCombo,
+            this.siteStatusCombo,
+            this.deliveryCombo});
+            this.gridControl.Size = new System.Drawing.Size(984, 464);
+            this.gridControl.TabIndex = 0;
+            this.gridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView});
+            // 
+            // gridView
+            // 
+            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colid,
+            this.colcs_name,
+            this.colzs_name,
+            this.colmd_name,
+            this.colzsc_case});
+            this.gridView.GridControl = this.gridControl;
+            this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.Editable = false;
+            this.gridView.OptionsView.ShowGroupPanel = false;
+            this.gridView.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colid, DevExpress.Data.ColumnSortOrder.Ascending)});
+            // 
+            // colid
+            // 
+            this.colid.Caption = "id";
+            this.colid.FieldName = "id";
+            this.colid.Name = "colid";
+            this.colid.OptionsColumn.AllowEdit = false;
+            this.colid.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
+            this.colid.Visible = true;
+            this.colid.VisibleIndex = 0;
+            this.colid.Width = 40;
+            // 
+            // colcs_name
+            // 
+            this.colcs_name.Caption = "Статус в базе";
+            this.colcs_name.ColumnEdit = this.baseStatusCombo;
+            this.colcs_name.FieldName = "zsc_cs_id";
+            this.colcs_name.Name = "colcs_name";
+            this.colcs_name.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colcs_name.Visible = true;
+            this.colcs_name.VisibleIndex = 1;
+            this.colcs_name.Width = 137;
+            // 
+            // baseStatusCombo
+            // 
+            this.baseStatusCombo.AutoHeight = false;
+            this.baseStatusCombo.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.baseStatusCombo.Name = "baseStatusCombo";
+            this.baseStatusCombo.ShowFooter = false;
+            this.baseStatusCombo.ShowHeader = false;
+            // 
+            // colzs_name
+            // 
+            this.colzs_name.Caption = "Статус на мешке";
+            this.colzs_name.ColumnEdit = this.siteStatusCombo;
+            this.colzs_name.FieldName = "zsc_zs_id";
+            this.colzs_name.Name = "colzs_name";
+            this.colzs_name.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colzs_name.Visible = true;
+            this.colzs_name.VisibleIndex = 2;
+            this.colzs_name.Width = 137;
+            // 
+            // siteStatusCombo
+            // 
+            this.siteStatusCombo.AutoHeight = false;
+            this.siteStatusCombo.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.siteStatusCombo.Name = "siteStatusCombo";
+            this.siteStatusCombo.ShowFooter = false;
+            this.siteStatusCombo.ShowHeader = false;
+            // 
+            // colmd_name
+            // 
+            this.colmd_name.Caption = "Способ доставки";
+            this.colmd_name.ColumnEdit = this.deliveryCombo;
+            this.colmd_name.FieldName = "zsc_md_id";
+            this.colmd_name.Name = "colmd_name";
+            this.colmd_name.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colmd_name.Visible = true;
+            this.colmd_name.VisibleIndex = 3;
+            this.colmd_name.Width = 137;
+            // 
+            // deliveryCombo
+            // 
+            this.deliveryCombo.AutoHeight = false;
+            this.deliveryCombo.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.deliveryCombo.Name = "deliveryCombo";
+            this.deliveryCombo.NullText = "";
+            this.deliveryCombo.ShowFooter = false;
+            this.deliveryCombo.ShowHeader = false;
+            // 
+            // colzsc_case
+            // 
+            this.colzsc_case.Caption = "Применять";
+            this.colzsc_case.ColumnEdit = this.caseCombo;
+            this.colzsc_case.FieldName = "zsc_case";
+            this.colzsc_case.Name = "colzsc_case";
+            this.colzsc_case.Visible = true;
+            this.colzsc_case.VisibleIndex = 4;
+            this.colzsc_case.Width = 97;
+            // 
+            // caseCombo
+            // 
+            this.caseCombo.AutoHeight = false;
+            this.caseCombo.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.caseCombo.Name = "caseCombo";
+            this.caseCombo.ShowFooter = false;
+            this.caseCombo.ShowHeader = false;
+            // 
+            // comboCS_ID
+            // 
+            this.comboCS_ID.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "zsc_cs_id", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboCS_ID.Location = new System.Drawing.Point(111, 42);
+            this.comboCS_ID.Name = "comboCS_ID";
+            this.comboCS_ID.Properties.Appearance.Options.UseTextOptions = true;
+            this.comboCS_ID.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.comboCS_ID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboCS_ID.Properties.ShowFooter = false;
+            this.comboCS_ID.Properties.ShowHeader = false;
+            this.comboCS_ID.Size = new System.Drawing.Size(432, 20);
+            this.comboCS_ID.StyleController = this.dataLayout;
+            this.comboCS_ID.TabIndex = 1;
+            // 
+            // comboZS_ID
+            // 
+            this.comboZS_ID.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "zsc_zs_id", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboZS_ID.Location = new System.Drawing.Point(111, 72);
+            this.comboZS_ID.Name = "comboZS_ID";
+            this.comboZS_ID.Properties.Appearance.Options.UseTextOptions = true;
+            this.comboZS_ID.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.comboZS_ID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboZS_ID.Properties.ShowFooter = false;
+            this.comboZS_ID.Properties.ShowHeader = false;
+            this.comboZS_ID.Size = new System.Drawing.Size(432, 20);
+            this.comboZS_ID.StyleController = this.dataLayout;
+            this.comboZS_ID.TabIndex = 1;
+            // 
+            // comboMD_ID
+            // 
+            this.comboMD_ID.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "zsc_md_id", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboMD_ID.Location = new System.Drawing.Point(111, 102);
+            this.comboMD_ID.Name = "comboMD_ID";
+            this.comboMD_ID.Properties.Appearance.Options.UseTextOptions = true;
+            this.comboMD_ID.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.comboMD_ID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboMD_ID.Properties.DataSource = this.dataSource;
+            this.comboMD_ID.Properties.ShowFooter = false;
+            this.comboMD_ID.Properties.ShowHeader = false;
+            this.comboMD_ID.Size = new System.Drawing.Size(432, 20);
+            this.comboMD_ID.StyleController = this.dataLayout;
+            this.comboMD_ID.TabIndex = 1;
+            // 
+            // memMessage
+            // 
+            this.memMessage.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "zsc_message", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.memMessage.Location = new System.Drawing.Point(111, 162);
+            this.memMessage.Name = "memMessage";
+            this.memMessage.Properties.ContextMenuStrip = this.pmuMessage;
+            this.memMessage.Properties.NullText = "[Создайте шаблон сообщения]";
+            this.memMessage.Size = new System.Drawing.Size(867, 95);
+            this.memMessage.StyleController = this.dataLayout;
+            this.memMessage.TabIndex = 1;
+            this.memMessage.ToolTip = "Введите шаблон текста сообщения\r\nСообщение будет доставляться покупателю  при усл" +
+    "овии совпадения трёх факторов: статус в базе; статус на Мешке; Способ доставки";
+            // 
+            // rootGroup
+            // 
+            this.rootGroup.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.rootGroup.GroupBordersVisible = false;
+            this.rootGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.Pages});
+            this.rootGroup.Name = "Root";
+            this.rootGroup.Size = new System.Drawing.Size(1002, 504);
+            this.rootGroup.TextVisible = false;
+            // 
+            // Pages
+            // 
+            this.Pages.Location = new System.Drawing.Point(0, 0);
+            this.Pages.Name = "Pages";
+            this.Pages.SelectedTabPage = this.PageView;
+            this.Pages.SelectedTabPageIndex = 0;
+            this.Pages.Size = new System.Drawing.Size(1002, 504);
+            this.Pages.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.PageView,
+            this.PageEdit});
+            // 
+            // PageView
+            // 
+            this.PageView.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGrig});
+            this.PageView.Location = new System.Drawing.Point(0, 0);
+            this.PageView.Name = "PageView";
+            this.PageView.Size = new System.Drawing.Size(994, 474);
+            this.PageView.Text = "Просмотр";
+            // 
+            // lcGrig
+            // 
+            this.lcGrig.Control = this.gridControl;
+            this.lcGrig.Location = new System.Drawing.Point(0, 0);
+            this.lcGrig.Name = "lcGrig";
+            this.lcGrig.Size = new System.Drawing.Size(994, 474);
+            this.lcGrig.TextSize = new System.Drawing.Size(0, 0);
+            this.lcGrig.TextVisible = false;
+            // 
+            // PageEdit
+            // 
+            this.PageEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.groupEdit,
+            this.emptySpaceItem1});
+            this.PageEdit.Location = new System.Drawing.Point(0, 0);
+            this.PageEdit.Name = "PageEdit";
+            this.PageEdit.OptionsItemText.TextToControlDistance = 5;
+            this.PageEdit.Size = new System.Drawing.Size(994, 474);
+            this.PageEdit.Text = "Изменение";
+            this.PageEdit.TextLocation = DevExpress.Utils.Locations.Default;
+            // 
+            // groupEdit
+            // 
+            this.groupEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.ItemForzsc_cs_id,
+            this.ItemForzsc_zs_id,
+            this.ItemForzsc_md_id,
+            this.ItemForzsc_case,
+            this.ItemForzsc_message,
+            this.emptySpaceItem2,
+            this.emptySpaceItem3,
+            this.emptySpaceItem4,
+            this.emptySpaceItem5});
+            this.groupEdit.Location = new System.Drawing.Point(0, 0);
+            this.groupEdit.Name = "groupEdit";
+            this.groupEdit.Padding = new DevExpress.XtraLayout.Utils.Padding(10, 10, 10, 10);
+            this.groupEdit.Size = new System.Drawing.Size(994, 251);
+            this.groupEdit.Text = "Изменение";
+            this.groupEdit.TextVisible = false;
+            // 
+            // ItemForzsc_cs_id
+            // 
+            this.ItemForzsc_cs_id.Control = this.comboCS_ID;
+            this.ItemForzsc_cs_id.Location = new System.Drawing.Point(0, 0);
+            this.ItemForzsc_cs_id.Name = "ItemForzsc_cs_id";
+            this.ItemForzsc_cs_id.Size = new System.Drawing.Size(533, 30);
+            this.ItemForzsc_cs_id.StartNewLine = true;
+            this.ItemForzsc_cs_id.Text = "Статус в базе";
+            this.ItemForzsc_cs_id.TextSize = new System.Drawing.Size(88, 13);
+            // 
+            // ItemForzsc_zs_id
+            // 
+            this.ItemForzsc_zs_id.Control = this.comboZS_ID;
+            this.ItemForzsc_zs_id.Location = new System.Drawing.Point(0, 30);
+            this.ItemForzsc_zs_id.Name = "ItemForzsc_zs_id";
+            this.ItemForzsc_zs_id.Size = new System.Drawing.Size(533, 30);
+            this.ItemForzsc_zs_id.StartNewLine = true;
+            this.ItemForzsc_zs_id.Text = "Статус на Мешке";
+            this.ItemForzsc_zs_id.TextSize = new System.Drawing.Size(88, 13);
+            // 
+            // ItemForzsc_md_id
+            // 
+            this.ItemForzsc_md_id.Control = this.comboMD_ID;
+            this.ItemForzsc_md_id.Location = new System.Drawing.Point(0, 60);
+            this.ItemForzsc_md_id.Name = "ItemForzsc_md_id";
+            this.ItemForzsc_md_id.Size = new System.Drawing.Size(533, 30);
+            this.ItemForzsc_md_id.StartNewLine = true;
+            this.ItemForzsc_md_id.Text = "Способ доставки";
+            this.ItemForzsc_md_id.TextSize = new System.Drawing.Size(88, 13);
+            // 
+            // ItemForzsc_case
+            // 
+            this.ItemForzsc_case.Control = this.comboZSC_CASE;
+            this.ItemForzsc_case.Location = new System.Drawing.Point(0, 90);
+            this.ItemForzsc_case.Name = "ItemForzsc_case";
+            this.ItemForzsc_case.Size = new System.Drawing.Size(533, 30);
+            this.ItemForzsc_case.Text = "Применять";
+            this.ItemForzsc_case.TextSize = new System.Drawing.Size(88, 13);
+            // 
+            // ItemForzsc_message
+            // 
+            this.ItemForzsc_message.AppearanceItemCaption.Options.UseTextOptions = true;
+            this.ItemForzsc_message.AppearanceItemCaption.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
+            this.ItemForzsc_message.Control = this.memMessage;
+            this.ItemForzsc_message.Location = new System.Drawing.Point(0, 120);
+            this.ItemForzsc_message.MaxSize = new System.Drawing.Size(0, 105);
+            this.ItemForzsc_message.MinSize = new System.Drawing.Size(111, 105);
+            this.ItemForzsc_message.Name = "ItemForzsc_message";
+            this.ItemForzsc_message.Size = new System.Drawing.Size(968, 105);
+            this.ItemForzsc_message.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+            this.ItemForzsc_message.StartNewLine = true;
+            this.ItemForzsc_message.Text = "Текст сообщения";
+            this.ItemForzsc_message.TextSize = new System.Drawing.Size(88, 13);
+            // 
+            // emptySpaceItem2
+            // 
+            this.emptySpaceItem2.AllowHotTrack = false;
+            this.emptySpaceItem2.Location = new System.Drawing.Point(533, 0);
+            this.emptySpaceItem2.Name = "emptySpaceItem2";
+            this.emptySpaceItem2.Size = new System.Drawing.Size(435, 30);
+            this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem3
+            // 
+            this.emptySpaceItem3.AllowHotTrack = false;
+            this.emptySpaceItem3.Location = new System.Drawing.Point(533, 30);
+            this.emptySpaceItem3.Name = "emptySpaceItem3";
+            this.emptySpaceItem3.Size = new System.Drawing.Size(435, 30);
+            this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem4
+            // 
+            this.emptySpaceItem4.AllowHotTrack = false;
+            this.emptySpaceItem4.Location = new System.Drawing.Point(533, 60);
+            this.emptySpaceItem4.Name = "emptySpaceItem4";
+            this.emptySpaceItem4.Size = new System.Drawing.Size(435, 30);
+            this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem5
+            // 
+            this.emptySpaceItem5.AllowHotTrack = false;
+            this.emptySpaceItem5.Location = new System.Drawing.Point(533, 90);
+            this.emptySpaceItem5.Name = "emptySpaceItem5";
+            this.emptySpaceItem5.Size = new System.Drawing.Size(435, 30);
+            this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 251);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(994, 223);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // MessagesSetting
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Caption = "Настройки сообшений";
+            this.Controls.Add(this.dataLayout);
+            this.Name = "MessagesSetting";
+            this.Size = new System.Drawing.Size(1002, 504);
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            this.pmuMessage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataLayout)).EndInit();
+            this.dataLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.comboZSC_CASE.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.baseStatusCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.siteStatusCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deliveryCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.caseCombo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboCS_ID.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboZS_ID.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboMD_ID.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.memMessage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Pages)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PageView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcGrig)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PageEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_cs_id)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_zs_id)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_md_id)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_case)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ItemForzsc_message)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            this.ResumeLayout(false);
+        }
+        #endregion
+        private System.Windows.Forms.ContextMenuStrip pmuMessage;
+        private System.Windows.Forms.ToolStripMenuItem mniFish;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private GH.Controls.LayoutControlGh dataLayout;
+        private GH.Grids.GridGh gridControl;
+        private GH.Grids.ViewGh gridView;
+        private DevExpress.XtraGrid.Columns.GridColumn colid;
+        private DevExpress.XtraGrid.Columns.GridColumn colcs_name;
+        private DevExpress.XtraGrid.Columns.GridColumn colzs_name;
+        private DevExpress.XtraGrid.Columns.GridColumn colmd_name;
+        private DevExpress.XtraEditors.LookUpEdit comboCS_ID;
+        private DevExpress.XtraEditors.LookUpEdit comboZS_ID;
+        private DevExpress.XtraEditors.LookUpEdit comboMD_ID;
+        private DevExpress.XtraEditors.MemoEdit memMessage;
+        private DevExpress.XtraLayout.LayoutControlGroup rootGroup;
+        private DevExpress.XtraGrid.Columns.GridColumn colzsc_case;
+        private DevExpress.XtraEditors.LookUpEdit comboZSC_CASE;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit caseCombo;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit baseStatusCombo;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit siteStatusCombo;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit deliveryCombo;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.LayoutControlGroup groupEdit;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForzsc_cs_id;
+        private DevExpress.XtraLayout.TabbedControlGroup Pages;
+        private DevExpress.XtraLayout.LayoutControlGroup PageEdit;
+        private DevExpress.XtraLayout.LayoutControlGroup PageView;
+        private DevExpress.XtraLayout.LayoutControlItem lcGrig;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForzsc_zs_id;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForzsc_md_id;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForzsc_case;
+        private DevExpress.XtraLayout.LayoutControlItem ItemForzsc_message;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+    }
+}

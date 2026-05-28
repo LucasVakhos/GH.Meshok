@@ -1,0 +1,39 @@
+﻿using System.Threading;
+using System.Windows.Forms;
+
+namespace MeshokBrowser.Workers
+{
+    public class WorkerRelistLots : WorkerCsvTemplate
+    {
+        private const string profile_url = "https://meshok.net/profile.php";
+        private const int on_page = 500;
+
+        public WorkerRelistLots(IMainForm form) : base(form)
+        {
+            sql_cnt = "SELECT COUNT(*) AS CNT FROM stock_for_relist";
+            sql = "SELECT BAR_CODE, ARTIST, TITLE, YEAR_OF, L_NAME, M_NAME, CTR_NAME, ST_NAME, QUALITY, ART_ID, CATEGORY, PRICE, NEW, PICT FROM stock_for_relist";
+
+            ProcessName = "Создание CSV-файлов для перевыставления лотов";
+            Begin_url = profile_url + $"?num_of_lines={on_page}&what=sale";
+        }
+
+        public static bool Begin(IMainForm form)
+        {
+            using (BeginRelistLotsForm beginForm = new BeginRelistLotsForm())
+            {
+                form.AddPage(beginForm);
+                while (true)
+                {
+                    Application.DoEvents();
+                    if (beginForm.DialogFinised)
+                        break;
+                    Thread.Sleep(100);
+                }
+                form.RemovePage(beginForm);
+
+                return beginForm.DialogResult;
+            }
+        }
+
+    }
+}

@@ -1,0 +1,159 @@
+﻿using GH.Configs;
+using GH.Utils;
+using MySql.Data.MySqlClient;
+using System;
+using System.Text;
+using System.Threading;
+using static GH.Utils.UtilsGh;
+
+namespace MeshokBrowser.Workers
+{
+    public class WorkerCsvTemplate : Worker
+    {
+        MySqlConnection sqlConnection;
+        bool _docLoaded = false;
+
+        protected string sql_cnt = "";
+        protected string sql = "";
+        private string sql_clear_relist = "meshok_relist_clear";
+
+
+        public WorkerCsvTemplate(IMainForm form) : base(form)
+        {
+            CsvHelper.InitVars(cfgMeshok);
+        }
+
+        protected override void OnDocumentCompleted(string url)
+        {
+            _docLoaded = true;
+        }
+
+        private bool CreateConnection()
+        {
+            try
+            {
+                sqlConnection = CfgBridgeNote.CreateConnection();
+                sqlConnection.Open();
+            }
+            catch (Exception ex)
+            {
+                CloseConnection();
+                Logger.Error(ex);
+                return false;
+            }
+            return true;
+        }
+
+        private void CloseConnection()
+        {
+            if (sqlConnection != null && sqlConnection.State == System.Data.ConnectionState.Open)
+                sqlConnection.Close();
+
+            sqlConnection.Dispose();
+            sqlConnection = null;
+        }
+
+        protected override void DoExecute()
+        {
+
+            try
+            {
+                if (CreateConnection())
+                {
+                    try
+                    {
+                        string file_name = "";
+                        string tmp = "";
+
+                        int counter = 0;
+                        int n = 1;
+
+                        StringBuilder csv = new StringBuilder();
+                        using (MySqlCommand cmd = new MySqlCommand(sql_cnt, sqlConnection))
+                        {
+                            counter = int.Parse(cmd.ExecuteScalar().ToString());
+                            while (!_docLoaded && ProcessRunHelper.Executing)
+                                Thread.Sleep(100);
+
+                            if (counter > 0 && ProcessRunHelper.Executing)
+                            {
+                                TotalSteps = counter;
+                                cmd.CommandText = sql;
+
+                                MySqlDataReader aReader = cmd.ExecuteReader();
+                                try
+                                {
+                                    while (aReader.Read() && ProcessRunHelper.Executing)
+                                    {
+                                        tmp = CsvHelper.CreateCSVLine(aReader);
+                                        csv.AppendLine(tmp);
+
+                                        IncCurrentStep();
+
+                                        if (CurrentStep % cfgMeshok.OnPageForLoad == 0)
+                                        {
+                                            file_name = CsvHelper.NameFile(n);
+                                            n++;
+                                            SaveTextToFile(csv.ToString(), file_name);
+                                            csv.Clear();
+                                        }
+                                    }
+
+                                    if (csv.Length > 0)
+                                    {
+                                        file_name = CsvHelper.NameFile(n);
+                                        SaveTextToFile(csv.ToString(), file_name);
+                                    }
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    Logger.Error(ex);
+                                }
+                                finally
+                                {
+                                    aReader.Close();
+                                }
+
+                                ClearRelist(cmd);
+                            }
+                        }
+                    }
+                    finally
+                    {
+                        CloseConnection();
+                    }
+                }
+            }
+            finally
+            {
+                if (ProcessRunHelper.Executing)
+                {
+                    ProcessRunHelper.Executing = false;
+                    Thread.Sleep(10);
+                    DlgHelper.DlgInfo("Готово!\r\nНе забудьте загрузить лоты...");
+                }
+            }
+        }
+
+        private void ClearRelist(MySqlCommand cmd)
+        {
+            cmd.CommandText = sql_clear_relist;
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            using (var trans = sqlConnection.BeginTransaction())
+            {
+                cmd.Transaction = trans;
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    trans.Commit();
+                }
+                catch (Exception ex)
+                {
+                    trans.Rollback();
+                    Logger.Error(ex);
+                }
+            }
+        }
+    }
+}

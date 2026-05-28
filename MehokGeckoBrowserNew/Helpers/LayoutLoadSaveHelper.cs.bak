@@ -1,0 +1,88 @@
+﻿using DevExpress.XtraGrid;
+using DevExpress.XtraLayout;
+using System.IO;
+using System.Windows.Forms;
+
+namespace MeshokBrowser
+{
+
+    public static class LayoutLoadSaveHelper
+    {
+        
+        public static void LoadControls(Control parent, string prefix)
+        {
+            string s_file_name = Application.StartupPath + @"\layouts\" + prefix + "{0}.xml";
+            string file_name;
+
+            foreach (Control ctrl in parent.Controls)
+            {
+                ILayoutControl lc = ctrl as ILayoutControl;
+                if (lc != null)
+                {
+                    file_name = string.Format(s_file_name, ctrl.Name);
+                    if (File.Exists(file_name))
+                        lc.RestoreLayoutFromXml(file_name);
+                    LoadControls(ctrl, string.Concat(prefix, ".", ctrl.Name));
+                    continue;
+                }
+
+                GridControl gc = ctrl as GridControl;
+                if (gc != null)
+                {
+                    file_name = string.Format(s_file_name, string.Concat(".", gc.Name, ".", gc.MainView.Name));
+                    if (File.Exists(file_name))
+                        gc.MainView.RestoreLayoutFromXml(file_name);
+                    continue;
+                }
+
+                //VGridControl vgc = ctrl as VGridControl;
+                //if (vgc != null)
+                //{
+                //    file_name = string.Format(s_file_name, string.Concat(".", vgc.Name));
+                //    if (File.Exists(file_name))
+                //        vgc.RestoreLayoutFromXml(file_name);
+                //    continue;
+                //}
+
+            }
+        }
+
+        public static void SaveControls(Control parent, string prefix)
+        {
+            string s_file_name = Application.StartupPath + @"\layouts\" + prefix + "{0}.xml";
+            string file_name;
+            foreach (Control ctrl in parent.Controls)
+            {
+                ILayoutControl lc = ctrl as ILayoutControl;
+                if (lc != null)
+                {
+                    file_name = string.Format(s_file_name, ctrl.Name);
+                    Directory.CreateDirectory(Path.GetDirectoryName(file_name));
+                    lc.SaveLayoutToXml(file_name);
+                    SaveControls(ctrl, string.Concat(prefix, ".", ctrl.Name));
+                    continue;
+                }
+
+                GridControl gc = ctrl as GridControl;
+                if (gc != null)
+                {
+                    file_name = string.Format(s_file_name, string.Concat(".", gc.Name, ".", gc.MainView.Name));
+                    Directory.CreateDirectory(Path.GetDirectoryName(file_name));
+                    gc.MainView.SaveLayoutToXml(file_name);
+                    continue;
+                }
+
+                //VGridControl vgc = ctrl as VGridControl;
+                //if (vgc != null)
+                //{
+                //    file_name = string.Format(s_file_name, string.Concat(".", vgc.Name));
+                //    Directory.CreateDirectory(Path.GetDirectoryName(file_name));
+                //    vgc.SaveLayoutToXml(file_name);
+                //    continue;
+                //}
+
+            }
+        }
+    }
+
+}

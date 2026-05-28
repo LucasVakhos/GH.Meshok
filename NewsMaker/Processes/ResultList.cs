@@ -1,0 +1,99 @@
+﻿using GH.Configs;
+using NewsMaker.Common;
+using System;
+using System.Collections.Generic;
+namespace NewsMaker
+{
+    public enum WorkStatuses
+    {
+        Begin,
+        Prepare,
+        Process,
+        Finish
+    }
+    public interface IPrepare
+    {
+        int Count { get; }
+        Informator Info { get; set; }
+        WorkStatuses Status { get; set; }
+        event Stepping OnStep;
+    }
+    public class ResultList<T> : List<T>, IPrepare, IDisposable
+    {
+        private Informator _info;
+        internal string infoMessage;
+        public ResultList(string message, bool regIt = true)
+        {
+            infoMessage = message;
+            if (regIt)
+                Informator.RegObject(this);
+            Status++;
+        }
+        protected SendService sendService => SendService.Instance;
+        protected CfgRuSender ruSender => IniHelper.CoreCfg<CfgRuSender>();
+        protected CfgPost cfgPost => IniHelper.CoreCfg<CfgPost>();
+        public WorkStatuses Status
+        {
+            get => status;
+            set
+            {
+                status = value;
+                NotifyInfo();
+            }
+        }
+        public event Stepping OnStep;
+        public Informator Info
+        {
+            get => _info;
+            set
+            {
+                _info = value;
+                if (_info != null)
+                    _info.FireInfo(infoMessage);
+            }
+        }
+        protected void IncStep()
+        {
+            OnStep?.Invoke();
+            sendService.IncSendNo();
+        }
+        protected virtual void NotifyInfo()
+        {
+            throw new Exception($"Перезапишите NotifyInfo у {GetType()}");
+        }
+        public void AddItem(T item)
+        {
+            Add(item);
+            OnStep?.Invoke();
+        }
+        private bool disposedValue; // Для определения избыточных вызовов
+        private WorkStatuses status;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: освободить управляемое состояние (управляемые объекты).
+                }
+                // TODO: освободить неуправляемые ресурсы (неуправляемые объекты) и переопределить ниже метод завершения.
+                // TODO: задать большим полям значение NULL.
+                disposedValue = true;
+            }
+        }
+        // TODO: переопределить метод завершения, только если Dispose(bool disposing) выше включает код для освобождения неуправляемых ресурсов.
+        // ~ResultList()
+        // {
+        //   // Не изменяйте этот код. Разместите код очистки выше, в методе Dispose(bool disposing).
+        //   Dispose(false);
+        // }
+        // Этот код добавлен для правильной реализации шаблона высвобождаемого класса.
+        public void Dispose()
+        {
+            // Не изменяйте этот код. Разместите код очистки выше, в методе Dispose(bool disposing).
+            Dispose(true);
+            // TODO: раскомментировать следующую строку, если метод завершения переопределен выше.
+            // GC.SuppressFinalize(this);
+        }
+    }
+}

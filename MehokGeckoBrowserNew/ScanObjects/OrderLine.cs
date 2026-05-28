@@ -1,0 +1,267 @@
+﻿using Common;
+using Gecko;
+using Gecko.DOM;
+using GH.Helpers;
+using MeshokBrowser.Helpers;
+using MeshokBrowser.Workers;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Windows.Forms;
+namespace MeshokBrowser.NHibernate
+{
+    public class OrderLine : DeliveryObject
+    {
+        //:site_id
+        private string _deal_id = "";
+        [Display(Name = "№ сделки")]
+        public virtual string deal_id
+        {
+            get => _deal_id;
+            set
+            {
+                _deal_id = value;
+                ParsingSaccess = !string.IsNullOrEmpty(_deal_id);
+            }
+        }
+        //:co_id
+        [Display(Name = "№ заказа")]
+        public virtual int co_id => Order.base_id;
+        //:t_id
+        [Display(Name = "ID товара")]
+        public virtual int t_id => Title.t_id;
+        //:ts_id, :qty, :price, :commition, :price_ru
+        [Display(Name = "ID каталога")]
+        public virtual int ts_id => Title.ts_id;
+        //:qty
+        [Display(Name = "Кол-во")]
+        public virtual int qty => 1;
+        //:price, :commition, :price_ru
+        [Display(Name = "Цена в USD.")]
+        public virtual double price => Title.t_price;
+        //:commition, :price_ru
+        [Display(Name = "Комиссия")]
+        public virtual double commition => Title.t_commision;
+        //:price_ru
+        [Display(Name = "Цена в РУБ.")]
+        public virtual double price_ru => _price_ru;
+        private double _price_ru;
+        public virtual void SetDealPrice(string p_price)
+        {
+            p_price = p_price.Replace('.', ',');
+            _price_ru = 0;
+            double.TryParse(p_price, out _price_ru);
+        }
+        private string _title_url;
+        public virtual string title_url
+        {
+            get => _title_url;
+            set
+            {
+                _title_url = value;
+                if (_title != null)
+                    _title.Url = _title_url;
+            }
+        }
+        private string _c_nic;
+        [DisplayName("Ник")]
+        public virtual string nick { get => _c_nic; set => _c_nic = value; }
+        [DisplayName("Контрагент")]
+        public virtual string nick_name
+        {
+            get
+            {
+                return Client == null ? _c_nic : Client.c_name;
+            }
+        }
+        [DisplayName("Дата")]
+        public virtual DateTime date { get; set; }
+        private string _deal_status;
+        [DisplayName("Статус сделки на сайте")]
+        public virtual string deal_status
+        {
+            get => _deal_status;
+            set
+            {
+                _deal_status = value;
+                _site_status = EnumHelper<OrderStatus>.GetValueFromName(_deal_status);
+            }
+        }
+        private OrderStatus _site_status;
+        [DisplayName("Статус сделки на сайте, OrderStatus")]
+        public virtual OrderStatus site_status { get => _site_status; }
+        [DisplayName("Статус сделки Текстовый")]
+        public virtual string site_status_text
+        {
+            get
+            {
+                return _deal_status;
+            }
+        }
+        private string _deal_title;
+        [DisplayName("Титл лота в сделке")]
+        public virtual string deal_title { get => _deal_title; set => _deal_title = value; }
+        private bool _need_divide;
+        [Display(Name = "Нужно разделить сделку")]
+        public virtual bool need_split
+        {
+            get => _need_divide;
+            set
+            {
+                _need_divide = value && (this.site_status == OrderStatus.New || this.site_status == OrderStatus.Discution);
+            }
+        }
+        [Display(Name = "Нужно добавить потерянную сделку")]
+        public virtual bool NeedAdd { get; set; } = false;
+        [Display(Name = "Объединить")]
+        public virtual bool NeedUnion { get => base_status >= 4 && base_status <= 6; }
+        [Display(Name = "Есть сообщения для клиента")]
+        public virtual bool HasMessages { get { return Infos.Count > 0 && Infos.Any(x => x.NeedMessaging); } }
+        List<CheckMesage> _infos = new List<CheckMesage>();
+        public virtual List<CheckMesage> Infos { get => _infos; }
+        Order _order;
+        public virtual Order Order
+        {
+            get => _order;
+            set
+            {
+                _order = value;
+                ChekClientOnOrder();
+            }
+        }
+        private Client _client;
+        public virtual Client Client
+        {
+            get => _client;
+            set
+            {
+                _client = value;
+                ChekClientOnOrder();
+            }
+        }
+        public virtual GeckoHtmlElement HtmlRow { get; set; }
+        private Title _title;
+        public virtual Title Title
+        {
+            get => _title;
+            set
+            {
+                _title = value;
+                if (_title != null)
+                {
+                    if (_title.orderLine == null)
+                        _title.orderLine = this;
+                    _title.Url = title_url;
+                }
+            }
+        }
+        private CheckOrder _check;
+        public CheckOrder Check
+        {
+            get => _check;
+            set
+            {
+                _check = value;
+                if (value != null)
+                {
+                    base_id = value.id;
+                    base_status = value.co_status;
+                    md_id = value.dp_md_id;
+                    mp_id = value.dp_mp_id;
+                }
+            }
+        }
+        public OrderLine(ScanParams scanParams, GeckoHtmlElement row)
+        {
+            SetOrderLine(scanParams, row);
+            if (ScanSetting.ScanStatus == ScanStatus.ScanNew || ScanSetting.ScanStatus == ScanStatus.ScanLostDeals)
+            {
+                Title = new Title();
+                Client = new Client(Url, nick);
+            }
+        }
+        public void SetOrderLine(ScanParams scanParams, GeckoHtmlElement row)
+        {
+            HtmlRow = row;
+            title_url = scanParams.title_url;
+            nick = scanParams.c_nic;
+            Url = scanParams.deal_url;
+            deal_id = scanParams.deal_id;
+            date = DateTime.Parse(scanParams.date);
+            deal_status = scanParams.deal_status;
+            deal_title = scanParams.deal_title;
+            SetDealPrice(scanParams.price);
+            need_split = scanParams.need_split;
+        }
+        private void ChekClientOnOrder()
+        {
+            if (_order != null && _order.Client == null)
+                _order.Client = _client;
+        }
+        protected override string GetCloseUrl()
+        {
+            string result = "";
+            if (CurrStatus == OrderStatus.DealCanceled)
+                result = string.Format("https://meshok.net/deal_info.php?deal_id={0}&status_FAIL=N&change_status=1", deal_id);
+            else if (CurrStatus == OrderStatus.DealOK)
+                result = string.Format("https://meshok.net/deal_info.php?deal_id={0}&status_OK=Y&change_status=1", deal_id);
+            return result;
+        }
+        public virtual void CheckRow()
+        {
+            foreach (GeckoInputElement checkbox in HtmlRow.GetElementsByTagName("input").Where(x => x.GetAttribute("name") == "deal_work[]"))
+            {
+                checkbox.Checked = true;
+                Application.DoEvents();
+                return;
+            }
+        }
+        public virtual void AddTaskByStatus(ScanStatus scanStatus, DisposableTask task)
+        {
+            switch (scanStatus)
+            {
+                case ScanStatus.ScanLostDeals:
+                case ScanStatus.ScanNew:
+                    if (task is TaskClientParse && !Client.IsComplete)
+                        task.AddTask(Client);
+                    else
+                    if (task is TaskTitleParse && Title.t_base_id == 0)
+                        task.AddTask(Title);
+                    else
+                    if (task is TaskPostMessage && HasMessages)
+                        if (Client.Url == Url)
+                        {
+                            task.AddTask(this);
+                        }
+                    break;
+                case ScanStatus.ScanNotNew:
+                    if (CurrStatus == OrderStatus.DealOK && Check.dp_mp_id == 2 /*квитанция сбербанка*/)
+                        return;
+                    if (task is TaskCloseDeals && (CurrStatus == OrderStatus.DealOK || CurrStatus == OrderStatus.DealCanceled))
+                        task.AddTask(this);
+                    else
+                    if (task is TaskPostMessage && HasMessages)
+                        task.AddTask(this);
+                    break;
+                case ScanStatus.ScanNewMess:
+                    if (HasMessages)
+                        task.AddTask(this);
+                    break;
+                default:
+                    break;
+            }
+        }
+        public override bool Equals(object obj)
+        {
+            var line = obj as OrderLine;
+            return line != null &&
+                   deal_id == line.deal_id;
+        }
+        public override int GetHashCode()
+        {
+            return 1165644085 + EqualityComparer<string>.Default.GetHashCode(deal_id);
+        }
+    }
+}

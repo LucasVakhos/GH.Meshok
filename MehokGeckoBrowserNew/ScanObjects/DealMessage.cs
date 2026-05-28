@@ -1,0 +1,50 @@
+﻿using FirebirdSql.Data.FirebirdClient;
+using MeshokBrowser.Helpers;
+using System;
+using System.Linq;
+namespace MeshokBrowser.NH
+{
+    public class DealMessage: DeliveryObject
+    {
+        public string ticket
+        {
+            get
+            {
+                int id = mess_text.GetHashCode();
+                string res = $"ticket{id.ToString("X")}";
+                return res;
+            }
+        }
+        private bool _dp_packed;
+        public bool dp_packed { get => _dp_packed; set => _dp_packed = value; }
+        private double _dp_totalsumm = 0;
+        public double dp_totalsumm { get => _dp_totalsumm; set => _dp_totalsumm = value; }
+        private string _mess_text = "";
+        public string mess_text { get => _mess_text.Replace("  ", " "); set => _mess_text = value; }
+        private bool _needMessaging = true;
+        public bool NeedMessaging {
+            get {
+#if !test_email_message
+                if (message_case == MessageCase.EmailCheck && !string.IsNullOrEmpty(_orderLine.Client.c_email))
+                    _needMessaging = false;
+#endif
+                return _needMessaging; }
+            set => _needMessaging = value;
+        }
+        private OrderLine _orderLine;
+        public MessageCase message_case { get; private set; }
+        public DealMessage(OrderLine orderLine, ReadHelperDealMessages recs)
+        {
+            _orderLine = orderLine;
+            message_case = recs.zsc_case;
+            base_id = recs.cod_id;
+            md_id = recs.md_id;
+            mp_id = recs.mp_id;
+            base_status = recs.cs_id;
+            dp_packed = recs.dp_packed;
+            dp_totalsumm = recs.dp_totalsumm;
+            mess_text = recs.zsc_message;
+            orderLine.Infos.Add(this);
+        }
+    }
+}

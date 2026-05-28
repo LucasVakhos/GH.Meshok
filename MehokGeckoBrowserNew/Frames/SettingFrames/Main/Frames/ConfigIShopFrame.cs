@@ -1,0 +1,10 @@
+﻿namespace MeshokBrowser
+{
+    public partial class ConfigIShopFrame : BaseSetting<SettingIShop>
+    {
+        public ConfigIShopFrame()
+        {
+            InitializeComponent();
+        }
+    }
+}

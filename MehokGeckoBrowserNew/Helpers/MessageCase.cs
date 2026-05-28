@@ -1,0 +1,15 @@
+﻿using System.ComponentModel.DataAnnotations;
+namespace MeshokBrowser.NH
+{
+    public enum MessageCase
+    {
+        [Display(Name = "В любом случае")]
+        AnyCase,
+        [Display(Name = "Посылка упакована")]
+        DocClosed,
+        [Display(Name = "Нужен запрос Email")]
+        EmailCheck,
+        [Display(Name = "Нужно разделить лот")]
+        NeedSplit,
+    }
+}

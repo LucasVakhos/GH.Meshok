@@ -1,0 +1,358 @@
+﻿#define can_submit
+using Gecko;
+using Gecko.DOM;
+using GH.Configs;
+using GH.Utils;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Threading;
+using System.Windows.Forms;
+using static GH.Utils.UtilsGh;
+
+namespace MeshokBrowser.Workers
+{
+    public class WorkerAddPrix : Worker
+    {
+        MySqlConnection sqlConnection;
+        bool bridgenoteLoaded = false;
+
+        private const string profile_url = "https://meshok.net/profile.php";
+        private const string loading_start_url = profile_url + "?what=bulk";
+        private const string compare_url = profile_url + "?submit=1&what=bulk";
+
+        private const string bridgenoteUrl = "https://bridgenote.com/";
+        private const string sql_cnt = "SELECT COUNT(*) AS CNT FROM new_prix_list";
+        private const string sql = "SELECT BAR_CODE, ARTIST, TITLE, YEAR_OF, L_NAME, M_NAME, CTR_NAME, ST_NAME, QUALITY, ART_ID, CATEGORY, PRICE, NEW, PICT FROM new_prix_list";
+        private const string sql_clear_relist = "meshok_relist_clear";
+        private const string sql_set_prixdate = "meshok_set_prixdate";
+
+        enum ProcStep
+        {
+            Setting,
+            Compare,
+            GoToSetting
+        }
+
+        private List<string> files = new List<string>( );
+        private ProcStep curSettingStep = ProcStep.Setting;
+
+        protected override void RedoNavigate(Gecko.Events.GeckoDocumentCompletedEventArgs e)
+        {
+            if (curSettingStep == ProcStep.GoToSetting)
+                DoNextStep( );
+            else
+                base.RedoNavigate(e);
+        }
+
+        private void DoNextStep()
+        {
+            GC.Collect( );
+            GC.WaitForPendingFinalizers( );
+
+            File.Delete(files[0]);
+            files.Remove(files[0]);
+            IncCurrentStep( );
+
+            if (files.Count > 0)
+            {
+                curSettingStep = ProcStep.Setting;
+                ProcScreen.Navigate(Begin_url);
+            }
+            else
+                WorkDone( );
+        }
+
+        private bool CreateConnection()
+        {
+            try
+            {
+                sqlConnection = CfgBridgeNote.CreateConnection( );
+                sqlConnection.Open( );
+            }
+            catch (Exception ex)
+            {
+                CloseConnection( );
+                Logger.Error(ex);
+                return false;
+            }
+            return true;
+        }
+
+        private void CloseConnection()
+        {
+            if (sqlConnection != null && sqlConnection.State == System.Data.ConnectionState.Open)
+                sqlConnection.Close( );
+
+            sqlConnection.Dispose( );
+            sqlConnection = null;
+        }
+
+        public WorkerAddPrix(IMainForm form) : base(form)
+        {
+            ProcessName = "Добавление поступившего товара";
+            CsvHelper.InitVars(cfgMeshok);
+            Begin_url = bridgenoteUrl;
+        }
+
+        protected override void WorkDone()
+        {
+            if (_datePrixFrom < _datePrixTo)
+            {
+                if (ProcessRunHelper.Executing)
+                {
+                    CfgMeshok cfg = IniHelper.Cfg<CfgMeshok>( );
+                    cfg.DatePrixFrom = _datePrixTo;
+                    cfg.Save(true);
+                }
+            }
+            base.WorkDone( );
+        }
+
+
+        protected override void OnDocumentCompleted(string url)
+        {
+            if (Begin_url == url)
+            {
+                if (Begin_url == bridgenoteUrl)
+                {
+                    bridgenoteLoaded = true;
+                }
+                else
+                if (Begin_url == loading_start_url)
+                {
+                    FillPageAndPost( );
+                }
+            }
+            else if (url == compare_url)
+            {
+                if (curSettingStep == ProcStep.Compare)
+                {
+                    curSettingStep = ProcStep.GoToSetting;
+                    (ProcScreen.Document.GetElementById("form2") as GeckoFormElement).Submit( );
+                }
+                else
+                if (curSettingStep == ProcStep.GoToSetting)
+                {
+                    DoNextStep( );
+                }
+            }
+        }
+
+        private void FillPageAndPost()
+        {
+            using (GeckoDocument doc = ProcScreen.Document)
+            {
+                bool isFillBegin = LoadingHelper.FillBeginPage(doc, files[0]);
+                if (!isFillBegin)
+                {
+                    foreach (GeckoInputElement item in doc.GetElementsByTagName("input"))
+                    {
+                        if (item.Name == "SLCONSENT")
+                        {
+                            item.Click();
+                            return;
+                        }
+
+                    }
+                };
+
+                if (!isFillBegin)
+                {
+                    curSettingStep = ProcStep.Setting;
+                    ProcScreen.Navigate(Begin_url);
+                    return;
+                }
+
+                Application.DoEvents( );
+                try
+                {
+#if can_submit
+                    (doc.GetElementById("form2") as GeckoFormElement).Submit();
+#endif
+                    curSettingStep = ProcStep.Compare;
+                }
+                catch
+                {
+                    curSettingStep = ProcStep.Setting;
+                    ProcScreen.Navigate(Begin_url);
+                }
+            }
+        }
+
+        private DateTime _datePrixFrom;
+        private DateTime _datePrixTo;
+
+        private bool SetPrixDate()
+        {
+            using (MySqlCommand cmd = new MySqlCommand(sql_set_prixdate, sqlConnection))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                MySqlParameter parameter = new MySqlParameter("begin_date", MySqlDbType.DateTime)
+                {
+                    Value = _datePrixFrom
+                };
+                cmd.Parameters.Add(parameter);
+                int result = cmd.ExecuteNonQuery( );
+                return result > 0;
+            }
+        }
+
+        private bool SetTotalSteps()
+        {
+            using (MySqlCommand cmd = new MySqlCommand(sql_cnt, sqlConnection))
+            {
+                int result = int.Parse(cmd.ExecuteScalar( ).ToString( ));
+                if (result > 0)
+                    TotalSteps = result;
+                return TotalSteps > 0;
+            }
+        }
+
+        private bool HasFilesForLoad()
+        {
+            files = LoadingHelper.GetFileList( );
+            if (files.Count > 0)
+            {
+                TotalSteps = files.Count;
+                Begin_url = loading_start_url;
+                ProcScreen.Navigate(Begin_url);
+            }
+            return TotalSteps > 0;
+        }
+
+        protected override void DoExecute()
+        {
+            CfgMeshok cfg = IniHelper.Cfg<CfgMeshok>( );
+
+            if (cfg.DatePrixFrom == DateTime.MinValue)
+            {
+                ProcessRunHelper.Executing = false;
+                Thread.Sleep(10);
+                DlgHelper.DlgInfo("Установите дату приходов!!!");
+                WorkDone( );
+                return;
+            }
+            _datePrixFrom = cfg.DatePrixFrom;
+
+            if (cfg.DatePrixTo == DateTime.MinValue || cfg.DatePrixFrom == cfg.DatePrixTo)
+            {
+                cfg.DatePrixTo = DateTime.Now;
+                cfg.Save(true);
+            }
+            _datePrixTo = cfg.DatePrixTo;
+
+            if (HasFilesForLoad( ))
+                return;
+
+            while (!bridgenoteLoaded && ProcessRunHelper.Executing)
+            {
+                Thread.Sleep(100);
+            }
+
+            if (!ProcessRunHelper.Executing)
+            {
+                return;
+            }
+
+            if (!CreateConnection( ))
+            {
+                ProcessRunHelper.Executing = false;
+                WorkDone( );
+                return;
+            }
+
+            try
+            {
+                if (SetPrixDate( ) && SetTotalSteps( ))
+                {
+                    string file_name = "";
+                    string tmp = "";
+
+                    int fileNumber = 1;
+
+                    StringBuilder csv = new StringBuilder( );
+                    using (MySqlCommand cmd = new MySqlCommand(sql, sqlConnection))
+                    {
+
+                        if (ProcessRunHelper.Executing)
+                        {
+                            MySqlDataReader reader = cmd.ExecuteReader( );
+                            try
+                            {
+                                while (reader.Read( ) && ProcessRunHelper.Executing)
+                                {
+                                    tmp = CsvHelper.CreateCSVLine(reader);
+                                    csv.AppendLine(tmp);
+
+                                    IncCurrentStep( );
+
+                                    if (CurrentStep % cfgMeshok.OnPageForLoad == 0)
+                                    {
+                                        file_name = CsvHelper.NameFile(fileNumber);
+                                        fileNumber++;
+                                        SaveTextToFile(csv.ToString( ), file_name);
+                                        csv.Clear( );
+                                    }
+                                }
+
+                                if (csv.Length > 0)
+                                {
+                                    file_name = CsvHelper.NameFile(fileNumber);
+                                    SaveTextToFile(csv.ToString( ), file_name);
+                                }
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Logger.Error(ex);
+                            }
+                            finally
+                            {
+                                reader.Close( );
+                            }
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                if (HasFilesForLoad( ))
+                {
+                    ClearRelist( );
+                }
+                else
+                {
+                    DlgHelper.DlgWarning("Нет файлов для заливки!!!");
+                    WorkDone( );
+                }
+                CloseConnection( );
+
+            }
+        }
+
+        private void ClearRelist()
+        {
+            using (MySqlCommand cmd = new MySqlCommand(sql_clear_relist, sqlConnection))
+            {
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                using (MySqlTransaction trans = sqlConnection.BeginTransaction( ))
+                {
+                    cmd.Transaction = trans;
+                    try
+                    {
+                        cmd.ExecuteNonQuery( );
+                        trans.Commit( );
+                    }
+                    catch (Exception ex)
+                    {
+                        trans.Rollback( );
+                        Logger.Error(ex);
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+﻿namespace MeshokBrowser
+{
+    public partial class ConfigBridgeFrame : BaseSetting<ConfigBridge>
+    {
+        public ConfigBridgeFrame()
+        {
+            InitializeComponent();
+        }
+    }
+}

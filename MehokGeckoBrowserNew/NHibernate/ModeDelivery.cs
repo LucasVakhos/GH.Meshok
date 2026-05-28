@@ -1,0 +1,17 @@
+﻿using FluentNHibernate.Mapping;
+using GH.NHibernate;
+namespace MeshokBrowser.NHibernate
+{
+    public class ModeDelivery : BaseEntity
+    {
+    }
+    public class ModeDeliveryMap : ClassMap<ModeDelivery>
+    {
+        public ModeDeliveryMap()
+        {
+            Table("mode_delivery");
+            Id(x => x.id, "md_id");
+            Map(x => x.Name, "md_name");
+        }
+    }
+}

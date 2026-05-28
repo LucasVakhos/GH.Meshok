@@ -1,0 +1,51 @@
+﻿namespace GH.Components
+{
+    partial class InfoFrame
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                AppContext.UnRegInfoPanel(this);
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.dataSource = new GH.Components.DataSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dataSource
+            // 
+            this.dataSource.NeedFocusGrid = false;
+            this.dataSource.NeedLoadingAnimate = false;
+            this.dataSource.Owner = this;
+            this.dataSource.ReadOnly = true;
+            // 
+            // InfoFrame
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Name = "InfoFrame";
+            this.Size = new System.Drawing.Size(284, 367);
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            this.ResumeLayout(false);
+        }
+        protected GH.Components.DataSource dataSource;
+    }
+}

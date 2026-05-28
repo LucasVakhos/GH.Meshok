@@ -1,0 +1,47 @@
+﻿using Gecko;
+using System.ComponentModel;
+namespace GH.Components
+{
+    public class GhBrowser : GeckoWebBrowser, ISupportInitialize
+    {
+        static readonly string replace_str = @"#MESSAGE#";
+        static readonly string message_html =
+            @"<html>" +
+                "<head>" +
+                    $"<title>Загрузка...</title>" +
+                    "<style type = \"text/css\" >" +
+                    "<!-- " +
+                    ".loading {font-size: 18px; font-weight: bold; font-family: Arial, Helvetica, sans-serif; } " +
+                    "-->" +
+                    "</style>" +
+                "</head>" +
+                "<body>" +
+                    "<div align = \"center\" class=\"loading\">" +
+                        $"<p>{replace_str}</p>" +
+                    "</div>" +
+                "</body>" +
+            "</html>";
+        public GhBrowser()
+        {
+        }
+        public void BeginInit()
+        {
+        }
+        public void EndInit()
+        {
+            if (!DesignMode)
+            {
+                ShowMessageInit("Ждите!!!<br>Идет загрузка информации...");
+            }
+        }
+        private void ShowMessageInit(string mess)
+        {
+            mess = message_html.Replace(replace_str, mess);
+            LoadHtml(mess);
+        }
+        public void ShowMessage(string mess)
+        {
+            ShowMessageInit(mess);
+        }
+    }
+}

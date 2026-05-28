@@ -1,0 +1,17 @@
+﻿using FluentNHibernate.Mapping;
+using GH.NHibernate;
+namespace MeshokBrowser.NHibernate
+{
+    public class BaseStatus : BaseEntity
+    {
+    }
+    public class BaseStatusMap : ClassMap<BaseStatus>
+    {
+        public BaseStatusMap()
+        {
+            Table("z$base_statuses");
+            Id(x => x.id, "cs_id");
+            Map(x => x.Name, "cs_name");
+        }
+    }
+}

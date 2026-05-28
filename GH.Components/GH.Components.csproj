@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+		<ApplicationHighDpiMode>PerMonitorV2</ApplicationHighDpiMode>
+		<UseWPF>false</UseWPF>
+		<NuGetAuditMode>direct</NuGetAuditMode>
+		<AssemblyVersion>2.0.0.0</AssemblyVersion>
+
+		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+		<EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+		<EnableDefaultNoneItems>false</EnableDefaultNoneItems>
+	</PropertyGroup>
+
+	<ItemGroup><Compile Include="**\*.cs" Exclude="bin\**;obj\**;Actions\**;DataSources\**" />
+		
+
+		<EmbeddedResource Include="**\*.resx" Exclude="bin\**;obj\**;Actions\**;DataSources\**;ActionList\ActionList.resx" />
+
+		<None Include="**\*" Exclude="**\*.cs;**\*.resx;bin\**;obj\**;Actions\**;DataSources\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  
+	  
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="app.config" />
+		<None Update="packages.config" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="ActionList\Action.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="ActionList\ActionDataGh.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="ActionList\ActionList.cs">
+			<SubType>Component</SubType>
+		</Compile>
+
+		<Compile Update="Configs\Forms\CfgForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Configs\Forms\CfgForm.Designer.cs">
+			<DependentUpon>CfgForm.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Configs\Forms\CfgFormType.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Configs\Forms\LoginFormType.cs">
+			<SubType>Form</SubType>
+		</Compile>
+
+		<Compile Update="Configs\Frames\CfgBaseFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgBaseFrame.Designer.cs">
+			<DependentUpon>CfgBaseFrame.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgConnectFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgConnectFrame.Designer.cs">
+			<DependentUpon>CfgConnectFrame.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgConnectFrameType.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgCoreFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgCoreFrame.Designer.cs">
+			<DependentUpon>CfgCoreFrame.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Configs\Frames\CfgCoreFrameType.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\LoginFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\LoginFrame.Designer.cs">
+			<DependentUpon>LoginFrame.cs</DependentUpon>
+		</Compile>
+		<Compile Update="Configs\Frames\LoginFrameType.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\TestFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="Configs\Frames\TestFrame.Designer.cs">
+			<DependentUpon>TestFrame.cs</DependentUpon>
+		</Compile>
+
+		<Compile Update="Controls\PathSeacher.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Controls\AboutLabel.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Controls\InfoAlarm.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Controls\ConnectButton.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Controls\LoginControl.cs">
+			<SubType>Component</SubType>
+		</Compile>
+
+		<Compile Update="DataSource\DataSource.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="DataSource\EdQty.cs">
+			<SubType>Component</SubType>
+		</Compile>
+
+		<Compile Update="Grids\GridGh.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Grids\HighlightingViewGh.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="Grids\GridHighLiteSetting.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="Grids\GridHighLiteSetting.Designer.cs">
+			<DependentUpon>GridHighLiteSetting.cs</DependentUpon>
+		</Compile>
+
+		<Compile Update="Images\ActionImages.cs">
+			<SubType>Component</SubType>
+		</Compile>
+
+		<Compile Update="LayoutControl\ButtonsPanel.cs">
+			<SubType>Component</SubType>
+		</Compile>
+		<Compile Update="LayoutControl\LayoutControlGh.cs">
+			<SubType>Component</SubType>
+		</Compile>
+
+		<Compile Update="NHibernate\UpdateProcessor.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="NHibernate\UpdateProcessor.Designer.cs">
+			<DependentUpon>UpdateProcessor.cs</DependentUpon>
+		</Compile>
+
+		<Compile Update="UserForms\AboutBox.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="UserForms\AboutBox.Designer.cs">
+			<DependentUpon>AboutBox.cs</DependentUpon>
+		</Compile>
+		<Compile Update="UserForms\SimpleForm.cs">
+			<SubType>Form</SubType>
+		</Compile>
+		<Compile Update="UserForms\SplashScreen.cs">
+			<SubType>Form</SubType>
+		</Compile>
+
+		<Compile Update="UserFrames\AbstractFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="UserFrames\NavFrames\FrameHolder.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="UserFrames\NavFrames\NavFrame.Main.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="UserFrames\NavFrames\NavFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+		<Compile Update="UserFrames\SavedFrame.cs">
+			<SubType>UserControl</SubType>
+		</Compile>
+	<Compile Update="ActionList\ActionCollection.cs" /><Compile Update="ActionList\ActionTargetDescriptionInfo.cs" /><Compile Update="ActionList\ComponentExtension.cs" /><Compile Update="ActionList\MessageHook.cs" /><Compile Update="ActionList\StandardActionAttribute.cs" /><Compile Update="Application\AppContext.cs" /><Compile Update="Application\IAppContext.cs" /><Compile Update="Application\NamedPipeManager.cs" /><Compile Update="Application\RunContext.cs" /><Compile Update="Application\VersionHelper.cs" /><Compile Update="Application\WM_Messages.cs" /><Compile Update="Attributes\DbConnectionProperty.cs" /><Compile Update="Attributes\Designers\PropertyGridExtender.cs" /><Compile Update="Attributes\Editors\BaseListEditor.cs" /><Compile Update="Attributes\EditorType.cs" /><Compile Update="Attributes\GHClassDisplayAttribute.cs" /><Compile Update="Attributes\Designers\BaseControlDesignerSimple.cs" /><Compile Update="Configs\Cfg\CfgApp.cs" /><Compile Update="Configs\Cfg\CfgCore.cs" /><Compile Update="Configs\Cfg\CfgCoreConnection.cs" /><Compile Update="Configs\IniFile\IniFile.cs" /><Compile Update="Configs\IniFile\IniHelper.cs" /><Compile Update="DataSource\DataSource.Actions.cs"><SubType>Component</SubType></Compile><Compile Update="DataSource\DocSupport.Editors.cs" /><Compile Update="Attributes\UpdatableProperty.cs" /><Compile Update="Helpers\EnumHelper.cs" /><Compile Update="Helpers\SizeHeper.cs" /><Compile Update="Grids\HLViewGhInfoRegistrator.cs" /><Compile Update="Grids\ViewGh.cs"><SubType>Component</SubType></Compile><Compile Update="Grids\ViewGhInfoRegistrator.cs" /><Compile Update="Grids\ViewHandlerGh.cs" /><Compile Update="Grids\ViewInfoGh.cs" /><Compile Update="Interfaces\IAppForm.cs" /><Compile Update="Interfaces\IBarsForm.cs" /><Compile Update="Interfaces\ICaption.cs" /><Compile Update="Interfaces\IDataSource.cs" /><Compile Update="Interfaces\IDetailsFrame.cs" /><Compile Update="Interfaces\INavBarForm.cs" /><Compile Update="Interfaces\INavBarGroupFrame.cs" /><Compile Update="Interfaces\IOpenData.cs" /><Compile Update="Interfaces\IOrderStatus.cs" /><Compile Update="Interfaces\IRibbonControlFrame.cs" /><Compile Update="Interfaces\IRibbonForm.cs" /><Compile Update="Interfaces\ISavedControl.cs" /><Compile Update="Interfaces\ITitle.cs" /><Compile Update="Interfaces\IUpdateAlarm.cs" /><Compile Update="Interfaces\IUpdate_reminder.cs" /><Compile Update="NHibernate\Entities\AbstractEntity.cs" /><Compile Update="NHibernate\Entities\BaseEntity.cs" /><Compile Update="NHibernate\Entities\BaseUser.cs" /><Compile Update="NHibernate\Entities\Field.cs" /><Compile Update="NHibernate\FactoryCriator.cs" /><Compile Update="UserExceptions\NotImplemented.cs" /><Compile Update="DataSource\BindingControlMap.cs" /><Compile Update="Attributes\Editors\DataSourceListEditor.cs" /><Compile Update="DataSource\DataState.cs" /><Compile Update="DataSource\Delegates.cs" /><Compile Update="DataSource\DetailsList.cs" /><Compile Update="DataSource\DetailSource.cs" /><Compile Update="DataSource\DisablePagesReason.cs" /><Compile Update="DataSource\DocSupport.cs" /><Compile Update="DataSource\EditGrants.cs" /><Compile Update="DataSource\EditTypes.cs" /><Compile Update="DataSource\PageSupport.cs" /><Compile Update="Grids\GridHighLiteProcessor.cs" /><Compile Update="Helpers\ClipboardHelper.cs" /><Compile Update="Helpers\FileHelper.cs" /><Compile Update="Helpers\GHException.cs" /><Compile Update="Helpers\ObjectHelper.cs" /><Compile Update="Images\EditTypesConst.cs" /><Compile Update="Images\EditTypesExtension.cs" /><Compile Update="Attributes\MapAttribute.cs" /><Compile Update="LayoutControl\IPagesFrame.cs" /><Compile Update="NHibernate\IFactoryCriator.cs" /><Compile Update="NHibernate\INHRepository.cs" /><Compile Update="NHibernate\NHHelper.cs" /><Compile Update="NHibernate\NHRepository.cs" /><Compile Update="Properties\AssemblyInfo.cs" /><Compile Update="Helpers\ActionsCreateHelper.cs" /><Compile Update="Attributes\GHEvents.cs" /><Compile Update="Attributes\GHProperty.cs" /><Compile Update="Helpers\OptionsHelper.cs" /><Compile Update="UserExceptions\UserExceptions.cs" /><Compile Update="Utils\DlgHelper.cs" /><Compile Update="Utils\Internet.cs" /><Compile Update="Utils\LayoutHelper.cs" /><Compile Update="Utils\Logger.cs" /><Compile Update="Utils\Protector.cs" /><Compile Update="Utils\StringExtensions.cs" /><Compile Update="Utils\UtilsGh.cs" /></ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Configs\Forms\CfgForm.resx">
+			<DependentUpon>CfgForm.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Forms\CfgFormType.resx">
+			<DependentUpon>CfgFormType.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="Configs\Frames\CfgBaseFrame.resx">
+			<DependentUpon>CfgBaseFrame.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\CfgConnectFrame.resx">
+			<DependentUpon>CfgConnectFrame.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\CfgConnectFrameType.resx">
+			<DependentUpon>CfgConnectFrameType.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\CfgCoreFrame.resx">
+			<DependentUpon>CfgCoreFrame.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\CfgCoreFrameType.resx">
+			<DependentUpon>CfgCoreFrameType.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\LoginFrame.resx">
+			<DependentUpon>LoginFrame.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\LoginFrameType.resx">
+			<DependentUpon>LoginFrameType.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Configs\Frames\TestFrame.resx">
+			<DependentUpon>TestFrame.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="Controls\ConnectButton.resx">
+			<DependentUpon>ConnectButton.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="Grids\GridHighLiteSetting.resx">
+			<DependentUpon>GridHighLiteSetting.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="Images\ActionImages.resx">
+			<DependentUpon>ActionImages.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="NHibernate\UpdateProcessor.resx">
+			<DependentUpon>UpdateProcessor.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="UserForms\AboutBox.resx">
+			<DependentUpon>AboutBox.cs</DependentUpon>
+		</EmbeddedResource>
+		<EmbeddedResource Update="UserForms\SplashScreen.resx">
+			<DependentUpon>SplashScreen.cs</DependentUpon>
+		</EmbeddedResource>
+
+		<EmbeddedResource Update="UserFrames\AbstractFrame.resx">
+			<DependentUpon>AbstractFrame.cs</DependentUpon>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="DevExpress.Win.Design" Version="25.2.7" />
+		<PackageReference Include="EventHook.Core.Temporary" Version="1.3.2" />
+		<PackageReference Include="FluentNHibernate" Version="3.4.1" />
+		<PackageReference Include="log4net" Version="3.3.1" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3967.48" />
+		<PackageReference Include="MySql.Data" Version="9.7.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	</ItemGroup>
+
+</Project>

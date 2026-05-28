@@ -1,0 +1,625 @@
+﻿namespace MeshokBrowser.Workers
+{
+    partial class ScanSettingClients
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+        #region Windows Form Designer generated code
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
+            this.layoutControl = new DevExpress.XtraLayout.LayoutControl();
+            this.detailsGrid = new DevExpress.XtraGrid.GridControl();
+            this.detailSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colDealId = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealTitle = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealPrice = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDealDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCurrStatus = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.checkNeedAdd = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.clientsGrid = new DevExpress.XtraGrid.GridControl();
+            this.gridView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colc_name = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colc_md_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cboc_md_id = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colc_mp_id = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.cboc_mp_id = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.colc_zipcode = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
+            this.infoGrid = new DevExpress.XtraVerticalGrid.VGridControl();
+            this.ButtonEdit = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
+            this.MemoEdit = new DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit();
+            this.data = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
+            this.rowsite_id = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_nick = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_id = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_name = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_phone = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_email = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_address = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_enabled = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.address = new DevExpress.XtraVerticalGrid.Rows.CategoryRow();
+            this.rowsite_address = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowc_zipcode = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowchange_address = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rowInfo = new DevExpress.XtraVerticalGrid.Rows.EditorRow();
+            this.rootGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcClients = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcClientInfo = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcDetails = new DevExpress.XtraLayout.LayoutControlItem();
+            this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
+            this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).BeginInit();
+            this.layoutControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.detailsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detailSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkNeedAdd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientsGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboc_md_id)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboc_mp_id)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.infoGrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ButtonEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MemoEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcClients)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcClientInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // dataSource
+            // 
+            this.dataSource.DataSource = typeof(MeshokBrowser.NHibernate.Client);
+            this.dataSource.Grid = this.clientsGrid;
+            this.dataSource.OnOpen += new GH.Components.OpenHandler(this.dataSource_OnOpen);
+            this.dataSource.PositionChanged += new System.EventHandler(this.bindingSource_PositionChanged);
+            // 
+            // layoutControl
+            // 
+            this.layoutControl.Controls.Add(this.detailsGrid);
+            this.layoutControl.Controls.Add(this.clientsGrid);
+            this.layoutControl.Controls.Add(this.infoGrid);
+            this.layoutControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl.Name = "layoutControl";
+            this.layoutControl.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(831, 113, 450, 400);
+            this.layoutControl.Root = this.rootGroup;
+            this.layoutControl.Size = new System.Drawing.Size(867, 545);
+            this.layoutControl.TabIndex = 6;
+            this.layoutControl.Text = "layoutControl1";
+            // 
+            // detailsGrid
+            // 
+            this.detailsGrid.DataSource = this.detailSource;
+            this.detailsGrid.Location = new System.Drawing.Point(12, 227);
+            this.detailsGrid.MainView = this.gridView1;
+            this.detailsGrid.Name = "detailsGrid";
+            this.detailsGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.checkNeedAdd});
+            this.detailsGrid.Size = new System.Drawing.Size(510, 306);
+            this.detailsGrid.TabIndex = 8;
+            this.detailsGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+            // detailSource
+            // 
+            this.detailSource.DataSource = typeof(MeshokBrowser.NHibernate.Client);
+            // 
+            // gridView1
+            // 
+            this.gridView1.ActiveFilterEnabled = false;
+            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colDealId,
+            this.colDealTitle,
+            this.colDealPrice,
+            this.colDealDate,
+            this.colCurrStatus});
+            this.gridView1.GridControl = this.detailsGrid;
+            this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowFixedGroups = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowGroupExpandAnimation = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView1.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView1.OptionsBehavior.CacheValuesOnRowUpdating = DevExpress.Data.CacheRowValuesMode.Disabled;
+            this.gridView1.OptionsBehavior.EditingMode = DevExpress.XtraGrid.Views.Grid.GridEditingMode.Inplace;
+            this.gridView1.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView1.OptionsCustomization.AllowFilter = false;
+            this.gridView1.OptionsCustomization.AllowSort = false;
+            this.gridView1.OptionsDetail.EnableMasterViewMode = false;
+            this.gridView1.OptionsDetail.ShowDetailTabs = false;
+            this.gridView1.OptionsView.EnableAppearanceEvenRow = true;
+            this.gridView1.OptionsView.EnableAppearanceOddRow = true;
+            this.gridView1.OptionsView.ShowGroupPanel = false;
+            // 
+            // colDealId
+            // 
+            this.colDealId.FieldName = "deal_id";
+            this.colDealId.Name = "colDealId";
+            this.colDealId.OptionsColumn.AllowEdit = false;
+            this.colDealId.OptionsColumn.ReadOnly = true;
+            this.colDealId.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colDealId.Visible = true;
+            this.colDealId.VisibleIndex = 0;
+            this.colDealId.Width = 81;
+            // 
+            // colDealTitle
+            // 
+            this.colDealTitle.FieldName = "deal_title";
+            this.colDealTitle.Name = "colDealTitle";
+            this.colDealTitle.OptionsColumn.AllowEdit = false;
+            this.colDealTitle.OptionsColumn.ReadOnly = true;
+            this.colDealTitle.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colDealTitle.Visible = true;
+            this.colDealTitle.VisibleIndex = 1;
+            this.colDealTitle.Width = 420;
+            // 
+            // colDealPrice
+            // 
+            this.colDealPrice.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colDealPrice.FieldName = "price";
+            this.colDealPrice.Name = "colDealPrice";
+            this.colDealPrice.OptionsColumn.AllowEdit = false;
+            this.colDealPrice.OptionsColumn.ReadOnly = true;
+            this.colDealPrice.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            this.colDealPrice.Visible = true;
+            this.colDealPrice.VisibleIndex = 3;
+            this.colDealPrice.Width = 83;
+            // 
+            // colDealDate
+            // 
+            this.colDealDate.FieldName = "date";
+            this.colDealDate.Name = "colDealDate";
+            this.colDealDate.OptionsColumn.AllowEdit = false;
+            this.colDealDate.OptionsColumn.ReadOnly = true;
+            this.colDealDate.UnboundType = DevExpress.Data.UnboundColumnType.DateTime;
+            this.colDealDate.Visible = true;
+            this.colDealDate.VisibleIndex = 2;
+            this.colDealDate.Width = 82;
+            // 
+            // colCurrStatus
+            // 
+            this.colCurrStatus.FieldName = "site_status";
+            this.colCurrStatus.Name = "colCurrStatus";
+            this.colCurrStatus.OptionsColumn.AllowEdit = false;
+            this.colCurrStatus.OptionsColumn.ReadOnly = true;
+            this.colCurrStatus.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colCurrStatus.Visible = true;
+            this.colCurrStatus.VisibleIndex = 4;
+            this.colCurrStatus.Width = 100;
+            // 
+            // checkNeedAdd
+            // 
+            this.checkNeedAdd.AutoHeight = false;
+            this.checkNeedAdd.Name = "checkNeedAdd";
+            this.checkNeedAdd.NullStyle = DevExpress.XtraEditors.Controls.StyleIndeterminate.Unchecked;
+            this.checkNeedAdd.ValueGrayed = false;
+            // 
+            // clientsGrid
+            // 
+            this.clientsGrid.DataSource = this.dataSource;
+            this.clientsGrid.Location = new System.Drawing.Point(12, 28);
+            this.clientsGrid.MainView = this.gridView;
+            this.clientsGrid.Name = "clientsGrid";
+            this.clientsGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.cboc_md_id,
+            this.cboc_mp_id,
+            this.repositoryItemLookUpEdit1});
+            this.clientsGrid.Size = new System.Drawing.Size(510, 174);
+            this.clientsGrid.TabIndex = 4;
+            this.clientsGrid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView});
+            // 
+            // gridView
+            // 
+            this.gridView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colc_name,
+            this.colc_md_id,
+            this.colc_mp_id,
+            this.colc_zipcode});
+            this.gridView.GridControl = this.clientsGrid;
+            this.gridView.Name = "gridView";
+            this.gridView.OptionsBehavior.AlignGroupSummaryInGroupRow = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowAddRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowDeleteRows = DevExpress.Utils.DefaultBoolean.False;
+            this.gridView.OptionsBehavior.AllowIncrementalSearch = true;
+            this.gridView.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView.OptionsCustomization.AllowFilter = false;
+            this.gridView.OptionsCustomization.AllowSort = false;
+            this.gridView.OptionsView.ShowGroupPanel = false;
+            // 
+            // colc_name
+            // 
+            this.colc_name.FieldName = "c_name";
+            this.colc_name.Name = "colc_name";
+            this.colc_name.OptionsColumn.AllowEdit = false;
+            this.colc_name.OptionsColumn.AllowFocus = false;
+            this.colc_name.OptionsColumn.ReadOnly = true;
+            this.colc_name.OptionsColumn.TabStop = false;
+            this.colc_name.UnboundType = DevExpress.Data.UnboundColumnType.String;
+            this.colc_name.Visible = true;
+            this.colc_name.VisibleIndex = 0;
+            this.colc_name.Width = 200;
+            // 
+            // colc_md_id
+            // 
+            this.colc_md_id.ColumnEdit = this.cboc_md_id;
+            this.colc_md_id.FieldName = "md_id";
+            this.colc_md_id.Name = "colc_md_id";
+            this.colc_md_id.OptionsColumn.AllowIncrementalSearch = false;
+            this.colc_md_id.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colc_md_id.Visible = true;
+            this.colc_md_id.VisibleIndex = 1;
+            this.colc_md_id.Width = 120;
+            // 
+            // cboc_md_id
+            // 
+            this.cboc_md_id.AutoHeight = false;
+            this.cboc_md_id.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboc_md_id.Name = "cboc_md_id";
+            this.cboc_md_id.ShowFooter = false;
+            this.cboc_md_id.ShowHeader = false;
+            // 
+            // colc_mp_id
+            // 
+            this.colc_mp_id.ColumnEdit = this.cboc_mp_id;
+            this.colc_mp_id.FieldName = "mp_id";
+            this.colc_mp_id.Name = "colc_mp_id";
+            this.colc_mp_id.OptionsColumn.AllowIncrementalSearch = false;
+            this.colc_mp_id.OptionsColumn.AllowSort = DevExpress.Utils.DefaultBoolean.False;
+            this.colc_mp_id.Visible = true;
+            this.colc_mp_id.VisibleIndex = 2;
+            this.colc_mp_id.Width = 120;
+            // 
+            // cboc_mp_id
+            // 
+            this.cboc_mp_id.AutoHeight = false;
+            this.cboc_mp_id.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboc_mp_id.Name = "cboc_mp_id";
+            this.cboc_mp_id.ShowFooter = false;
+            this.cboc_mp_id.ShowHeader = false;
+            // 
+            // colc_zipcode
+            // 
+            this.colc_zipcode.FieldName = "c_zipcode";
+            this.colc_zipcode.Name = "colc_zipcode";
+            this.colc_zipcode.Visible = true;
+            this.colc_zipcode.VisibleIndex = 3;
+            // 
+            // repositoryItemLookUpEdit1
+            // 
+            this.repositoryItemLookUpEdit1.AutoHeight = false;
+            this.repositoryItemLookUpEdit1.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemLookUpEdit1.Name = "repositoryItemLookUpEdit1";
+            // 
+            // infoGrid
+            // 
+            this.infoGrid.Cursor = System.Windows.Forms.Cursors.Default;
+            this.infoGrid.DataSource = this.dataSource;
+            this.infoGrid.LayoutStyle = DevExpress.XtraVerticalGrid.LayoutViewStyle.SingleRecordView;
+            this.infoGrid.Location = new System.Drawing.Point(531, 28);
+            this.infoGrid.Name = "infoGrid";
+            this.infoGrid.OptionsBehavior.UseEnterAsTab = true;
+            this.infoGrid.RecordWidth = 124;
+            this.infoGrid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.ButtonEdit,
+            this.MemoEdit});
+            this.infoGrid.RowHeaderWidth = 76;
+            this.infoGrid.Rows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.data,
+            this.rowc_address,
+            this.address,
+            this.rowchange_address,
+            this.rowInfo});
+            this.infoGrid.ScrollVisibility = DevExpress.XtraVerticalGrid.ScrollVisibility.Vertical;
+            this.infoGrid.Size = new System.Drawing.Size(324, 505);
+            this.infoGrid.TabIndex = 7;
+            // 
+            // ButtonEdit
+            // 
+            this.ButtonEdit.Appearance.Options.UseTextOptions = true;
+            this.ButtonEdit.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.ButtonEdit.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
+            this.ButtonEdit.AutoHeight = false;
+            this.ButtonEdit.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis, "Расписать", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            this.ButtonEdit.Name = "ButtonEdit";
+            // 
+            // MemoEdit
+            // 
+            this.MemoEdit.Appearance.Options.UseTextOptions = true;
+            this.MemoEdit.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.MemoEdit.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
+            this.MemoEdit.Name = "MemoEdit";
+            // 
+            // data
+            // 
+            this.data.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowsite_id,
+            this.rowc_id,
+            this.rowc_name,
+            this.rowc_phone,
+            this.rowc_email});
+            this.data.Name = "data";
+            this.data.Properties.Caption = "Данные";
+            // 
+            // rowsite_id
+            // 
+            this.rowsite_id.Appearance.Options.UseTextOptions = true;
+            this.rowsite_id.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.rowsite_id.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowc_nick});
+            this.rowsite_id.Expanded = false;
+            this.rowsite_id.Name = "rowsite_id";
+            this.rowsite_id.Properties.Caption = "ID Сайта";
+            this.rowsite_id.Properties.FieldName = "site_id";
+            this.rowsite_id.Properties.ReadOnly = true;
+            // 
+            // rowc_nick
+            // 
+            this.rowc_nick.Name = "rowc_nick";
+            this.rowc_nick.Properties.Caption = "Nic";
+            this.rowc_nick.Properties.FieldName = "c_nick";
+            this.rowc_nick.Properties.ReadOnly = true;
+            // 
+            // rowc_id
+            // 
+            this.rowc_id.Appearance.Options.UseTextOptions = true;
+            this.rowc_id.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
+            this.rowc_id.Height = 16;
+            this.rowc_id.Name = "rowc_id";
+            this.rowc_id.Properties.Caption = "ID Базы";
+            this.rowc_id.Properties.FieldName = "base_id";
+            this.rowc_id.Properties.ReadOnly = true;
+            // 
+            // rowc_name
+            // 
+            this.rowc_name.Name = "rowc_name";
+            this.rowc_name.Properties.Caption = "Ф.И.О.";
+            this.rowc_name.Properties.FieldName = "c_name";
+            this.rowc_name.Properties.ReadOnly = true;
+            // 
+            // rowc_phone
+            // 
+            this.rowc_phone.Name = "rowc_phone";
+            this.rowc_phone.Properties.Caption = "Телефон";
+            this.rowc_phone.Properties.FieldName = "c_phone";
+            // 
+            // rowc_email
+            // 
+            this.rowc_email.Name = "rowc_email";
+            this.rowc_email.Properties.Caption = "E-Mail";
+            this.rowc_email.Properties.FieldName = "c_email";
+            this.rowc_email.Properties.ReadOnly = true;
+            // 
+            // rowc_address
+            // 
+            this.rowc_address.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowc_enabled});
+            this.rowc_address.Height = 80;
+            this.rowc_address.Name = "rowc_address";
+            this.rowc_address.Properties.Caption = "Адрес из базы";
+            this.rowc_address.Properties.FieldName = "c_address";
+            this.rowc_address.Properties.ReadOnly = true;
+            this.rowc_address.Properties.RowEdit = this.MemoEdit;
+            // 
+            // rowc_enabled
+            // 
+            this.rowc_enabled.Name = "rowc_enabled";
+            this.rowc_enabled.Properties.Caption = "Активен";
+            this.rowc_enabled.Properties.FieldName = "c_enabled";
+            this.rowc_enabled.Properties.UnboundType = DevExpress.Data.UnboundColumnType.Boolean;
+            // 
+            // address
+            // 
+            this.address.ChildRows.AddRange(new DevExpress.XtraVerticalGrid.Rows.BaseRow[] {
+            this.rowsite_address,
+            this.rowc_zipcode});
+            this.address.Name = "address";
+            this.address.Properties.Caption = "Адрес";
+            // 
+            // rowsite_address
+            // 
+            this.rowsite_address.Height = 80;
+            this.rowsite_address.Name = "rowsite_address";
+            this.rowsite_address.Properties.Caption = "Адрес с сайта";
+            this.rowsite_address.Properties.FieldName = "site_address";
+            this.rowsite_address.Properties.RowEdit = this.MemoEdit;
+            // 
+            // rowc_zipcode
+            // 
+            this.rowc_zipcode.Name = "rowc_zipcode";
+            this.rowc_zipcode.Properties.Caption = "Индекс";
+            this.rowc_zipcode.Properties.FieldName = "c_zipcode";
+            // 
+            // rowchange_address
+            // 
+            this.rowchange_address.Height = 17;
+            this.rowchange_address.Name = "rowchange_address";
+            this.rowchange_address.Properties.Caption = "Изменить адрес";
+            this.rowchange_address.Properties.FieldName = "change_address";
+            // 
+            // rowInfo
+            // 
+            this.rowInfo.Appearance.BorderColor = System.Drawing.Color.OrangeRed;
+            this.rowInfo.Appearance.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.rowInfo.Appearance.Options.UseBorderColor = true;
+            this.rowInfo.Appearance.Options.UseForeColor = true;
+            this.rowInfo.Height = 100;
+            this.rowInfo.Name = "rowInfo";
+            this.rowInfo.Properties.Caption = "Для справки";
+            this.rowInfo.Properties.FieldName = "c_full_info";
+            this.rowInfo.Properties.ReadOnly = true;
+            this.rowInfo.Properties.RowEdit = this.MemoEdit;
+            // 
+            // rootGroup
+            // 
+            this.rootGroup.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.rootGroup.GroupBordersVisible = false;
+            this.rootGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcClients,
+            this.lcClientInfo,
+            this.lcDetails,
+            this.splitterItem2,
+            this.splitterItem1});
+            this.rootGroup.Name = "Root";
+            this.rootGroup.Size = new System.Drawing.Size(867, 545);
+            this.rootGroup.TextVisible = false;
+            // 
+            // lcClients
+            // 
+            this.lcClients.Control = this.clientsGrid;
+            this.lcClients.Location = new System.Drawing.Point(0, 0);
+            this.lcClients.Name = "lcClients";
+            this.lcClients.Size = new System.Drawing.Size(514, 194);
+            this.lcClients.Text = "Установите требуемые способы доставки и оплаты...";
+            this.lcClients.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lcClients.TextSize = new System.Drawing.Size(277, 13);
+            // 
+            // lcClientInfo
+            // 
+            this.lcClientInfo.Control = this.infoGrid;
+            this.lcClientInfo.Location = new System.Drawing.Point(519, 0);
+            this.lcClientInfo.Name = "lcClientInfo";
+            this.lcClientInfo.Size = new System.Drawing.Size(328, 525);
+            this.lcClientInfo.Text = "Развёрнутые данные (можно изменять)";
+            this.lcClientInfo.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lcClientInfo.TextSize = new System.Drawing.Size(277, 13);
+            // 
+            // lcDetails
+            // 
+            this.lcDetails.Control = this.detailsGrid;
+            this.lcDetails.Location = new System.Drawing.Point(0, 199);
+            this.lcDetails.Name = "lcDetails";
+            this.lcDetails.Size = new System.Drawing.Size(514, 326);
+            this.lcDetails.Text = "Заказы клиента";
+            this.lcDetails.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lcDetails.TextSize = new System.Drawing.Size(277, 13);
+            // 
+            // splitterItem2
+            // 
+            this.splitterItem2.AllowHotTrack = true;
+            this.splitterItem2.Location = new System.Drawing.Point(0, 194);
+            this.splitterItem2.Name = "splitterItem2";
+            this.splitterItem2.Size = new System.Drawing.Size(514, 5);
+            // 
+            // splitterItem1
+            // 
+            this.splitterItem1.AllowHotTrack = true;
+            this.splitterItem1.Location = new System.Drawing.Point(514, 0);
+            this.splitterItem1.Name = "splitterItem1";
+            this.splitterItem1.Size = new System.Drawing.Size(5, 525);
+            // 
+            // ScanSettingClients
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Caption = "Проверка данных по заказам";
+            this.Controls.Add(this.layoutControl);
+            this.Name = "ScanSettingClients";
+            this.Size = new System.Drawing.Size(867, 545);
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl)).EndInit();
+            this.layoutControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.detailsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.detailSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkNeedAdd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.clientsGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboc_md_id)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cboc_mp_id)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemLookUpEdit1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.infoGrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ButtonEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MemoEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.rootGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcClients)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcClientInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
+            this.ResumeLayout(false);
+        }
+        #endregion
+        //private System.Windows.Forms.BindingSource BindingSource;
+        //private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraLayout.LayoutControl layoutControl;
+        private DevExpress.XtraGrid.GridControl clientsGrid;
+        internal DevExpress.XtraGrid.Views.Grid.GridView gridView;
+        private DevExpress.XtraGrid.Columns.GridColumn colc_name;
+        private DevExpress.XtraGrid.Columns.GridColumn colc_md_id;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboc_md_id;
+        private DevExpress.XtraGrid.Columns.GridColumn colc_mp_id;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit cboc_mp_id;
+        private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
+        private DevExpress.XtraVerticalGrid.VGridControl infoGrid;
+        private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit ButtonEdit;
+        private DevExpress.XtraEditors.Repository.RepositoryItemMemoEdit MemoEdit;
+        private DevExpress.XtraVerticalGrid.Rows.CategoryRow data;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowsite_id;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_nick;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_id;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_name;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_phone;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_email;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_address;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_enabled;
+        private DevExpress.XtraVerticalGrid.Rows.CategoryRow address;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowsite_address;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowc_zipcode;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowchange_address;
+        private DevExpress.XtraVerticalGrid.Rows.EditorRow rowInfo;
+        private DevExpress.XtraLayout.LayoutControlGroup rootGroup;
+        private DevExpress.XtraLayout.LayoutControlItem lcClients;
+        private DevExpress.XtraLayout.LayoutControlItem lcClientInfo;
+        private DevExpress.XtraLayout.SplitterItem splitterItem1;
+        private DevExpress.XtraGrid.Columns.GridColumn colc_zipcode;
+        private DevExpress.XtraLayout.SplitterItem splitterItem2;
+        private System.Windows.Forms.BindingSource detailSource;
+        private DevExpress.XtraGrid.GridControl detailsGrid;
+        internal DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit checkNeedAdd;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealId;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealTitle;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealPrice;
+        private DevExpress.XtraGrid.Columns.GridColumn colDealDate;
+        private DevExpress.XtraGrid.Columns.GridColumn colCurrStatus;
+        private DevExpress.XtraLayout.LayoutControlItem lcDetails;
+    }
+}

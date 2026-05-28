@@ -1,0 +1,39 @@
+﻿using DevExpress.XtraLayout;
+using GH.Configs;
+using GH.Controls;
+namespace MeshokBrowser
+{
+    public partial class MainConfigFrame : BaseFrame, IPagesFrame
+    {
+        TabbedControlGroup _pagesGroup = null;
+        public TabbedControlGroup PagesGroup { get => _pagesGroup; set => _pagesGroup = value; }
+        LayoutControlGroup pageBridgenote = null;
+        LayoutControlGroup pageMeshok = null;
+        LayoutControlGroup pageIShop = null;
+        LayoutControlGroup pageCDUchet = null;
+        public MainConfigFrame()
+        {
+            InitializeComponent();
+            pageIShop = layoutControl.AppControlToPage(new CfgFrameIShop() { Caption = "База I-Shop" }, this);
+            pageCDUchet = layoutControl.AppControlToPage(new CfgFrameCDUchet() { Caption = "База CD-UCHET" }, this);
+            pageBridgenote = layoutControl.AppControlToPage(new CfgFrameBridgeNote() { Caption = "База bridgenote.com" }, this);
+            pageMeshok = layoutControl.AppControlToPage(new CfgFrameMeshok() { Caption = "Сайт meshok.net" }, this);
+        }
+        public void ActiveIShop()
+        {
+            PagesGroup.SelectedTabPage = pageIShop;
+        }
+        public void ActiveCDUchet()
+        {
+            PagesGroup.SelectedTabPage = pageCDUchet;
+        }
+        public void ActiveMeshok()
+        {
+            PagesGroup.SelectedTabPage = pageMeshok;
+        }
+        public void ActiveBridgeNote()
+        {
+            PagesGroup.SelectedTabPage = pageBridgenote;
+        }
+    }
+}

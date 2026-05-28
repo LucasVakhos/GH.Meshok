@@ -1,0 +1,116 @@
+﻿namespace MeshokBrowser.Workers
+{
+    public static class LotNamesHelper
+    {
+        public static string SuppresNonCSVChars(string src, bool delete_brecket = false)
+        {
+            string result = "";
+            switch (src)
+            {
+                case "КОМПАКТ-ДИСК":
+                    return "CD";
+                case "ВИНИЛОВЫЙ ДИСК":
+                    return "LP";
+                case "ВИДЕО КАССЕТА":
+                    return "VHS";
+                default:
+                    {
+                        if (src.IndexOf("БОКС") == 0)
+                        {
+                            result = src.Remove(0, "БОКС".Length).Trim();
+                        }
+                        else if (src.IndexOf("НАБОР") == 0)
+                        {
+                            result = src.Remove(0, "НАБОР".Length).Trim();
+                        }
+                        if (result != "")
+                            return result;
+                        break;
+                    }
+            }
+            foreach (char c in src)
+            {
+                switch (c)
+                {
+                    case (char)13:
+                        result += ' ';
+                        break;
+                    case (char)10:
+                        result += ' ';
+                        break;
+                    case '|':
+                        result += ' ';
+                        break;
+                    case '(':
+                        if (delete_brecket)
+                            result += ' ';
+                        else
+                            result += c;
+                        break;
+                    case ')':
+                        if (delete_brecket)
+                            result += ' ';
+                        else
+                            result += c;
+                        break;
+                    default:
+                        result += c;
+                        break;
+                }
+            }
+            while (result.Contains("  "))
+                result = result.Replace("  ", " ");
+            return result.Trim();
+        }
+        private static string PrepareText(string text)
+        {
+            text = text.Replace(".", ". ");
+            text = text.Replace(",", ", ");
+            text = text.Replace("(", " (");
+            text = text.Replace(")", ") ");
+            while (text.Contains("  "))
+                text = text.Replace("  ", " ");
+            return text.Trim();
+        }
+        public static string CreateLotName(string artist, string title, string format, string quality, string barcode)
+        {
+            artist = PrepareText(SuppresNonCSVChars(artist.Trim()));
+            title = PrepareText(SuppresNonCSVChars(title.Trim()));
+            format = SuppresNonCSVChars(format.Trim());
+            quality = quality.Trim();
+            barcode = barcode.Trim();
+        begin_form_here:
+            string lot_nane = $"{artist} - {title} /{format} /{quality} /{barcode}";
+            int len = lot_nane.Length;
+            if (len > 100)
+            {
+                len = len - 100;
+                int rem = 0;
+                if (artist.Length + len < title.Length)
+                {
+                    title = title.Substring(0, title.Length - len);
+                    len = 0;
+                }
+                else if (title.Length + len < artist.Length)
+                {
+                    artist = artist.Substring(0, artist.Length - len);
+                    len = 0;
+                }
+                if (len > 0)
+                {
+                    rem = len % 2;
+                    len = len / 2;
+                    artist = artist.Substring(0, artist.Length - len);
+                    title = title.Substring(0, title.Length - len);
+                    if (rem > 0)
+                        if (artist.Length > title.Length)
+                            artist = artist.Substring(0, artist.Length - rem);
+                        else
+                            title = title.Substring(0, title.Length - rem);
+                }
+                goto begin_form_here;
+            }
+            return lot_nane;
+        }
+    }
+}

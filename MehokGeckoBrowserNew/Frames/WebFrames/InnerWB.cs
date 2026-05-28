@@ -1,0 +1,110 @@
+﻿using Gecko;
+using GH.AppContext;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+namespace MeshokBrowser
+{
+    public partial class InnerWB : BaseFrame
+    {
+        //static internal bool browserVersionChecked = false;
+        public GeckoWebBrowser webBrowser
+        {
+            get
+            {
+                return wbMain;
+            }
+        }
+        public GeckoDocument Document { get { if (DesignMode) return null; return webBrowser.Document; } }
+        public int StatusCode { get; set; }
+        void SetBrowser()
+        {
+            StatusCode = 0;
+            wbMain.TabIndex = 0;
+            wbMain.NoDefaultContextMenu = true;
+            wbMain.Navigated += WbMain_Navigated;
+            wbMain.CreateWindow += WbMain_CreateWindow;
+        }
+        private void WbMain_CreateWindow(object sender, GeckoCreateWindowEventArgs e)
+        {
+            //e.Cancel = true;
+            e.InitialHeight = wbMain.Height;
+            e.InitialWidth = wbMain.Width;
+        }
+        private void WbMain_Navigated(object sender, GeckoNavigatedEventArgs e)
+        {
+            if (e.Response.HttpResponseStatus >= 400)
+                StatusCode = e.Response.HttpResponseStatus;
+            else
+                StatusCode = 0;
+            textBox1.Text = e.Uri.AbsoluteUri;
+        }
+        public bool InProfile()
+        {
+            //https://meshok.net/profile.php
+            return (Document.GetElementById("cz2") != null);
+        }
+        Dictionary<string, int> qtyDictionary = new Dictionary<string, int>();
+        public bool HasQty(string ident)
+        {
+            ident = "what=" + ident.ToLower();
+            var div = Document.GetElementById("cz2") as GeckoHtmlElement;
+            int qty = 0;
+            if (div == null)
+            {
+                qtyDictionary.TryGetValue(ident, out qty);
+                return qty > 0;
+            }
+            if (!qtyDictionary.ContainsKey(ident))
+                qtyDictionary.Add(ident, qty);
+            var a = div.GetElementsByTagName("a").Where(x => x.HasAttribute("href") &&
+                                    x.GetAttribute("href").Contains(ident)).FirstOrDefault();
+            if (a == null)
+                return false;
+            char[] sepChars = { ' ', '(', ')' };
+            string[] splitText = a.TextContent.Split(sepChars, StringSplitOptions.RemoveEmptyEntries);
+            if (splitText.Length < 2)
+                return false;
+            int.TryParse(splitText.Last(), out qty);
+            qtyDictionary[ident] = qty;
+            return qty > 0;
+        }
+        public InnerWB()
+        {
+            InitializeComponent();
+        }
+        public void Navigate(string urlString)
+        {
+            if (DesignMode) return;
+            StatusCode = 0;
+            RunContext.Invoke(() =>
+            {
+                webBrowser.Navigate(urlString);
+            });
+        }
+        public void RefreshBrowser()
+        {
+            RunContext.Invoke(() =>
+            {
+                webBrowser.Reload();
+            });
+        }
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            if (DesignMode) return;
+            webBrowser.Select();
+            webBrowser.GoBack();
+        }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            if (DesignMode) return;
+            webBrowser.Select();
+            RefreshBrowser();
+        }
+        private void InnerWB_Load(object sender, EventArgs e)
+        {
+            if (DesignMode) return;
+            SetBrowser();
+        }
+    }
+}

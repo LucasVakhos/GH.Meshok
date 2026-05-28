@@ -1,0 +1,272 @@
+﻿namespace MeshokBrowser.Workers
+{
+    partial class BeginingForm
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
+            this.layoutControl1 = new GH.Controls.LayoutControlGh();
+            this.cboOnPage = new DevExpress.XtraEditors.LookUpEdit();
+            this.dataSource = new GH.Components.DataSource(this.components);
+            this.checkAddLost = new DevExpress.XtraEditors.CheckEdit();
+            this.btnOK = new DevExpress.XtraEditors.SimpleButton();
+            this.btnCancel = new DevExpress.XtraEditors.SimpleButton();
+            this.layoutControlGroup1 = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.EnterGroup = new DevExpress.XtraLayout.LayoutControlGroup();
+            this.lcShowOnPage = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcAddLost = new DevExpress.XtraLayout.LayoutControlItem();
+            this.lcOk = new DevExpress.XtraLayout.LayoutControlItem();
+            this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+            this.lcCancel = new DevExpress.XtraLayout.LayoutControlItem();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
+            this.layoutControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.cboOnPage.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAddLost.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnterGroup)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcShowOnPage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddLost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcOk)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcCancel)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // layoutControl1
+            // 
+            this.layoutControl1.AllowCustomization = false;
+            this.layoutControl1.Controls.Add(this.cboOnPage);
+            this.layoutControl1.Controls.Add(this.checkAddLost);
+            this.layoutControl1.Controls.Add(this.btnOK);
+            this.layoutControl1.Controls.Add(this.btnCancel);
+            this.layoutControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.layoutControl1.Location = new System.Drawing.Point(0, 0);
+            this.layoutControl1.Name = "layoutControl1";
+            this.layoutControl1.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(472, 59, 487, 672);
+            this.layoutControl1.OptionsFocus.AllowFocusGroups = false;
+            this.layoutControl1.OptionsFocus.AllowFocusReadonlyEditors = false;
+            this.layoutControl1.OptionsFocus.AllowFocusTabbedGroups = false;
+            this.layoutControl1.Owner = this;
+            this.layoutControl1.Root = this.layoutControlGroup1;
+            this.layoutControl1.Size = new System.Drawing.Size(351, 208);
+            this.layoutControl1.TabIndex = 0;
+            this.layoutControl1.Text = "layoutControl1";
+            // 
+            // cboOnPage
+            // 
+            this.cboOnPage.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "ShowOnPage", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.cboOnPage.Location = new System.Drawing.Point(58, 59);
+            this.cboOnPage.Name = "cboOnPage";
+            this.cboOnPage.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.cboOnPage.Properties.DisplayMember = "Value";
+            this.cboOnPage.Properties.ValueMember = "Key";
+            this.cboOnPage.Size = new System.Drawing.Size(234, 20);
+            this.cboOnPage.StyleController = this.layoutControl1;
+            this.cboOnPage.TabIndex = 4;
+            // 
+            // dataSource
+            // 
+            this.dataSource.AllowInsert = false;
+            this.dataSource.AllowNew = false;
+            this.dataSource.DataSource = typeof(MeshokBrowser.Helpers.ScanSetting);
+            this.dataSource.Owner = this;
+            // 
+            // checkAddLost
+            // 
+            this.checkAddLost.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.dataSource, "AddLostDeals", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.checkAddLost.Location = new System.Drawing.Point(58, 89);
+            this.checkAddLost.Name = "checkAddLost";
+            this.checkAddLost.Properties.Caption = "Добавить пропущенные сделки";
+            this.checkAddLost.Size = new System.Drawing.Size(234, 19);
+            this.checkAddLost.StyleController = this.layoutControl1;
+            this.checkAddLost.TabIndex = 5;
+            // 
+            // btnOK
+            // 
+            this.btnOK.Location = new System.Drawing.Point(58, 137);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(112, 22);
+            this.btnOK.StyleController = this.layoutControl1;
+            this.btnOK.TabIndex = 6;
+            this.btnOK.Text = "Приступить";
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(180, 137);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(112, 22);
+            this.btnCancel.StyleController = this.layoutControl1;
+            this.btnCancel.TabIndex = 7;
+            this.btnCancel.Text = "Выход";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // layoutControlGroup1
+            // 
+            this.layoutControlGroup1.AppearanceGroup.Options.UseBackColor = true;
+            this.layoutControlGroup1.AppearanceGroup.Options.UseBorderColor = true;
+            this.layoutControlGroup1.AppearanceGroup.Options.UseFont = true;
+            this.layoutControlGroup1.AppearanceGroup.Options.UseForeColor = true;
+            this.layoutControlGroup1.AppearanceGroup.Options.UseTextOptions = true;
+            this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
+            this.layoutControlGroup1.GroupBordersVisible = false;
+            this.layoutControlGroup1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.EnterGroup});
+            this.layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
+            this.layoutControlGroup1.Name = "Root";
+            columnDefinition1.SizeType = System.Windows.Forms.SizeType.Percent;
+            columnDefinition1.Width = 50D;
+            columnDefinition2.SizeType = System.Windows.Forms.SizeType.Absolute;
+            columnDefinition2.Width = 250D;
+            columnDefinition3.SizeType = System.Windows.Forms.SizeType.Percent;
+            columnDefinition3.Width = 50D;
+            this.layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] {
+            columnDefinition1,
+            columnDefinition2,
+            columnDefinition3});
+            rowDefinition1.Height = 30D;
+            rowDefinition1.SizeType = System.Windows.Forms.SizeType.Percent;
+            rowDefinition2.Height = 150D;
+            rowDefinition2.SizeType = System.Windows.Forms.SizeType.Absolute;
+            rowDefinition3.Height = 70D;
+            rowDefinition3.SizeType = System.Windows.Forms.SizeType.Percent;
+            this.layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] {
+            rowDefinition1,
+            rowDefinition2,
+            rowDefinition3});
+            this.layoutControlGroup1.Size = new System.Drawing.Size(351, 208);
+            // 
+            // EnterGroup
+            // 
+            this.EnterGroup.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcShowOnPage,
+            this.lcAddLost,
+            this.lcOk,
+            this.emptySpaceItem1,
+            this.lcCancel});
+            this.EnterGroup.Location = new System.Drawing.Point(50, 17);
+            this.EnterGroup.Name = "EnterGroup";
+            this.EnterGroup.OptionsTableLayoutItem.ColumnIndex = 1;
+            this.EnterGroup.OptionsTableLayoutItem.RowIndex = 1;
+            this.EnterGroup.Size = new System.Drawing.Size(250, 150);
+            this.EnterGroup.Text = "Обработка сделок";
+            // 
+            // lcShowOnPage
+            // 
+            this.lcShowOnPage.Control = this.cboOnPage;
+            this.lcShowOnPage.Location = new System.Drawing.Point(0, 0);
+            this.lcShowOnPage.Name = "lcShowOnPage";
+            this.lcShowOnPage.Size = new System.Drawing.Size(244, 46);
+            this.lcShowOnPage.Text = "Показывать на странице";
+            this.lcShowOnPage.TextLocation = DevExpress.Utils.Locations.Top;
+            this.lcShowOnPage.TextSize = new System.Drawing.Size(127, 13);
+            // 
+            // lcAddLost
+            // 
+            this.lcAddLost.Control = this.checkAddLost;
+            this.lcAddLost.Location = new System.Drawing.Point(0, 46);
+            this.lcAddLost.Name = "lcAddLost";
+            this.lcAddLost.Size = new System.Drawing.Size(244, 29);
+            this.lcAddLost.Text = "Добавить пропущенные сделки";
+            this.lcAddLost.TextSize = new System.Drawing.Size(0, 0);
+            this.lcAddLost.TextVisible = false;
+            // 
+            // lcOk
+            // 
+            this.lcOk.Control = this.btnOK;
+            this.lcOk.Location = new System.Drawing.Point(0, 94);
+            this.lcOk.Name = "lcOk";
+            this.lcOk.Size = new System.Drawing.Size(122, 32);
+            this.lcOk.TextSize = new System.Drawing.Size(0, 0);
+            this.lcOk.TextVisible = false;
+            // 
+            // emptySpaceItem1
+            // 
+            this.emptySpaceItem1.AllowHotTrack = false;
+            this.emptySpaceItem1.Location = new System.Drawing.Point(0, 75);
+            this.emptySpaceItem1.Name = "emptySpaceItem1";
+            this.emptySpaceItem1.Size = new System.Drawing.Size(244, 19);
+            this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+            // 
+            // lcCancel
+            // 
+            this.lcCancel.Control = this.btnCancel;
+            this.lcCancel.Location = new System.Drawing.Point(122, 94);
+            this.lcCancel.Name = "lcCancel";
+            this.lcCancel.Size = new System.Drawing.Size(122, 32);
+            this.lcCancel.TextSize = new System.Drawing.Size(0, 0);
+            this.lcCancel.TextVisible = false;
+            // 
+            // BeginingForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Caption = "Начальный диалог";
+            this.Controls.Add(this.layoutControl1);
+            this.Name = "BeginingForm";
+            this.SaveLayout = false;
+            this.Size = new System.Drawing.Size(351, 208);
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).EndInit();
+            this.layoutControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.cboOnPage.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAddLost.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.layoutControlGroup1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.EnterGroup)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcShowOnPage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcAddLost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcOk)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lcCancel)).EndInit();
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private GH.Controls.LayoutControlGh layoutControl1;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
+        private DevExpress.XtraEditors.LookUpEdit cboOnPage;
+        private DevExpress.XtraEditors.CheckEdit checkAddLost;
+        private DevExpress.XtraEditors.SimpleButton btnOK;
+        private DevExpress.XtraEditors.SimpleButton btnCancel;
+        private DevExpress.XtraLayout.LayoutControlGroup EnterGroup;
+        private DevExpress.XtraLayout.LayoutControlItem lcShowOnPage;
+        private DevExpress.XtraLayout.LayoutControlItem lcAddLost;
+        private DevExpress.XtraLayout.LayoutControlItem lcOk;
+        private DevExpress.XtraLayout.LayoutControlItem lcCancel;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private GH.Components.DataSource dataSource;
+    }
+}

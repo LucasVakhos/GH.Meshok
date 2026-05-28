@@ -1,0 +1,189 @@
+﻿using GH.Configs;
+using MySql.Data.MySqlClient;
+using NewsMaker.Common;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Runtime.InteropServices;
+namespace NewsMaker
+{
+    public static class MySqlHelper
+    {
+        private static readonly object _lock = new object();
+        [DllImport("wininet.dll")]
+        private static extern bool InternetGetConnectedState(out int Description, int ReservedValue);
+        public static bool CheckNet()
+        {
+            return InternetGetConnectedState(out int desc, 0);
+        }
+        public static int HasData()
+        {
+            try
+            {
+                using (MySqlConnection sqlConnection = CfgBridgeNote.CreateConnection())
+                {
+                    sqlConnection.Open();
+                    using (var selectCommand = new MySqlCommand("SELECT COUNT(sb.id) FROM subscribers_send_buffer sb " +
+                                                                "INNER JOIN subscribers_send_setting sss ON (sss.sss_id = 1) WHERE sb.date_sending = sss.sss_upd_interval_end",
+                        sqlConnection))
+                    {
+                        return int.Parse(selectCommand.ExecuteScalar().ToString());
+                    }
+                }
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public static bool ReadSetting(SendService ss)
+        {
+            const string sql = "SELECT sss_upd_interval_begin, sss_upd_interval_end FROM subscribers_send_setting WHERE sss_id = 1";
+            try
+            {
+                using (var sqlConnection = CfgBridgeNote.CreateConnection())
+                {
+                    sqlConnection.Open();
+                    using (var command = new MySqlCommand(sql, sqlConnection))
+                    {
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                ss.UpdIntervalBegin = reader.GetDateTime("sss_upd_interval_begin");
+                                ss.UpdIntervalEnd = reader.GetDateTime("sss_upd_interval_end");
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        public static bool WriteSetting(SendService ss)
+        {
+            const string sql = "UPDATE subscribers_send_setting SET sss_upd_interval_begin = @upd_interval_begin, sss_upd_interval_end = @upd_interval_end WHERE sss_id = 1";
+            try
+            {
+                using (var sqlConnection = CfgBridgeNote.CreateConnection())
+                {
+                    sqlConnection.Open();
+                    using (var transaction = sqlConnection.BeginTransaction())
+                    {
+                        using (var command = new MySqlCommand(sql, sqlConnection))
+                        {
+                            command.Parameters.AddWithValue("@upd_interval_begin", ss.UpdIntervalBegin);
+                            command.Parameters.AddWithValue("@upd_interval_end", ss.UpdIntervalEnd);
+                            command.ExecuteNonQuery();
+                        }
+                        transaction.Commit();
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
+        }
+        public static void LoadData(DataTable table, string selectSQL, bool storedProcedure = false,
+            List<MySqlParameter> pars = null)
+        {
+            table.Clear();
+            using (var sqlConnection = CfgBridgeNote.CreateConnection())
+            {
+                sqlConnection.Open();
+                using (var selectCommand = new MySqlCommand(selectSQL, sqlConnection))
+                {
+                    if (storedProcedure)
+                        selectCommand.CommandType = CommandType.StoredProcedure;
+                    if (pars != null)
+                    {
+                        selectCommand.Parameters.AddRange(pars.ToArray());
+                        pars.Clear();
+                    }
+                    using (var adapter = new MySqlDataAdapter(selectCommand))
+                    {
+                        adapter.FillLoadOption = LoadOption.Upsert;
+                        adapter.Fill(table);
+                    }
+                }
+            }
+        }
+        public static void ExecQuery(string execSql, bool storedProcedure = false, List<MySqlParameter> pars = null)
+        {
+            using (var sqlConnection = CfgBridgeNote.CreateConnection())
+            {
+                sqlConnection.Open();
+                using (var transaction = sqlConnection.BeginTransaction())
+                {
+                    using (var execCommand = new MySqlCommand(execSql, sqlConnection, transaction))
+                    {
+                        if (storedProcedure) execCommand.CommandType = CommandType.StoredProcedure;
+                        if (pars != null)
+                        {
+                            execCommand.Parameters.AddRange(pars.ToArray());
+                            pars.Clear();
+                        }
+                        try
+                        {
+                            execCommand.ExecuteNonQuery();
+                            transaction.Commit();
+                        }
+                        catch (Exception e)
+                        {
+                            transaction.Rollback();
+                            throw e;
+                        }
+                    }
+                }
+            }
+        }
+        public static bool HasSubsSubscribers(bool error)
+        {
+            try
+            {
+                using (MySqlConnection sqlConnection = CfgBridgeNote.CreateConnection())
+                {
+                    sqlConnection.Open();
+                    using (var selectCommand = new MySqlCommand("chk_subscribers", sqlConnection))
+                    {
+                        selectCommand.CommandType = CommandType.StoredProcedure;
+                        var res = selectCommand.ExecuteScalar();
+                        return Convert.ToInt32(res) > 0;
+                    }
+                }
+            }
+            catch
+            {
+                error = true;
+            }
+            return !error;
+        }
+        public static bool HasNews(bool error)
+        {
+            try
+            {
+                using (MySqlConnection sqlConnection = CfgBridgeNote.CreateConnection())
+                {
+                    sqlConnection.Open();
+                    using (var selectCommand = new MySqlCommand("chk_news", sqlConnection))
+                    {
+                        selectCommand.CommandType = CommandType.StoredProcedure;
+                        var res = selectCommand.ExecuteScalar();
+                        return Convert.ToInt32(res) > 0;
+                    }
+                }
+            }
+            catch 
+            {
+                error = true;
+                return false;
+            }
+        }
+    }
+}

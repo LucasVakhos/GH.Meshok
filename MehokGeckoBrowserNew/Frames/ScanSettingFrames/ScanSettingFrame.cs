@@ -1,0 +1,128 @@
+﻿using System;
+using System.Windows.Forms;
+using System.Threading;
+using System.Reflection;
+using MeshokBrowser.Frames;
+using System.ComponentModel;
+using GH.AppContext;
+using System.Threading.Tasks;
+namespace MeshokBrowser.Workers
+{
+    public class ScanSettingFrame : SettingFrame
+    {
+        public GH.Components.ActionGh actionApply;
+        public GH.Components.ActionGh actionCancel;
+        bool EndSignal = false;
+        public ScanSettingFrame()
+        {
+            InitializeComponent();
+        }
+        public bool Wait()
+        {
+            ProcessRunHelper.MainForm.AddPage(this);
+            while (ProcessRunHelper.Executing)
+            {
+                if (actionList.Active)
+                    actionList.DoUpdate();
+                Application.DoEvents();
+                if (EndSignal)
+                    break;
+                Thread.Sleep(100);
+            }
+            if (ProcessRunHelper.MainForm != null)
+                ProcessRunHelper.MainForm.RemovePage(this);
+            return DlgResult;
+        }       
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScanSettingFrame));
+            this.actionApply = new GH.Components.ActionGh();
+            this.actionCancel = new GH.Components.ActionGh();
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // actionList
+            // 
+            this.actionList.Actions.Add(this.actionApply);
+            this.actionList.Actions.Add(this.actionCancel);
+            // 
+            // dataSource
+            // 
+            this.dataSource.AllowDelete = false;
+            this.dataSource.AllowInsert = false;
+            this.dataSource.AllowSaveCancel = false;
+            this.dataSource.AllowUdate = false;
+            this.dataSource.IsLocalDataSet = true;
+            this.dataSource.NeedLoadingAnimate = false;
+            this.dataSource.SupportDataActions = false;
+            // 
+            // actionApply
+            // 
+            this.actionApply.Caption = "Продолжить";
+            this.actionApply.Category = "Сканирование";
+            this.actionApply.Image = ((System.Drawing.Image)(resources.GetObject("actionApply.Image")));
+            this.actionApply.LargeImage = ((System.Drawing.Image)(resources.GetObject("actionApply.LargeImage")));
+            this.actionApply.Tag = null;
+            this.actionApply.ToolTipText = "Продолжить обработку";
+            this.actionApply.Execute += new System.EventHandler(this.actionApply_Execute);
+            this.actionApply.Update += new System.EventHandler(this.actionApply_Update);
+            // 
+            // actionCancel
+            // 
+            this.actionCancel.Caption = "Прервать";
+            this.actionCancel.Category = "Сканирование";
+            this.actionCancel.Image = ((System.Drawing.Image)(resources.GetObject("actionCancel.Image")));
+            this.actionCancel.LargeImage = ((System.Drawing.Image)(resources.GetObject("actionCancel.LargeImage")));
+            this.actionCancel.Tag = null;
+            this.actionCancel.ToolTipText = "Прервать процесс";
+            this.actionCancel.Execute += new System.EventHandler(this.actionCancel_Execute);
+            // 
+            // ScanSettingFrame
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.Name = "ScanSettingFrame";
+            ((System.ComponentModel.ISupportInitialize)(this.actionList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataSource)).EndInit();
+            this.ResumeLayout(false);
+        }
+        internal void Cancel()
+        {
+            DlgResult = false;
+            EndSignal = true;
+        }
+        internal void Apply()
+        {
+            DlgResult = true;
+            EndSignal = true;
+        }
+        private void actionApply_Execute(object sender, EventArgs e)
+        {
+            Apply();
+        }
+        private void actionCancel_Execute(object sender, EventArgs e)
+        {
+            Cancel();
+        }
+        protected virtual bool CanApply()
+        {
+            return true;
+        }
+        private void actionApply_Update(object sender, EventArgs e)
+        {
+            actionApply.Enabled = CanApply();
+        }
+    }
+    public static class ProcessorSettingHelper<T> where T : ScanSettingFrame
+    {
+        public static bool Check()
+        {
+            IMainForm mainForm = RunContext.Instance.MainForm as IMainForm;
+            using (ScanSettingFrame setting = Assembly.GetEntryAssembly().CreateInstance(typeof(T).FullName) as ScanSettingFrame)
+            {
+                setting.Wait();
+                return setting.DlgResult;
+            }            
+        }
+    }
+}

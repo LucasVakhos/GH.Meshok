@@ -1,0 +1,185 @@
+﻿//#define TEST_SPLIT
+using Common;
+using Gecko;
+using Gecko.DOM;
+using GH.Helpers;
+using MeshokBrowser.Helpers;
+using MeshokBrowser.NHibernate;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Windows.Forms;
+namespace MeshokBrowser.Workers
+{
+    public class WorkerProcessingOrders : Worker
+    {
+        #region fields
+        private const string profilr_url = "https://meshok.net/profile.php";
+        private const string submit_url = profilr_url + "?submit=1&what=deals";
+        public ScanHelper helper = null;
+        #endregion
+        public WorkerProcessingOrders(IMainForm form) : base(form)
+        {
+            helper = new ScanHelper(this);
+            ProcessName = "Обработка заказов";
+            Begin_url = GetBeginUrl( );
+        }
+        private string GetBeginUrl()
+        {
+            return profilr_url + $"?what=deals&good1=&s_buyer_id=&num_of_lines={helper.ShowOnPageValue}0&kw=&f_f=&deal_status=&prolong_day=&sale_type=&opt=2";
+        }
+        private bool InOrderStatus(string status)
+        {
+#if TEST_SPLIT
+            return true;
+#else
+            switch (ScanHelper.ScanStatus)
+            {
+                case ScanStatus.ScanLostDeals:
+                    // потерянные и новые
+                    return status == OrderStatus.Discution.GetDisplayValue( ) || status == OrderStatus.New.GetDisplayValue( );
+                case ScanStatus.ScanNew:
+                    // только новые
+                    return status == OrderStatus.New.GetDisplayValue( );
+                default:
+                    return false;
+            }
+#endif
+        }
+        private List<string> splits = new List<string>( );
+        //private 
+        private int forSplitingCount = 0;
+        private bool CheckForSplit()
+        {
+            forSplitingCount = 0;
+            using (GeckoHtmlElement table = Document.GetElementsByTagName("table").Where(x => x.GetAttribute("class") == "standart_listing").FirstOrDefault( ))
+            {
+                IEnumerable<GeckoElement> rows = table.GetElementsByTagName("tr").
+                                            Where(x => x.GetAttribute("class") == "r1" || x.GetAttribute("class") == "r2");
+                if (rows.Count( ) > 0)
+                {
+                    rows = rows.Where(x => x.GetElementsByTagName("div").Count( ) > 0
+                        && (x.GetElementsByTagName("div").Where(d => d.GetAttribute("class") == "d_s_e_i" && InOrderStatus(d.TextContent)).Count( ) > 0));
+                    foreach (GeckoHtmlElement row in rows)
+                    {
+                        if (row.GetElementsByTagName("span").Where(x => x.GetAttribute("class") == "atten").FirstOrDefault( ) != null)
+                        {
+                            foreach (GeckoInputElement checkbox in row.GetElementsByTagName("input").Where(x => x.GetAttribute("name") == "deal_work[]"))
+                            {
+                                checkbox.Checked = true;
+                                forSplitingCount++;
+                                foreach (GeckoAnchorElement rel in row.GetElementsByTagName("a"))
+                                {
+                                    string href = rel.Href;
+                                    if (href.StartsWith("/deal/") && !splits.Contains(href))
+                                    {
+                                        splits.Add(href);
+                                        break;
+                                    }
+                                }
+                                break;
+                            }
+                        }
+                    }
+                }
+                Application.DoEvents( );
+            }
+            return forSplitingCount > 0;
+        }
+        private const string actSplit = "K";
+        private void SubmitSpliting()
+        {
+            if (!(Document.GetElementById("submitDoWork") is GeckoInputElement submit))
+                return;
+            GeckoElement div = Document.GetElementById("saleBAction");
+            foreach (GeckoSelectElement item in div.GetElementsByTagName("select").Where(x => x.GetAttribute("name") == "do_work"))
+            {
+                item.Focus( );
+                item.Value = actSplit;
+                Application.DoEvents( );
+                submit.Click( );
+                return;
+            }
+        }
+        protected override void OnDocumentCompleted(string url)
+        {
+        begin_lbl:
+            if (ProcessRunHelper.Executing)
+            {
+                if (url == Begin_url || forSplitingCount > 0)
+                {
+                    if (CheckForSplit( ))
+                    {
+                        SubmitSpliting( );
+                    }
+                    else
+                    {
+                        url = submit_url;
+                        goto begin_lbl;
+                    }
+                }
+                else
+                {
+#if !TEST_SPLIT
+                    if (url == submit_url)
+                    {
+                        helper.Splits = splits.ToArray();
+                        if (helper.CollectOrders( ))
+                        {
+                            helper.ProcessCollectedOrders( );
+                            if (ScanSetting.ScanStatus != ScanStatus.Finished)
+                            {
+                                goto begin_lbl;
+                            }
+                        }
+                        else
+                        {
+                            helper.IncScanStatus( );
+                            if (ScanSetting.ScanStatus != ScanStatus.Finished)
+                                goto begin_lbl;
+                        }
+                        ProcessRunHelper.Executing = false;
+                    }
+#endif
+                }
+            }
+        }
+        private void SetNextStatus(string order_id, string nextStatusText, GeckoHtmlElement row)
+        {
+            foreach (GeckoHtmlElement div in row.GetElementsByTagName("div"))
+            {
+                if (div.GetAttribute("rel") == order_id)
+                {
+                    div.Click( );
+                    Application.DoEvents( );
+                    GeckoSelectElement sel = div.Parent.GetElementsByTagName("select").First( ) as GeckoSelectElement;
+                    sel.Value = nextStatusText;
+                    Application.DoEvents( );
+                    return;
+                }
+            }
+        }
+        protected override void DoExecute()
+        {
+            /*do nothing*/
+        }
+        #region IDisposable Support
+        private bool disposedValue = false; // Для определения избыточных вызовов
+        protected override void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    helper.Dispose( );
+                    helper = null;
+                    //form_parse.Dispose();
+                    //form_parse = null;
+                }
+                disposedValue = true;
+                base.Dispose(disposing);
+            }
+        }
+        #endregion
+    }
+}

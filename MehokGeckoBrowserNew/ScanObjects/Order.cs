@@ -1,0 +1,116 @@
+﻿using Common;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+namespace MeshokBrowser.NHibernate
+{
+    public class Order : DeliveryObject
+    {
+        //:c_id,
+        private int _c_id;
+        [Display(Name = "Клиент ID")]
+        public int c_id
+        {
+            get
+            {
+                return _c_id;
+            }
+            set => _c_id = value;
+        }
+        //:co_date,
+        private DateTime _co_date;
+        [Display(Name = "Дата")]
+        public DateTime co_date
+        {
+            get
+            {
+                return _co_date;
+            }
+            set => _co_date = value;
+        }
+        //:co_curs)
+        private double _co_curs = 0;
+        [Display(Name = "Курс")]
+        public double co_curs
+        {
+            get
+            {
+                return _co_curs;
+            }
+            set => _co_curs = value;
+        }
+        private string _nick;
+        public string nick { get => _nick; set => _nick = value; }
+        public DeliveryMethod deliveryMethod => (DeliveryMethod)md_id;
+        public PaymentMethod paymentMethod => (PaymentMethod)mp_id;
+        public bool NeedUnion { get => OrderLines.Where(x => x.NeedUnion && x.site_status >= OrderStatus.PayedWaitForOrderSend).Count() > 1; }
+        private readonly List<OrderLine> _orderLines = new List<OrderLine>();
+        public List<OrderLine> OrderLines => _orderLines;
+        private Client _client;
+        public Client Client
+        {
+            get => _client;
+            set
+            {
+                _client = value;
+            }
+        }
+        public Order(OrderLine orderLine, CheckOrder check)
+        {
+            nick = orderLine.nick;
+            Client = orderLine.Client;
+            if (check != null)
+            {
+                base_id = check.co_id;
+                c_id = check.co_c_id;
+                md_id = check.co_md_id;
+                mp_id = check.co_mp_id;
+                co_date = check.co_creation_date;
+                base_status = check.co_status;
+            }
+        }
+        public void RetriveFields()
+        {
+            if (Client != null)
+            {
+                c_id = Client.base_id;
+                md_id = Client.md_id;
+                mp_id = Client.mp_id;
+            }
+            if (OrderLines.Count > 0)
+            {
+                co_date = OrderLines.Min(x => x.date);
+                co_curs = OrderLines.Max(x => x.Title.t_curs);
+            }
+        }
+        public void Clear()
+        {
+            OrderLines.Clear();
+        }
+        public void AddOrderLine(OrderLine orderLine)
+        {
+            OrderLines.Add(orderLine);
+            orderLine.Order = this;
+        }
+        public override bool Equals(object obj)
+        {
+            return obj is Order order &&
+                   base_id == order.base_id &&
+                   c_id == order.c_id &&
+                   nick == order.nick &&
+                   md_id == order.md_id &&
+                   mp_id == order.mp_id;
+        }
+        public override int GetHashCode()
+        {
+            var hashCode = -1369389327;
+            hashCode = hashCode * -1521134295 + base_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + c_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(nick);
+            hashCode = hashCode * -1521134295 + md_id.GetHashCode();
+            hashCode = hashCode * -1521134295 + mp_id.GetHashCode();
+            return hashCode;
+        }
+    }
+}

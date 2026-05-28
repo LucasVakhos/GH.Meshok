@@ -1,0 +1,54 @@
+using GH.AppContext;
+using GH.Configs;
+using Microsoft.Web.WebView2.Core;
+using System;
+using System.IO;
+using System.Windows.Forms;
+namespace MeshokBrowser.Workers
+{
+    public class Worker : AbstractWorker
+    {
+        protected string ExportPath => Path.Combine(Application.StartupPath, RunContext.AppCfg.ExportPath);
+        protected CfgMeshok cfgMeshok = IniHelper.Cfg();
+        protected string Begin_url { get; set; } = string.Empty;
+        public Worker(IMainForm form) : base(form)
+        {
+            ProcScreen.NavigationCompleted += WebBrowser_NavigationCompleted;
+        }
+        private void WebBrowser_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+            if (!ProcessRunHelper.Executing || !ProcessRunHelper.EnableBaseDocumrntComplete)
+                return;
+            string url = ProcScreen.Source?.AbsoluteUri ?? string.Empty;
+            if (!e.IsSuccess)
+                RedoNavigate(url);
+            else
+                OnDocumentCompleted(url);
+        }
+        protected virtual void RedoNavigate(string url)
+        {
+            ProcScreen.Navigate(Begin_url);
+        }
+        protected override void OnCreate()
+        {
+            ProcScreen.Navigate(Begin_url);
+        }
+        protected virtual void OnDocumentCompleted(string url)
+        {
+        }
+        protected override void DoExecute()
+        {
+            // do nothing
+        }
+        private bool disposedValue = false;
+        protected override void Dispose(bool disposing)
+        {
+            if (disposedValue)
+                return;
+            if (disposing)
+                ProcScreen.NavigationCompleted -= WebBrowser_NavigationCompleted;
+            disposedValue = true;
+            base.Dispose(disposing);
+        }
+    }
+}

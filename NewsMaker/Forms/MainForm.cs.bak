@@ -1,0 +1,434 @@
+﻿using DevExpress.XtraEditors;
+using DevExpress.XtraLayout;
+using DevExpress.XtraLayout.Utils;
+using GH.Configs;
+using GH.Controls;
+using GH.Interfaces;
+using GH.Utils;
+using NewsMaker.Common;
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace NewsMaker
+{
+
+    public partial class NewsMakerForm : XtraForm, IAppForm, IMainForm, IPagesFrame
+    {
+
+        private const string _subKey = "Software\\Microsoft\\Windows\\CurrentVersion\\Run\\";
+        private bool _autorun;
+        private NewsProcessor _newsProcessor;
+        private LayoutGroup _savedGroup;
+        private readonly string appName = Application.ProductName;
+        private readonly string exePath = Assembly.GetExecutingAssembly().Location + " -autorun";
+        private LayoutControlGroup programPage;
+        private LayoutControlGroup bridgeNotePage;
+        private LayoutControlGroup sendPulsePage;
+        private LayoutControlGroup postPage;
+        private readonly Informator Info;
+        private SendService sendService;
+
+        public TabbedControlGroup PagesGroup { get; set; }
+        public CfgProgram cfgProgram => IniHelper.CoreCfg<CfgProgram>();
+        public CfgBridgeNote cfgBridgeNote => IniHelper.Cfg<CfgBridgeNote>();
+
+        public NewsMakerForm(bool autorun)
+        {
+            //sendService = new SendService(this);
+
+            InitializeComponent();
+            PagesGroup = settigPages;
+
+            programPage = layoutControl.AppControlToPage(new CfgFrameProgram(), this);
+            bridgeNotePage = layoutControl.AppControlToPage(new CfgFrameBridgeNote(), this);
+            sendPulsePage = layoutControl.AppControlToPage(new CfgFrameRuSender(), this);
+            postPage = layoutControl.AppControlToPage(new CfgFramePost(), this);
+
+            ClientSize = layoutControl.GetPreferredSize(layoutControl.Size);
+
+            sendService = new SendService(this);
+
+            Info = new Informator(this);
+            _autorun = autorun;
+            Load += MainForm_Load;
+
+            workTimer.Enabled = false;
+            workTimer.Tick += workTimer_Tick;
+
+            settigPages.SelectedTabPage = programPage;
+            masterPages.SelectedTabPage = settingPage;
+
+
+            notifyIcon.Text = Text;
+            notifyIcon.BalloonTipIcon = ToolTipIcon.Info;
+            notifyIcon.BalloonTipTitle = Text;
+            notifyIcon.MouseDoubleClick += notifyIcon_MouseDoubleClick;
+
+        }
+
+        public NewsMakerForm() : this(true)
+        {
+        }
+
+        public bool ProcessRuning
+        {
+            get => _newsProcessor != null || AppContextNM.Executing;
+            set
+            {
+
+                if (value)
+                {
+
+                    Application.DoEvents();
+                    workTimer.Stop();
+
+                    Info.Init();
+
+                    _savedGroup = masterPages.SelectedTabPage;
+
+                    masterPages.SelectedTabPage = Report;
+                    memoReport.Text = string.Empty;
+
+
+                    progressBar.Position = 0;
+                    ShowHide(true);
+                    AppContextNM.Executing = true;
+                    SetupPages();
+                }
+                else
+                {
+                    AppContextNM.Executing = false;
+                    Info.Done();
+                    SetupPages();
+                    progressBar.Position = 0;
+                    if (_savedGroup != null)
+                    {
+                        //masterPages.SelectedTabPage = _savedGroup;
+                        _savedGroup = null;
+                    }
+
+#if !TEST_MESSAGE
+                    workTimer.Start();
+#endif
+
+                }
+            }
+        }
+
+        public bool Collapsed => !Visible;
+
+        public LayoutControlGroup Report => lgReport;
+
+
+        public void ShowHide(bool show)
+        {
+            InvokeIfRequired(() =>
+            {
+                if (show)
+                {
+                    notifyIcon.Visible = false;
+                    ShowInTaskbar = true;
+                    WindowState = FormWindowState.Normal;
+                }
+                else
+                {
+                    if (WindowState != FormWindowState.Minimized)
+                        WindowState = FormWindowState.Minimized;
+
+                    ShowInTaskbar = false;
+                    notifyIcon.Visible = true;
+
+                    string mess = "Программа находится тут...";
+                    if (ProcessRuning)
+                        mess +=
+                            "\r\nПрограмма свернута чтобы не мешать, потому, что находится в режиме тупого ожидания следующего этапа " +
+                            "и непременно появится, сразу после возобновления процесса рассылки )))\r\n" +
+                            "Будьте терпеливы...";
+
+                    notifyIcon.ShowBalloonTip(1000 * 60 * 10, Text, mess, ToolTipIcon.Info);
+                }
+            });
+        }
+
+        public void SetProgressMax(int count)
+        {
+            InvokeIfRequired(() =>
+            {
+                progressBar.Properties.Maximum = count;
+                TaskbarProgress.SetState(Handle, TaskbarProgress.TaskbarStates.Normal);
+                TaskbarProgress.SetValue(Handle, 0, count);
+            });
+        }
+
+        public void SetProgress(int position)
+        {
+            InvokeIfRequired(() =>
+            {
+                progressBar.Position = position;
+                TaskbarProgress.SetValue(Handle, position, progressBar.Properties.Maximum);
+            });
+        }
+
+        public void Proces_Begined()
+        {
+            InvokeIfRequired(() => { TaskbarProgress.SetState(Handle, TaskbarProgress.TaskbarStates.Normal); });
+        }
+
+        public void Proces_Finished()
+        {
+            InvokeIfRequired(() =>
+            {
+                try
+                {
+                    if (_newsProcessor != null)
+                    {
+                        _newsProcessor.Dispose();
+                        _newsProcessor = null;
+                    }
+                }
+                finally
+                {
+                    TaskbarProgress.SetState(Handle, TaskbarProgress.TaskbarStates.NoProgress);
+                    ProcessRuning = false;
+                }
+            });
+        }
+
+        public void SetStatus(string mess, InfoType info)
+        {
+            Info.FireInfo(mess, InfoType.MainInfo);
+        }
+
+        void IMainForm.InvokeIfRequired(MethodInvoker action)
+        {
+            InvokeIfRequired(action);
+        }
+
+        private void SetupPages()
+        {
+            masterPages.BeginUpdate();
+            foreach (LayoutGroup tab in masterPages.TabPages)
+            {
+                if (tab != Report)
+                {
+                    if (ProcessRuning)
+                        tab.Visibility = LayoutVisibility.Never;
+                    else
+                        tab.Visibility = LayoutVisibility.Always;
+                }
+            }
+            masterPages.EndUpdate();
+
+            if (ProcessRuning)
+                Application.DoEvents();
+        }
+
+
+        private void StartSender(bool auto = true)
+        {
+            if (ProcessRuning)
+                return;
+
+            if (!MySqlHelper.CheckNet())
+            {
+                DlgHelper.DlgError("Нет подключения к интернету!!! Повторите попытку позже...");
+                return;
+            }
+
+            if (!cfgBridgeNote.TestConnection() || !sendService.ChekcDataLoaded())
+            {
+                ShowHide(true);
+                settigPages.SelectedTabPage = bridgeNotePage;
+                DlgHelper.DlgError("Нет подключения к базе данных!!!\r\nПроверьте параметры подключения и повторите попытку позже...");
+                return;
+            }
+
+            ProcessRuning = true;
+
+            if (!sendService.NeedToSend)
+            {
+                sendService.SetUpdIntervalEnd(DateTime.Now);
+            }
+            else
+            if (sendService.NeedToSend && sendService.UpdIntervalBegin == sendService.UpdIntervalEnd)
+            {
+                sendService.SetUpdIntervalEnd(DateTime.Now);
+            }
+
+            _newsProcessor = new NewsProcessor(auto);
+            _newsProcessor.Execute();
+
+        }
+
+        private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ShowHide(true);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (cfgProgram.RunCollapced)
+                ShowHide(false);
+
+            ResizeEnd += MainForm_Resize;
+
+            workTimer.Interval = 1000 * 5;
+            workTimer.Enabled = true;
+        }
+
+        private void workTimer_Tick(object sender, EventArgs e)
+        {
+            CheckToDo();
+        }
+
+        private void CheckToDo()
+        {
+            workTimer.Enabled = false;
+            workTimer.Interval = 1000 * 60 * 5;
+            try
+            {
+                if (sendService.NeedToSend)
+                    StartSender();
+            }
+            finally
+            {
+                workTimer.Enabled = _newsProcessor == null;
+            }
+        }
+
+        internal void InvokeIfRequired(MethodInvoker action)
+        {
+            if (Disposing || IsDisposed)
+                return;
+            try
+            {
+                if (InvokeRequired)
+                    Invoke(action);
+                else
+                    action();
+            }
+            catch { }
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (cfgProgram.RunCollapced && WindowState == FormWindowState.Minimized)
+                ShowHide(false);
+            else if (WindowState == FormWindowState.Normal)
+                ShowHide(true);
+        }
+
+        private void SendMe()
+        {
+            if (memoReport.Lines.Length < 3)
+            {
+                DlgHelper.DlgWarning("Нет информации для отправки!!!");
+                return;
+            }
+
+            MailSender mail = new MailSender();
+            List<Task<SendCallBack>> tasks = new List<Task<SendCallBack>>();
+
+            mail.Add(-1, "Крутой программист", AppContextNM.MyEmail, appName + " - bug report", memoReport.Text);
+
+            Task<SendCallBack> t = Task<SendCallBack>.Factory.StartNew(() =>
+                {
+                    return mail.SendByYandex();
+                }, TaskCreationOptions.LongRunning);
+
+            tasks.Add(t);
+
+            int index = Task.WaitAny(tasks.ToArray());
+
+            if (tasks[index].Result.Result)
+                DlgHelper.DlgWarning("Сообщение отправлено!!!");
+            else
+                DlgHelper.DlgError("Сообщение не отправлено " + tasks[index].Result.ErrorMess);
+        }
+
+        private void ActBegin_Update(object sender, EventArgs e)
+        {
+            if (ProcessRuning)
+            {
+                actBegin.Image = imageCollection.Images[1];
+                actBegin.ToolTipText = "Остановить рассылку";
+                actBegin.Caption = "Остановить";
+            }
+            else
+            {
+                actBegin.Caption = "Начать рассылку";
+                actBegin.ToolTipText = "Начать рассылку подписчикам";
+                actBegin.Image = imageCollection.Images[0];
+            }
+        }
+
+
+        private void ActSendToMe_Update(object sender, EventArgs e)
+        {
+            actSendToMe.Enabled = !ProcessRuning;
+        }
+
+        private void ActBegin_Execute(object sender, EventArgs e)
+        {
+            if (!ProcessRuning)
+                StartSender(false);
+            else
+                Proces_Finished();
+            //ProcessRuning = false;
+        }
+
+        private void ActSendToMe_Execute(object sender, EventArgs e)
+        {
+            SendMe();
+        }
+
+        private void NewsMakerForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            switch (e.CloseReason)
+            {
+                case CloseReason.WindowsShutDown:
+                case CloseReason.ApplicationExitCall:
+                    break;
+                default:
+                    e.Cancel = true;
+                    ShowHide(false);
+                    break;
+            }
+        }
+
+        private void actExitProgram_Execute(object sender, EventArgs e)
+        {
+            if (ProcessRuning)
+                Proces_Finished();
+
+            Application.Exit();
+        }
+
+
+        public void DoApplicatinonRun()
+        {
+        }
+
+        public void InitForm()
+        {
+        }
+
+    }
+
+    public interface IMainForm
+    {
+        LayoutControlGroup Report { get; }
+        bool Collapsed { get; }
+        void ShowHide(bool show);
+        void SetProgress(int position);
+        void SetProgressMax(int count);
+        void SetStatus(string mess, InfoType info);
+        void Proces_Begined();
+        void Proces_Finished();
+        void InvokeIfRequired(MethodInvoker action);
+    }
+
+}

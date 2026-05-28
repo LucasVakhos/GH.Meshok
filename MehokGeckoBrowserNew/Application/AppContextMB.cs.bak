@@ -1,0 +1,57 @@
+﻿using Gecko;
+using GH.AppContext;
+using GH.Configs;
+using GH.NHibernate;
+using System.Windows.Forms;
+
+namespace MeshokBrowser
+{
+    public class AppContextMB : AppContext<AppContextMB>
+    {
+
+        protected override void InitializeSomething()
+        {
+            if (!Xpcom.IsInitialized)
+            {
+                Xpcom.Initialize(Application.StartupPath + "\\Firefox\\");
+                //GeckoPreferences.User["general.useragent.override"] = "Mozilla/5.0 (Windows NT 6.1; rv:22.0) Gecko/20130405 Firefox/22.0";
+                GeckoPreferences.Default["browser.cache.memory.enabled"] = false;
+            }
+        }
+
+        public override Form GetMainForm()
+        {
+            return new MainMeshok();
+        }
+
+        public override Form GetLoginForm()
+        {
+            return new LoginFormIShop();
+        }
+
+        public override CfgCoreConnection GetConnectionSetting()
+        {
+            var cfg = IniHelper.Cfg<CfgIShop>();
+            if (cfg == null)
+                cfg = new CfgIShop();
+
+            return cfg;
+        }
+
+        public override CfgForm CreateConnectForm()
+        {
+            return new CfgFormIShop();
+        }
+
+        public override CfgApp GetCfgApp()
+        {
+            return new CfgApp();
+        }
+
+        public override IFactoryCriator GetSqlFactoryCriator()
+        {
+            return new FactoryCriatorMB();
+        }
+    }
+
+}

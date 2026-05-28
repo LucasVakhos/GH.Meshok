@@ -1,0 +1,219 @@
+﻿using DevExpress.XtraDataLayout;
+using DevExpress.XtraEditors;
+using System;
+using System.ComponentModel;
+using System.ComponentModel.Design;
+using System.Linq;
+using System.Windows.Forms;
+namespace GH.Components
+{
+    public class ConnectButton : XtraUserControl, ISupportInitialize
+    {
+        private SimpleButton simpleButton;
+        private LabelControl labelControl;
+        private DevExpress.Utils.ImageCollection imagees;
+        private System.ComponentModel.IContainer components;
+        private DataLayoutControl styleController;
+        private bool was_checked = false;
+        private bool check_ok = false;
+        public DataLayoutControl StyleController
+        {
+            get => styleController;
+            set
+            {
+                if (styleController == value)
+                    return;
+                styleController = value;
+                simpleButton.StyleController = value;
+                labelControl.StyleController = value;
+            }
+        }
+        public override ISite Site
+        {
+            get
+            {
+                return base.Site;
+            }
+            set
+            {
+                base.Site = value;
+                if (value == null)
+                    return;
+                if (!(value.GetService(typeof(IDesignerHost)) is IDesignerHost service))
+                    return;
+                IComponent rootComponent = service.RootComponent;
+                if (!(rootComponent is ContainerControl))
+                    return;
+                Owner = (ContainerControl)rootComponent;
+            }
+        }
+        public ContainerControl Owner { get; private set; }
+        public ConnectButton()
+        {
+            InitializeComponent();
+        }
+        //this.imagees.InsertGalleryImage("check_ok", "images/actions/apply_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/apply_16x16.png"), 0);
+        //this.imagees.InsertGalleryImage("check_fault", "images/actions/cancel_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/cancel_16x16.png"), 1);
+        //this.imagees.InsertGalleryImage("checking", "images/actions/convert_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/convert_16x16.png"), 2);
+        //this.imagees.InsertGalleryImage("no_checking", "images/actions/hide_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/hide_16x16.png"), 3);
+        //this.imagees.InsertGalleryImage("check_connection", "images/business%20objects/bocontact_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/business%20objects/bocontact_16x16.png"), 4);
+        //this.imagees.Images.SetKeyName(4, "check_connection");
+        private void RevertControls()
+        {
+            switch (simpleButton.Enabled)
+            {
+                case true:
+                    FocusIt();
+                    labelControl.Text = "Ждите! идёт проверка соединения...";
+                    //this.imagees.Images.SetKeyName(2, "checking");
+                    labelControl.Appearance.ImageIndex = 2;// imagees.Images["checking"].PropertyItems.FirstOrDefault().Id;
+                    break;
+                case false:
+                    if (!was_checked)
+                    {
+                        //this.imagees.Images.SetKeyName(3, "no_checking");
+                        labelControl.Appearance.ImageIndex = 3; // imagees.Images["no_checking"].PropertyItems.FirstOrDefault().Id;
+                        labelControl.Text = "Статус не определён...";
+                    }
+                    else
+                    if (check_ok)
+                    {
+                        //this.imagees.Images.SetKeyName(0, "check_ok");
+                        labelControl.Appearance.ImageIndex = 0; //imagees.Images["check_ok"].PropertyItems.FirstOrDefault().Id;
+                        labelControl.Text = "Подкление состоялось...";
+                    }
+                    else
+                    {
+                        //this.imagees.Images.SetKeyName(1, "check_fault");
+                        labelControl.Appearance.ImageIndex = 1; // imagees.Images["check_fault"].PropertyItems.FirstOrDefault().Id;
+                        labelControl.Text = "Не удалось подключиться...";
+                    }
+                    break;
+                default:
+                    break;
+            }
+            simpleButton.Enabled = !simpleButton.Enabled;
+        }
+        public virtual void ConnectButton_Click(object sender, EventArgs e)
+        {
+            if (StyleController == null)
+                return;
+            RevertControls();
+            try
+            {
+                if (StyleController.DataSource is DataSource data)
+                {
+                    if (data.Entity is PrivateConfig config)
+                    {
+                        check_ok = config.TestConnection();
+                        if (check_ok)
+                            config.SaveToIni();
+                        was_checked = true;
+                    }
+                }
+            }
+            finally
+            {
+                FocusIt();
+                RevertControls();
+            }
+        }
+        private void FocusIt()
+        {
+            if (StyleController?.Controls.OfType<BaseEdit>().OrderBy(o => o.TabIndex).FirstOrDefault() is BaseEdit baseEdit)
+                FocusIt(baseEdit);
+            else
+                Focus();
+        }
+        private static void FocusIt(BaseEdit baseEdit)
+        {
+            baseEdit.SelectAll();
+            baseEdit.Focus();
+        }
+        public void BeginInit()
+        {
+        }
+        public void EndInit()
+        {
+            if (DesignMode || Owner == null)
+                return;
+            this.SuspendLayout();
+            this.labelControl.MaximumSize = new System.Drawing.Size(0, 0);
+            this.labelControl.MinimumSize = new System.Drawing.Size(0, 0);
+            this.simpleButton.MaximumSize = new System.Drawing.Size(0, 0);
+            this.simpleButton.MinimumSize = new System.Drawing.Size(0, 0);
+            MaximumSize = new System.Drawing.Size(0, 22);
+            MinimumSize = new System.Drawing.Size(0, 22);
+            this.ResumeLayout(false);
+        }
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+#pragma warning disable CS0436 // Тип конфликтует с импортированным типом
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectButton));
+#pragma warning restore CS0436 // Тип конфликтует с импортированным типом
+            this.simpleButton = new DevExpress.XtraEditors.SimpleButton();
+            this.imagees = new DevExpress.Utils.ImageCollection(this.components);
+            this.labelControl = new DevExpress.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.imagees)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // simpleButton
+            // 
+            this.simpleButton.AllowFocus = false;
+            this.simpleButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.simpleButton.ImageOptions.ImageIndex = 4;
+            this.simpleButton.ImageOptions.ImageList = this.imagees;
+            this.simpleButton.Location = new System.Drawing.Point(0, 0);
+            this.simpleButton.MaximumSize = new System.Drawing.Size(150, 22);
+            this.simpleButton.MinimumSize = new System.Drawing.Size(150, 22);
+            this.simpleButton.Name = "simpleButton";
+            this.simpleButton.Size = new System.Drawing.Size(150, 22);
+            this.simpleButton.TabIndex = 0;
+            this.simpleButton.Text = "Проверить соединение";
+            this.simpleButton.ToolTip = "Проверить соединение с сервером";
+            this.simpleButton.Click += new System.EventHandler(this.ConnectButton_Click);
+            // 
+            // imagees
+            // 
+            this.imagees.ImageStream = ((DevExpress.Utils.ImageCollectionStreamer)(resources.GetObject("imagees.ImageStream")));
+            this.imagees.InsertGalleryImage("check_ok", "images/actions/apply_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/apply_16x16.png"), 0);
+            this.imagees.Images.SetKeyName(0, "check_ok");
+            this.imagees.InsertGalleryImage("check_fault", "images/actions/cancel_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/cancel_16x16.png"), 1);
+            this.imagees.Images.SetKeyName(1, "check_fault");
+            this.imagees.InsertGalleryImage("checking", "images/actions/convert_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/convert_16x16.png"), 2);
+            this.imagees.Images.SetKeyName(2, "checking");
+            this.imagees.InsertGalleryImage("no_checking", "images/actions/hide_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/actions/hide_16x16.png"), 3);
+            this.imagees.Images.SetKeyName(3, "no_checking");
+            this.imagees.InsertGalleryImage("check_connection", "images/business%20objects/bocontact_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/business%20objects/bocontact_16x16.png"), 4);
+            this.imagees.Images.SetKeyName(4, "check_connection");
+            // 
+            // labelControl
+            // 
+            this.labelControl.Appearance.ImageIndex = 3;
+            this.labelControl.Appearance.ImageList = this.imagees;
+            this.labelControl.Appearance.Options.UseImageIndex = true;
+            this.labelControl.Appearance.Options.UseImageList = true;
+            this.labelControl.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
+            this.labelControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelControl.ImageAlignToText = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.labelControl.Location = new System.Drawing.Point(150, 0);
+            this.labelControl.MaximumSize = new System.Drawing.Size(0, 22);
+            this.labelControl.MinimumSize = new System.Drawing.Size(150, 22);
+            this.labelControl.Name = "labelControl";
+            this.labelControl.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.labelControl.Size = new System.Drawing.Size(182, 22);
+            this.labelControl.TabIndex = 1;
+            this.labelControl.Text = "Статус не определён";
+            // 
+            // ConnectButton
+            // 
+            this.Controls.Add(this.labelControl);
+            this.Controls.Add(this.simpleButton);
+            this.Name = "ConnectButton";
+            this.Size = new System.Drawing.Size(332, 158);
+            ((System.ComponentModel.ISupportInitialize)(this.imagees)).EndInit();
+            this.ResumeLayout(false);
+        }
+    }
+}
