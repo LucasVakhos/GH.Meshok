@@ -644,35 +644,36 @@ public partial class FileScanner
     }
     private void CreateBackup(string filePath)
     {
-        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+        if (string.IsNullOrWhiteSpace(filePath))
+        {
+            AddToLog("[Ошибка бэкапа] путь к файлу пустой.");
+            return;
+        }
+
+        if (!File.Exists(filePath))
         {
             AddToLog($"[Ошибка бэкапа] файл не найден: {filePath}");
             return;
         }
-        for (var attempt = 0; attempt <= BackupMaxAttempts; attempt++)
+
+        try
         {
-            try
-            {
-                var candidatePath = attempt == 0
-                    ? filePath + ".bak"
-                    : $"{filePath}.{attempt}.bak";
-                using var source = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
-                using var destination = new FileStream(candidatePath, FileMode.CreateNew, FileAccess.Write, FileShare.None);
-                source.CopyTo(destination);
-                CopyFileTimestamps(filePath, candidatePath);
-                AddToLog($"[Бэкап] {candidatePath}");
-                return;
-            }
-            catch (IOException)
-            {
-            }
-            catch (Exception ex)
-            {
-                AddToLog($"[Ошибка бэкапа] {filePath} - {ex.Message}");
-                return;
-            }
+            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var backupFilePath = $"{filePath}.{timestamp}.bak";
+
+            using var source = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+            using var destination = new FileStream(backupFilePath, FileMode.CreateNew, FileAccess.Write, FileShare.None);
+
+            source.CopyTo(destination);
+
+            CopyFileTimestamps(filePath, backupFilePath);
+
+            AddToLog($"[Бэкап создан] {backupFilePath}");
         }
-        AddToLog($"[Ошибка бэкапа] не удалось создать уникальный бэкап для {filePath}");
+        catch (Exception ex)
+        {
+            AddToLog($"[Ошибка бэкапа] {filePath} - {ex.Message}");
+        }
     }
     private static void CopyFileTimestamps(string sourcePath, string destinationPath)
     {
