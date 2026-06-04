@@ -9,19 +9,7 @@ using System.Reflection;
 
 namespace GH.Components
 {
-    public class Field
-    {
-        public string Name;
-        public string DisplayName;
-        public object Value;
-
-        public Field(string name, string displayName, object value)
-        {
-            Name = name;
-            DisplayName = displayName;
-            Value = value;
-        }
-    }
+    
 
     public class ProtoEntity : IEditableObject
     {

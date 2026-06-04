@@ -35,15 +35,25 @@ namespace GH.Components
             session.GetCurrentTransaction().Begin();
             return session;
         }
+        public static ISession OpenSession()
+        {
+            if (BaseCriator == null)
+                return null;
+
+            return OpenSession(BaseCriator.DbServerType);
+        }
+
         public static ISession OpenSession(DbServerType serverType)
         {
             try
             {
                 ISession session = null;
+
                 if (BaseCriator.DbServerType == serverType)
                     session = BaseSessionFactory.OpenSession();
                 else
                     session = _verasticallyFactoryes[serverType].OpenSession();
+
                 session.GetCurrentTransaction().Begin();
                 return session;
             }
@@ -52,7 +62,7 @@ namespace GH.Components
                 Logger.Error(nameof(OpenSession), ex);
                 return null;
             }
-        }
+        }        
         public static bool Connect()
         {
             try
