@@ -283,6 +283,8 @@ public partial class FileScanner : XtraUserControl
                 => Task.Run(() => RestoreCSharpFilesFromBakFolderAsync(cancellationToken), cancellationToken),
             ComboToDoItems.RestoreMissingUsings
                 => Task.Run(() => RecoveryMissingUsings(cancellationToken), cancellationToken),
+            ComboToDoItems.AddFilePathCommentToCsFiles =>
+                Task.Run(() => AddFilePathCommentToCsFiles(cancellationToken), cancellationToken),
             _ => Task.CompletedTask
         };
     }

@@ -24,6 +24,8 @@ public sealed class ScannerSetting : INotifyPropertyChanged
         [ComboToDoItems.NormalizeMethodSignatures] = new() { SearchPathType = PathFilterType.Folder, PlacePathType = PathFilterType.Folder },
         [ComboToDoItems.RestoreCSharpFilesFromBak] = new() { SearchPathType = PathFilterType.Folder, PlacePathType = PathFilterType.Folder },
         [ComboToDoItems.RestoreMissingUsings] = new() { SearchPathType = PathFilterType.Project, PlacePathType = PathFilterType.Project },
+        [ComboToDoItems.AddFilePathCommentToCsFiles] = new() { SearchPathType = PathFilterType.Folder, PlacePathType = PathFilterType.Folder },
+
     };
 
     public ActionSettings GetActionSettings(ComboToDoItems action)

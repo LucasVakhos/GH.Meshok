@@ -41,10 +41,16 @@
 	<!-- Явное включение всех Compile -->
 	<ItemGroup>
 		<Compile Include="Classes\ActionSettings.cs" />
-		<Compile Include="Classes\FileScanner.RecoveryMissingUsings.cs" />
 		<Compile Include="Classes\FilePatterns.cs" />
 		<Compile Include="Classes\FileScanner.cs" />
 		<Compile Include="Classes\FileScanner.Designer.cs" />
+		<Compile Include="Classes\FileScanner.ProcessFilePathComments.cs">
+		<DependentUpon>FileScanner.cs</DependentUpon>
+		</Compile>
+
+		<Compile Include="Classes\FileScanner.RecoveryMissingUsings.cs">
+			<DependentUpon>FileScanner.cs</DependentUpon>
+		</Compile>
 		<Compile Include="Classes\FileScanner.ProcessFindAndCopyFiles.cs">
 			<DependentUpon>FileScanner.cs</DependentUpon>
 		</Compile>
