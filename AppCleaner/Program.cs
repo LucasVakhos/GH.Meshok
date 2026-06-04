@@ -47,6 +47,13 @@ static class Program
         //    return null;
         //};
         // Настройка конфигурации приложения
+        //Add the following code to a method that starts the application.
+
+        //Enables trace source. Remove the following line in the Release version of the project.
+        DevExpress.Utils.Localization.XtraLocalizer.EnableTraceSource();
+
+        //Uncomment the following line in a Release version.
+        //DevExpress.Utils.Localization.XtraLocalizer.UserResourceManager = DXLocalization.ResourceManager;
         ApplicationConfiguration.Initialize();
         //string libsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Libs");
         //Console.WriteLine("=== Содержимое папки Libs ===");

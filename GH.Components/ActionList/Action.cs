@@ -5,9 +5,13 @@
 // Assembly location: E:\C#\KULAKOVSKY\AmigoPlus\AmigoPlus\bin\Debug\lib\GH.Components.Windows.Forms.Actions.dll
 using DevExpress.XtraBars;
 using DevExpress.XtraNavBar;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Drawing.Design;
 using System.Reflection;
+using System.Windows.Forms;
 //using static System.Windows.Forms.ImageList;
 namespace GH.Components
 {

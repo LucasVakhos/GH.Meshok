@@ -1,4 +1,7 @@
-﻿namespace GH.Components
+﻿using System;
+using System.Windows.Controls;
+
+namespace GH.Components
 {
     public class UpdatablePropertyAttribute : Attribute
     {
