@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace GH.Components.NHibernate.Entities
+namespace GH.Components
 {
     [DisplayName("User"), Description("Информация о пользователе"), System.ComponentModel.Category("Информация")]
     public class ProtoUser : ProtoEntity

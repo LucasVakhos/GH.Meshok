@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
 
-namespace GH.Components.NHibernate.Entities
+namespace GH.Components
 {
     public class Field
     {
