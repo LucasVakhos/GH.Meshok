@@ -4,11 +4,11 @@ namespace GH.Components
     public partial class AboutBox : SimpleForm
     {
         //static string s_webadres = "bridgenote.com";
-        public AboutBox()
+    public AboutBox()
         {
             InitializeComponent();
         }
-        private void DisplayProductInformation()
+    private void DisplayProductInformation()
         {
             Text = string.Format("About {0}", AssemblyTitle);
             aboutGroup.Text = AssemblyTitle;
@@ -24,7 +24,8 @@ namespace GH.Components
         //    lblCompany.LinkVisited = true;
         //    Process.Start("https://" + s_webadres);
         //}
-        public static string AssemblyTitle
+
+    public static string AssemblyTitle
         {
             get
             {
@@ -38,14 +39,16 @@ namespace GH.Components
                 return Path.GetFileNameWithoutExtension(Assembly.GetEntryAssembly().CodeBase);
             }
         }
-        public static string AssemblyVersion
+
+    public static string AssemblyVersion
         {
             get
             {
                 return Assembly.GetEntryAssembly().GetName().Version.ToString();
             }
         }
-        public static string AssemblyDescription
+
+    public static string AssemblyDescription
         {
             get
             {
@@ -55,7 +58,8 @@ namespace GH.Components
                 return ((AssemblyDescriptionAttribute)customAttributes[0]).Description;
             }
         }
-        public static string AssemblyProduct
+
+    public static string AssemblyProduct
         {
             get
             {
@@ -65,7 +69,8 @@ namespace GH.Components
                 return ((AssemblyProductAttribute)customAttributes[0]).Product;
             }
         }
-        public static string AssemblyCopyright
+
+    public static string AssemblyCopyright
         {
             get
             {
@@ -75,7 +80,8 @@ namespace GH.Components
                 return ((AssemblyCopyrightAttribute)customAttributes[0]).Copyright;
             }
         }
-        public static string AssemblyCompany
+
+    public static string AssemblyCompany
         {
             get
             {
@@ -85,7 +91,7 @@ namespace GH.Components
                 return ((AssemblyCompanyAttribute)customAttributes[0]).Company;
             }
         }
-        private void AboutBox_Load(object sender, EventArgs e)
+    private void AboutBox_Load(object sender, EventArgs e)
         {
             if (DesignMode)
                 return;

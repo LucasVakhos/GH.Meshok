@@ -9,8 +9,8 @@ namespace GH.Components
     public static class Logger
     {
         private static readonly bool _isConfigurated = Setup();
-        private static ILog _log = null;
-        private static ILog Log
+    private static ILog _log = null;
+    private static ILog Log
         {
             get
             {
@@ -26,7 +26,7 @@ namespace GH.Components
             Info,
             Error,
         }
-        public static bool Setup()
+    public static bool Setup()
         {
             if (!_isConfigurated)
             {
@@ -40,7 +40,7 @@ namespace GH.Components
             else
                 return _isConfigurated;
         }
-        private static void ConfigRoller(RollerType rollerType, Hierarchy hierarchy)
+    private static void ConfigRoller(RollerType rollerType, Hierarchy hierarchy)
         {
             PatternLayout patternLayout = new PatternLayout();
             switch (rollerType)
@@ -92,39 +92,39 @@ namespace GH.Components
             roller.ActivateOptions();
             hierarchy.Root.AddAppender(roller);
         }
-        public static void Error(object message)
+    public static void Error(object message)
         {
             if (Skip(message))
                 return;
             Log.Error(message);
         }
-        private static bool Skip(object message)
+    private static bool Skip(object message)
         {
             return message is Exception ex && ex.InnerException is UserWantExit;
         }
-        public static void Error(object message, Exception exception)
+    public static void Error(object message, Exception exception)
         {
             if (Skip(message))
                 return;
             Log.Error(message, exception);
         }
-        public static void ErrorFormatted(string format, params object[] args)
+    public static void ErrorFormatted(string format, params object[] args)
         {
             Log.ErrorFormat(format, args);
         }
-        public static void Fatal(object message)
+    public static void Fatal(object message)
         {
             if (Skip(message))
                 return;
             Log.Fatal(message);
         }
-        public static void Fatal(object message, Exception exception)
+    public static void Fatal(object message, Exception exception)
         {
             if (Skip(message))
                 return;
             Log.Fatal(message, exception);
         }
-        public static void FatalFormatted(string format, params object[] args)
+    public static void FatalFormatted(string format, params object[] args)
         {
             Log.FatalFormat(format, args);
         }
@@ -168,6 +168,7 @@ namespace GH.Components
         parameter.ParameterName = name;
         return parameter;
     }
+
     public static IList Configs { get; set; }
     private static bool InitLogger()
     {
@@ -187,7 +188,8 @@ namespace GH.Components
         }
         return _isConfigurated;
     }
-     TODO private static void ConfigureRunTimeFromBasic()
+     TODO
+    private static void ConfigureRunTimeFromBasic()
     {
         TraceAppender traceAppender = new TraceAppender();
         PatternLayout patternLayout = new PatternLayout
@@ -213,6 +215,7 @@ namespace GH.Components
             XmlConfigurator.ConfigureAndWatch(new FileInfo(AppDomain.CurrentDomain.SetupInformation.ConfigurationFile));
         return true;
     }
+
     public static bool IsInitialized
     {
         get
@@ -248,6 +251,7 @@ namespace GH.Components
     {
         Log.WarnFormat(format, args);
     }
+
     public static bool IsDebugEnabled
     {
         get
@@ -255,6 +259,7 @@ namespace GH.Components
             return Log.IsDebugEnabled;
         }
     }
+
     public static bool IsInfoEnabled
     {
         get
@@ -262,6 +267,7 @@ namespace GH.Components
             return Log.IsInfoEnabled;
         }
     }
+
     public static bool IsWarnEnabled
     {
         get
@@ -269,6 +275,7 @@ namespace GH.Components
             return Log.IsWarnEnabled;
         }
     }
+
     public static bool IsErrorEnabled
     {
         get
@@ -276,6 +283,7 @@ namespace GH.Components
             return Log.IsErrorEnabled;
         }
     }
+
     public static bool IsFatalEnabled
     {
         get

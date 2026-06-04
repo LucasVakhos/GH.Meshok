@@ -6,11 +6,11 @@ namespace GH.Components
     public class LayoutGridControlGh : LayoutControlGh
     {
         private GridGh gridGh;
-        private ViewGh viewGh;
+    private ViewGh viewGh;
         //GridGh gridGh = new GridGh();
-        //ViewGh viewGh = new ViewGh(); 
-        private bool _intialization;
-        public LayoutGridControlGh() : base()
+        //ViewGh viewGh = new ViewGh();
+    private bool _intialization;
+    public LayoutGridControlGh() : base()
         {
             InitializeGrid();
         }
@@ -22,12 +22,12 @@ namespace GH.Components
         [GHProperty]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public ViewGh GridView => viewGh;
-        public override void BeginInit()
+    public override void BeginInit()
         {
             base.BeginInit();
             _intialization = true;
         }
-        public override void EndInit()
+    public override void EndInit()
         {
             if (Root != null && _intialization && DesignMode && Owner != null)
             {
@@ -70,7 +70,7 @@ namespace GH.Components
             base.EndInit();
             ResumeLayout(false);
         }
-        private void InitializeGrid()
+    private void InitializeGrid()
         {
             this.gridGh = new GH.Components.GridGh();
             this.viewGh = new GH.Components.ViewGh();

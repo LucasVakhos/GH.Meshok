@@ -12,7 +12,7 @@ namespace GH.Components
                 dataSource.Open();
             }
         }
-        protected override void OnLoad(EventArgs e)
+    protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             //if (!IsDesignMode)
@@ -21,7 +21,7 @@ namespace GH.Components
             //    dataSource.Open();
             //}
         }
-        private void DataSource_OnOpen(out IList list)
+    private void DataSource_OnOpen(out IList list)
         {
             list = new List<T>();
             list.Add(IniHelper.CoreCfg<T>());

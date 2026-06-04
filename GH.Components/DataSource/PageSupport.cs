@@ -8,9 +8,9 @@ namespace GH.Components
     public class PageSupport
     {
         private readonly DataSource _owner;
-        internal bool Supported => !(PageForEdit == null || PageForView == null);
-        internal bool EditSelected => Supported && PageControl.SelectedTabPage == PageForEdit;
-        internal bool ViewSelected => Supported && PageControl.SelectedTabPage == PageForView;
+    internal bool Supported => !(PageForEdit == null || PageForView == null);
+    internal bool EditSelected => Supported && PageControl.SelectedTabPage == PageForEdit;
+    internal bool ViewSelected => Supported && PageControl.SelectedTabPage == PageForView;
         TabbedControlGroup _pages = null;
         [Bindable(false)]
         public TabbedControlGroup PageControl
@@ -81,11 +81,12 @@ namespace GH.Components
                 _editGroup = value;
             }
         }
-        public PageSupport(DataSource owner)
+
+    public PageSupport(DataSource owner)
         {
             _owner = owner;
         }
-        private void Pages_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
+    private void Pages_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
         {
             if (e.PrevPage == PageForEdit)
             {
@@ -93,7 +94,7 @@ namespace GH.Components
                     _owner.Cancel();
             }
         }
-        internal void CheckPages(DataState dataState)
+    internal void CheckPages(DataState dataState)
         {
             if (!Supported || _owner.SkipPageSupport)
                 return;
@@ -112,15 +113,15 @@ namespace GH.Components
                     break;
             }
         }
-        internal void EditSelect()
+    internal void EditSelect()
         {
             SelectPage(PageForEdit);
         }
-        internal void ViewSelect()
+    internal void ViewSelect()
         {
             SelectPage(PageForView);
         }
-        private void SelectPage(LayoutGroup page)
+    private void SelectPage(LayoutGroup page)
         {
             if (PageControl.SelectedTabPage != page)
             {
@@ -131,7 +132,7 @@ namespace GH.Components
                 PageControl.SelectedPageChanged += Pages_SelectedPageChanged;
             }
         }
-        internal bool CheckSupportrd(EditTypes buttonType)
+    internal bool CheckSupportrd(EditTypes buttonType)
         {
             if (!Supported)
                 return true;
@@ -144,7 +145,7 @@ namespace GH.Components
                     return ViewSelected;
             }
         }
-        internal void EndInit()
+    internal void EndInit()
         {
             if (Supported)
             {
@@ -154,7 +155,7 @@ namespace GH.Components
             if (EditGroup != null)
                 InitGroup(EditGroup);
         }
-        private void InitGroup(LayoutItemContainer container)
+    private void InitGroup(LayoutItemContainer container)
         {
             if (container is LayoutControlGroup group)
             {
@@ -192,7 +193,7 @@ namespace GH.Components
                     }
                 }
         }
-        private void Control_KeyDown(object sender, KeyEventArgs e)
+    private void Control_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {
@@ -204,7 +205,7 @@ namespace GH.Components
                     break;
             }
         }
-        public override string ToString()
+    public override string ToString()
         {
             string res = "";
             if (EditGroup != null)

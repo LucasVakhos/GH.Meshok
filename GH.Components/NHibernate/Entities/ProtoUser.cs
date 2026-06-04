@@ -1,9 +1,6 @@
 ﻿// GH.Components\NHibernate\Entities\ProtoUser.cs
-
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-
-
 namespace GH.Components
 {
     [DisplayName("User"), Description("Информация о пользователе"), System.ComponentModel.Category("Информация")]
@@ -13,7 +10,6 @@ namespace GH.Components
         public override string name { get; set; }
         [Display(Name = "URL", Description = "URL"), ReadOnly(true)]
         public virtual string url { get; set; } = "(localhost)";
-
         [Display(Name = "Логин", Description = "Логин"), ReadOnly(true)]
         public virtual string login => name;
         [Display(Name = "Пароль", Description = "Пароль")]

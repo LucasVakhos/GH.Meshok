@@ -6,11 +6,11 @@
         {
             InitializeComponent();
         }
-        private void dataSource_OnPost(object sender, System.EventArgs e)
+    private void dataSource_OnPost(object sender, System.EventArgs e)
         {
             Save();
         }
-        private void dataSource_OnCancel(object sender, System.EventArgs e)
+    private void dataSource_OnCancel(object sender, System.EventArgs e)
         {
             if (dataSource.Current is CfgCore cfgCore)
             {

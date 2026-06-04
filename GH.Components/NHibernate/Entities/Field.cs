@@ -6,9 +6,9 @@ namespace GH.Components
     public struct Field
     {
         public const string ctrlPrefix = "edit";
-        public const string layouPrefix = "lc";
-        public const string groupSuffix = "Group";
-        public static Field[] GetFields<TEntity, TAttribute>(string[] except = null, bool withKey = false)
+    public const string layouPrefix = "lc";
+    public const string groupSuffix = "Group";
+    public static Field[] GetFields<TEntity, TAttribute>(string[] except = null, bool withKey = false)
             where TEntity : AbstractEntity
             where TAttribute : UpdatablePropertyAttribute
         {
@@ -29,7 +29,8 @@ namespace GH.Components
             }
             return fields.ToArray();
         }
-        public static Field[] GetFields<TAttribute>(AbstractEntity entity, string[] except = null, bool withKey = false)
+
+    public static Field[] GetFields<TAttribute>(AbstractEntity entity, string[] except = null, bool withKey = false)
             where TAttribute : UpdatablePropertyAttribute
         {
             List<Field> fields = new List<Field>();
@@ -49,24 +50,25 @@ namespace GH.Components
             }
             return fields.ToArray();
         }
-        public readonly bool Key;
-        public readonly string Name;
-        public readonly string Caption;
-        public readonly string ToolTip;
-        public readonly object Value;
-        public readonly Type FieldType;
-        public readonly string DisplayFormat;
-        public readonly string Format;
-        public readonly int Order;
-        public readonly EditorType EditorType;
-        public readonly string Group;
-        public readonly string SubGroup;
-        public readonly object Default;
-        public readonly bool ReadOnly;
-        public readonly bool Required;
-        public readonly CharacterCasing CharacterCasing;
-        public readonly int MaxLength;
-        public bool? AsBoolean
+
+    public readonly bool Key;
+    public readonly string Name;
+    public readonly string Caption;
+    public readonly string ToolTip;
+    public readonly object Value;
+    public readonly Type FieldType;
+    public readonly string DisplayFormat;
+    public readonly string Format;
+    public readonly int Order;
+    public readonly EditorType EditorType;
+    public readonly string Group;
+    public readonly string SubGroup;
+    public readonly object Default;
+    public readonly bool ReadOnly;
+    public readonly bool Required;
+    public readonly CharacterCasing CharacterCasing;
+    public readonly int MaxLength;
+    public bool? AsBoolean
         {
             get
             {
@@ -76,7 +78,8 @@ namespace GH.Components
                     return Convert.ToBoolean(Value);
             }
         }
-        public int? AsInteger
+
+    public int? AsInteger
         {
             get
             {
@@ -86,7 +89,8 @@ namespace GH.Components
                     return Convert.ToInt32(Value);
             }
         }
-        public double? AsDouble
+
+    public double? AsDouble
         {
             get
             {
@@ -96,7 +100,8 @@ namespace GH.Components
                     return Convert.ToDouble(Value);
             }
         }
-        public DateTime? AsDateTime
+
+    public DateTime? AsDateTime
         {
             get
             {
@@ -106,7 +111,8 @@ namespace GH.Components
                     return Convert.ToDateTime(Value);
             }
         }
-        public string AsString
+
+    public string AsString
         {
             get
             {
@@ -116,13 +122,15 @@ namespace GH.Components
                     return Value.ToString();
             }
         }
-        public string ControlName => ctrlPrefix + Name;
-        public string LayoutName => layouPrefix + Name;
-        public string GroupName => Group + groupSuffix;
-        public string SubGroupName => SubGroup + groupSuffix;
-        public string CaptionText => Caption + ":";
-        public AbstractEntity Entity { get; }
-        public Field(PropertyInfo propInfo, AbstractEntity entity = null) : this()
+
+    public string ControlName => ctrlPrefix + Name;
+    public string LayoutName => layouPrefix + Name;
+    public string GroupName => Group + groupSuffix;
+    public string SubGroupName => SubGroup + groupSuffix;
+    public string CaptionText => Caption + ":";
+    public AbstractEntity Entity { get; }
+
+    public Field(PropertyInfo propInfo, AbstractEntity entity = null) : this()
         {
             Entity = entity;
             UpdatablePropertyAttribute attr = propInfo.GetCustomAttribute<UpdatablePropertyAttribute>();
@@ -168,7 +176,7 @@ namespace GH.Components
                 Value = null;
         }
         BaseControl control;
-        public BaseControl CreateControl()
+    public BaseControl CreateControl()
         {
             switch (EditorType)
             {
@@ -259,7 +267,8 @@ namespace GH.Components
             }
             return control;
         }
-        private KeyValuePair<object, string>[] GetEnum(Type fieldType)
+
+    private KeyValuePair<object, string>[] GetEnum(Type fieldType)
         {
             Dictionary<object, string> keys = new Dictionary<object, string>();
             try

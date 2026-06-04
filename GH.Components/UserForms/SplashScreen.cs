@@ -5,18 +5,19 @@ namespace GH.Components
     public class DefSplashScreen : SplashScreen
     {
         private DevExpress.XtraEditors.ProgressBarControl progressBar;
-        public DevExpress.XtraEditors.PictureEdit pictureEdit2;
-        private DevExpress.XtraEditors.LabelControl labelRunBegin;
-        private DevExpress.XtraEditors.LabelControl labelCopyrith;
-        private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgress;
+    public DevExpress.XtraEditors.PictureEdit pictureEdit2;
+    private DevExpress.XtraEditors.LabelControl labelRunBegin;
+    private DevExpress.XtraEditors.LabelControl labelCopyrith;
+    private DevExpress.XtraEditors.MarqueeProgressBarControl marqueeProgress;
         static DefSplashScreen instance = null;
-        public DefSplashScreen()
+    public DefSplashScreen()
         {
             instance = this;
             InitializeComponent();
         }
-        public static DefSplashScreen Instance => instance;
-        public override void ProcessCommand(Enum cmd, object arg)
+
+    public static DefSplashScreen Instance => instance;
+    public override void ProcessCommand(Enum cmd, object arg)
         {
             base.ProcessCommand(cmd, arg);
             SplashScreenCommand command = (SplashScreenCommand)cmd;
@@ -53,7 +54,8 @@ namespace GH.Components
                     break;
             }
         }
-        public static string AssemblyTitle
+
+    public static string AssemblyTitle
         {
             get
             {
@@ -67,7 +69,8 @@ namespace GH.Components
                 return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
-        public static string AssemblyCopyright
+
+    public static string AssemblyCopyright
         {
             get
             {
@@ -77,26 +80,30 @@ namespace GH.Components
                 return ((AssemblyCopyrightAttribute)customAttributes[0]).Copyright;
             }
         }
-        public enum SplashScreenCommand
+
+    public enum SplashScreenCommand
         {
             SetProgressMax,
             SetProgress,
             EndProgress,
             Activate
         }
-        public class SplashCommandArgs
+
+    public class SplashCommandArgs
         {
             int _max = 0;
             int _value = 0;
-            public SplashCommandArgs(int max, int value)
+    public SplashCommandArgs(int max, int value)
             {
                 _max = max;
                 _value = value;
             }
-            public int Value { get => _value; }
-            public int Max { get => _max; }
+
+    public int Value { get => _value; }
+
+    public int Max { get => _max; }
         }
-        private void DefSplashScreen_Load(object sender, EventArgs e)
+    private void DefSplashScreen_Load(object sender, EventArgs e)
         {
             if (DesignMode)
                 return;
@@ -105,7 +112,7 @@ namespace GH.Components
             labelCopyrith.Text = AssemblyCopyright;
             labelRunBegin.Text = "Запуск " + AssemblyTitle;
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DefSplashScreen));
             this.progressBar = new DevExpress.XtraEditors.ProgressBarControl();

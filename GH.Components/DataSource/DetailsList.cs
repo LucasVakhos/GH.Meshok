@@ -4,12 +4,12 @@ namespace GH.Components
     public class DetailsList : List<DetailSource>
     {
         private List<TabbedGroup> _pages = new List<TabbedGroup>();
-        private void Pages_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
+    private void Pages_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
         {
             CloseDetails(e.PrevPage);
             OpenDetails(e.Page);
         }
-        internal void ReOpenDetailsByTimer()
+    internal void ReOpenDetailsByTimer()
         {
             if (Count > 0)
                 foreach (DetailSource source in this.Where(x => x.Active))
@@ -21,17 +21,17 @@ namespace GH.Components
         //{
         //    this.Where(x => x.Source == source && x.Active).FirstOrDefault()?.ReOpenByTimer();
         //}
-        private void OpenDetails(LayoutGroup page)
+    private void OpenDetails(LayoutGroup page)
         {
             foreach (var item in this.Where(x => x.Page == page && x.Active).ToArray())
                 item.Open();
         }
-        private void CloseDetails(LayoutGroup page)
+    private void CloseDetails(LayoutGroup page)
         {
             foreach (var item in this.Where(x => x.Page == page).ToArray())
                 item.Close();
         }
-        private void RegPageControl(TabbedGroup pages)
+    private void RegPageControl(TabbedGroup pages)
         {
             if (pages == null)
                 return;
@@ -42,7 +42,7 @@ namespace GH.Components
                 pages.SelectedPageChanged += Pages_SelectedPageChanged;
             }
         }
-        internal void RegDataSource(DataSource source)
+    internal void RegDataSource(DataSource source)
         {
             DetailSource detail = this.Where(x => x.Source == source).FirstOrDefault();
             if (detail == null)
@@ -55,7 +55,7 @@ namespace GH.Components
                 }
             }
         }
-        internal void UnRegDataSource(DataSource source)
+    internal void UnRegDataSource(DataSource source)
         {
             DetailSource detail = this.Where(x => x.Source == source).FirstOrDefault();
             if (detail != null)

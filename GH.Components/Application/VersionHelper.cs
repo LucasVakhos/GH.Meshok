@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
 namespace GH.Components
 {
     public class VersionHelper : IComparable<Version>
     {
         static string newVersion = Application.ProductVersion;
         static DirectoryInfo configsDirInfo;
-        public static void CheckNewVersion()
+    public static void CheckNewVersion()
         {
             configsDirInfo = new DirectoryInfo(RunContext.ConfigsPath);
             if (new Version(newVersion).CompareTo(new Version(RunContext.AppCfg.ProductVersion)) > 0)
@@ -20,17 +19,17 @@ namespace GH.Components
                 RunContext.AppCfg.Save(true);
             }
         }
-        private static bool ConfigsExists()
+    private static bool ConfigsExists()
         {
             return configsDirInfo.Exists && ConfigsList().Any();
         }
-        private static void ClearConfigFolder()
+    private static void ClearConfigFolder()
         {
             if (ConfigsExists())
                 foreach (FileInfo item in ConfigsList())
                     item.Delete();
         }
-        private static IEnumerable<FileInfo> ConfigsList()
+    private static IEnumerable<FileInfo> ConfigsList()
         {
             return configsDirInfo.GetFiles().Where(f => f.Extension.ToUpper() == ".XML");
         }

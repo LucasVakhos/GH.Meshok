@@ -21,8 +21,8 @@ namespace GH.Components
     public partial class DataSource : BindingSource, ISupportInitialize
     {
         private object _lockInProcces = new object();
-        private bool _initializing = true;
-        public override ISite Site
+    private bool _initializing = true;
+    public override ISite Site
         {
             get
             {
@@ -41,9 +41,11 @@ namespace GH.Components
                 Owner = (Control)rootComponent;
             }
         }
-        private bool _readOnly;
-        public override bool IsReadOnly { get => _readOnly && base.IsReadOnly; }
-        private bool _allowNew = true;
+
+    private bool _readOnly;
+    public override bool IsReadOnly { get => _readOnly && base.IsReadOnly; }
+
+    private bool _allowNew = true;
         [Browsable(false)]
         public override bool AllowNew
         {
@@ -54,10 +56,12 @@ namespace GH.Components
                 base.AllowNew = value;
             }
         }
-        private bool _isLocalDataSet = false;
+
+    private bool _isLocalDataSet = false;
         [GHProperty, DefaultValue(false), Description("Ставьте (IsLocalDataSet=true) если не нужно получать данные из другого источника а не из базы данных")]
         public bool IsLocalDataSet { get => _isLocalDataSet; set => _isLocalDataSet = value; }
-        private bool _onlyOneRecordInDataSet = false;
+
+    private bool _onlyOneRecordInDataSet = false;
         [GHProperty, DefaultValue(false), Description("Ставьте (OnlyOneRecordInDataSet=true) если нужно отображать только одну запись")]
         public bool OnlyOneRecordInDataSet
         {
@@ -94,31 +98,38 @@ namespace GH.Components
                 _allowSaveCancel = value;
             }
         }
-        private GridColumn _colQty;
+
+    private GridColumn _colQty;
         [GHProperty, DefaultValue(null)]
         public GridColumn ColQty { get => _colQty; set => _colQty = value; }
         DetailsList _detailSources = new DetailsList();
-        private bool _needFocusGrid = true;
+    private bool _needFocusGrid = true;
         [GHProperty, DefaultValue(true), Description("Устанавливать фокус на сетку")]
         public bool NeedFocusGrid { get => _needFocusGrid; set => _needFocusGrid = value; }
-        private bool _needLoadingAnimate = true;
+
+    private bool _needLoadingAnimate = true;
         [GHProperty, DefaultValue(true), Description("Анимировать загрузку")]
         public bool NeedLoadingAnimate { get => _needLoadingAnimate; set => _needLoadingAnimate = value; }
-        private bool _immediatePostInsert = false;
+
+    private bool _immediatePostInsert = false;
         [GHProperty, DefaultValue(false), Description("Немедленно Post после Insert")]
         public bool ImmediatePostInsert { get => _immediatePostInsert; set => _immediatePostInsert = value; }
-        private bool _askForDelete = true;
+
+    private bool _askForDelete = true;
         [GHProperty, DefaultValue(true), Description("Задать вопрос при удалении")]
         public bool AskForDelete { get => _askForDelete; set => _askForDelete = value; }
-        private bool _deleteAsUpdate;
+
+    private bool _deleteAsUpdate;
         [GHProperty, DefaultValue(false), Description("Обновить вместо удаления")]
         public bool DeleteAsUpdate { get => _deleteAsUpdate; set => _deleteAsUpdate = value; }
-        private bool _refreshAfterPost = true;
+
+    private bool _refreshAfterPost = true;
         [GHProperty, DefaultValue(true), Description("Обновить вместо удаления")]
         public bool RefreshAfterPost { get => _refreshAfterPost; set => _refreshAfterPost = value; }
-        internal EditGrants _editGrants = new EditGrants(false, false, false);
-        private bool _allowEdit = true;
-        private bool _allowRemove = true;
+
+    internal EditGrants _editGrants = new EditGrants(false, false, false);
+    private bool _allowEdit = true;
+    private bool _allowRemove = true;
         [GHProperty, DefaultValue(false)]
         public bool ReadOnly { get => _readOnly; set => _readOnly = value; }
         [GHProperty, DefaultValue(true)]
@@ -148,7 +159,8 @@ namespace GH.Components
                 _allowRemove = value;
             }
         }
-        private Type _entityType;
+
+    private Type _entityType;
         [Browsable(false)]
         public Type EntityType
         {
@@ -165,12 +177,13 @@ namespace GH.Components
                 return _entityType;
             }
         }
-        private bool _allowSaveCancel = true;
-        private IList<BindingControlMap> _bindingControls = new List<BindingControlMap>();
-        private List<DisablePagesReason> _disablePagesReasons = new List<DisablePagesReason>();
+
+    private bool _allowSaveCancel = true;
+    private IList<BindingControlMap> _bindingControls = new List<BindingControlMap>();
+    private List<DisablePagesReason> _disablePagesReasons = new List<DisablePagesReason>();
         [Browsable(false)]
         public bool SkipPageSupport => _disablePagesReasons.Count > 0;
-        private Control _owner;
+    private Control _owner;
         [GHProperty, Browsable(true), DefaultValue(null)]
         public Control Owner
         {
@@ -187,7 +200,8 @@ namespace GH.Components
                 _owner = value;
             }
         }
-        private GridControl _grid;
+
+    private GridControl _grid;
         [GHProperty, DefaultValue(null)]
         public GridControl Grid
         {
@@ -201,7 +215,8 @@ namespace GH.Components
                     value.DataSource = this;
             }
         }
-        internal GridView View
+
+    internal GridView View
         {
             get
             {
@@ -210,9 +225,10 @@ namespace GH.Components
                 return _grid.MainView as GridView;
             }
         }
-        private bool _Opening = false;
-        private IList<AbstractEntity> _inProcList = new List<AbstractEntity>();
-        internal INHRepository _repository;
+
+    private bool _Opening = false;
+    private IList<AbstractEntity> _inProcList = new List<AbstractEntity>();
+    internal INHRepository _repository;
         [Browsable(false)]
         public INHRepository Repository
         {
@@ -223,22 +239,25 @@ namespace GH.Components
                 return _repository;
             }
         }
-        internal bool _refreshingAll = false;
-        internal Timer _reopenTimer;
-        private object _saved;
+
+    internal bool _refreshingAll = false;
+    internal Timer _reopenTimer;
+    private object _saved;
         //public LayoutControlGroup GroupEdit { get; set; }
         //public LayoutControlGroup PageEdit { get; set; }
         //public LayoutControlGroup PageView { get; set; }
         //[ReadOnly(false)]
         //public string CloseOpenField { get => _closeOpenField; set => _closeOpenField = value; }
-        internal string _closeOpenField;
-        internal string _statusField;
-        internal int _statusOpened;
-        internal int _statusClosed;
+
+    internal string _closeOpenField;
+    internal string _statusField;
+    internal int _statusOpened;
+    internal int _statusClosed;
         //[ReadOnly(false)]
         //public string CountField { get => _countField; set => _countField = value; }
-        internal string _countField;
-        internal bool Closable
+
+    internal string _countField;
+    internal bool Closable
         {
             get
             {
@@ -252,13 +271,15 @@ namespace GH.Components
             {
                 return Closable && Entity.AsBoolean(_closeOpenField);
             }
-            private set
+
+    private set
             {
                 if (Closable)
                     Entity.AsBoolean(_closeOpenField, value);
             }
         }
-        internal int DocCnt
+
+    internal int DocCnt
         {
             get
             {
@@ -267,7 +288,8 @@ namespace GH.Components
                 return 0;
             }
         }
-        internal int Status
+
+    internal int Status
         {
             get
             {
@@ -292,25 +314,28 @@ namespace GH.Components
                 return State == DataState.Editing || State == DataState.Inserting;
             }
         }
-        private ActionList _actionList;
+
+    private ActionList _actionList;
         [GHProperty, DefaultValue(null)]
         public ActionList ActionList { get => _actionList; set => _actionList = value; }
-        private ButtonsPanel _buttonsPanel = null;
+
+    private ButtonsPanel _buttonsPanel = null;
         [GHProperty, Browsable(false)]
         public ButtonsPanel ButtonsPanel => _buttonsPanel;
-        private PageSupport _pageSupport;
+    private PageSupport _pageSupport;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [GHProperty]
         public PageSupport PageSupport => _pageSupport;
-        internal bool SupportPages => _pageSupport.Supported;
-        private DataState _editState = DataState.Browsing;
-        private DocSupport _docSupport;
+    internal bool SupportPages => _pageSupport.Supported;
+    private DataState _editState = DataState.Browsing;
+    private DocSupport _docSupport;
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         [GHProperty]
         public DocSupport DocSupport => _docSupport;
         [Browsable(false)]
         public DataState EditState { get => _editState; }
-        private DataState _state = DataState.Inactive;
+
+    private DataState _state = DataState.Inactive;
         [Browsable(false), DefaultValue(DataState.Inactive)]
         public DataState State
         {
@@ -357,15 +382,17 @@ namespace GH.Components
                     _pageSupport.CheckPages(value);
             }
         }
-        public DataSource(IContainer container) : base(container)
+
+    public DataSource(IContainer container) : base(container)
         {
             CreateSupports();
         }
-        public DataSource() : base()
+
+    public DataSource() : base()
         {
             CreateSupports();
         }
-        protected override void OnPositionChanged(EventArgs e)
+    protected override void OnPositionChanged(EventArgs e)
         {
             base.OnPositionChanged(e);
             if (_initializing)
@@ -377,7 +404,7 @@ namespace GH.Components
             if (State == DataState.Browsing)
                 _detailSources.ReOpenDetailsByTimer();
         }
-        protected override void OnDataSourceChanged(EventArgs e)
+    protected override void OnDataSourceChanged(EventArgs e)
         {
             base.OnDataSourceChanged(e);
             if (_initializing)
@@ -388,7 +415,7 @@ namespace GH.Components
                 State = DataState.Browsing;
             GetGrants();
         }
-        protected override void OnListChanged(ListChangedEventArgs e)
+    protected override void OnListChanged(ListChangedEventArgs e)
         {
             base.OnListChanged(e);
             if (_initializing)
@@ -447,11 +474,11 @@ namespace GH.Components
                     break;
             }
         }
-        public virtual void BeginInit()
+    public virtual void BeginInit()
         {
             _initializing = true;
         }
-        public virtual void EndInit()
+    public virtual void EndInit()
         {
             if (!this.IsDesignMode() && this.DataSource != null)
             {
@@ -467,7 +494,7 @@ namespace GH.Components
             }
             _initializing = false;
         }
-        private bool ShowGridEditor()
+    private bool ShowGridEditor()
         {
             if (View != null && ColQty != null)
                 View.FocusedColumn = ColQty;
@@ -488,7 +515,7 @@ namespace GH.Components
             }
             return false;
         }
-        private void InitGrid()
+    private void InitGrid()
         {
             if (ColQty != null)
             {
@@ -515,7 +542,7 @@ namespace GH.Components
                 Owner.Leave += Ctrl_Leave;
             }
         }
-        internal void AddBindingControl(BaseEdit edit)
+    internal void AddBindingControl(BaseEdit edit)
         {
             var map = new BindingControlMap(edit);
             if (_bindingControls.Contains(map))
@@ -524,11 +551,11 @@ namespace GH.Components
             edit.Enter += Ctrl_Enter;
             edit.Leave += Ctrl_Leave;
         }
-        private bool InEditMode(DataState value)
+    private bool InEditMode(DataState value)
         {
             return value == DataState.Editing || value == DataState.Inserting;
         }
-        private void CreateSupports()
+    private void CreateSupports()
         {
             BeginInit();
             _navbaritems = new List<NavBarItem>();
@@ -536,7 +563,7 @@ namespace GH.Components
             _docSupport = new DocSupport(this);
             EndInit();
         }
-        public void ReOpenByTimer()
+    public void ReOpenByTimer()
         {
             if (DesignMode)
                 return;
@@ -544,7 +571,7 @@ namespace GH.Components
             //Close();
             ReopenTimerStart();
         }
-        public void Close()
+    public void Close()
         {
             State = DataState.Inactive;
             if (Count > 0)
@@ -555,7 +582,7 @@ namespace GH.Components
             else
                 ResetBindings(false);
         }
-        internal void ReopenTimerStart()
+    internal void ReopenTimerStart()
         {
             if (DesignMode)
                 return;
@@ -569,7 +596,7 @@ namespace GH.Components
                 _reopenTimer.Stop();
             _reopenTimer.Start();
         }
-        internal void ReopenTimerStop()
+    internal void ReopenTimerStop()
         {
             if (_reopenTimer != null)
             {
@@ -579,24 +606,24 @@ namespace GH.Components
                 _reopenTimer = null;
             }
         }
-        private void _reopenTimer_Tick(object sender, EventArgs e)
+    private void _reopenTimer_Tick(object sender, EventArgs e)
         {
             ReopenTimerStop();
             CloseOpen();
         }
-        protected virtual void OnBeforeOpen()
+    protected virtual void OnBeforeOpen()
         {
             _inProcList.Clear();
             BeforeOpen?.Invoke(this, EventArgs.Empty);
             _Opening = true;
         }
-        private string GetSql(SqlTypes sqlType, BaseEntity item)
+    private string GetSql(SqlTypes sqlType, BaseEntity item)
         {
             string result = null;
             GetSqlString?.Invoke(sqlType, item, out result);
             return result;
         }
-        private void InitRepository()
+    private void InitRepository()
         {
             if (_repository != null)
                 return;
@@ -614,7 +641,7 @@ namespace GH.Components
                 _repository.NeedLoadingAnimate = NeedLoadingAnimate;
             }
         }
-        private void CloseOpenDocFinish(object entity)
+    private void CloseOpenDocFinish(object entity)
         {
             EndEdit();
             RaiseListChangedEvents = true;
@@ -626,7 +653,7 @@ namespace GH.Components
             DoAfterCloseOpenDoc();
             EnablePages(DisablePagesReason.ClosingOrOpening);
         }
-        private void PostFinish(object entity)
+    private void PostFinish(object entity)
         {
             if (Entity == entity)
             {
@@ -643,7 +670,7 @@ namespace GH.Components
             InProcces(entity as AbstractEntity, false);
             GetGrants();
         }
-        private void DeleteFinish(object entity)
+    private void DeleteFinish(object entity)
         {
             if (State == DataState.Editing)
             {
@@ -666,7 +693,8 @@ namespace GH.Components
             MasterDataSource?.Refresh();
             GetGrants();
         }
-        private Dictionary<string, bool> GridSorting()
+
+    private Dictionary<string, bool> GridSorting()
         {
             if (View == null)
                 return null;
@@ -677,7 +705,8 @@ namespace GH.Components
                 return null;
             return result;
         }
-        private Dictionary<string, object> WhereParams()
+
+    private Dictionary<string, object> WhereParams()
         {
             Dictionary<string, object> whereParams = new Dictionary<string, object>();
             GetWhereParams?.Invoke(this, whereParams);
@@ -685,7 +714,7 @@ namespace GH.Components
                 return null;
             return whereParams;
         }
-        private IList GetList(IList lst)
+    private IList GetList(IList lst)
         {
             if (_isLocalDataSet)
             {
@@ -708,7 +737,7 @@ namespace GH.Components
             }
             return lst;
         }
-        internal void CheckBindingControlsReadOnly()
+    internal void CheckBindingControlsReadOnly()
         {
             if (_bindingControls.Count > 0 && !_readOnly)
             {
@@ -728,7 +757,7 @@ namespace GH.Components
                 }
             }
         }
-        protected virtual void OnAfterOpen()
+    protected virtual void OnAfterOpen()
         {
             _detailSources.ReOpenDetailsByTimer();
             //ReOpenDetailsByTimer();
@@ -736,7 +765,7 @@ namespace GH.Components
             _Opening = false;
             AfterOpen?.Invoke(this, EventArgs.Empty);
         }
-        private void FocusGrid()
+    private void FocusGrid()
         {
             if (Grid != null && _needFocusGrid)
             {
@@ -746,7 +775,7 @@ namespace GH.Components
                     Grid.Focus();
             }
         }
-        public void Open()
+    public void Open()
         {
             OnBeforeOpen();
             try
@@ -771,19 +800,19 @@ namespace GH.Components
                 FocusGrid();
             }
         }
-        internal void CheckPages(DataState dataState)
+    internal void CheckPages(DataState dataState)
         {
             _pageSupport.CheckPages(dataState);
         }
-        private void RegDetailSource(DataSource detail)
+    private void RegDetailSource(DataSource detail)
         {
             _detailSources.RegDataSource(detail);
         }
-        private void UnRegDetailSource(DataSource detail)
+    private void UnRegDetailSource(DataSource detail)
         {
             _detailSources.UnRegDataSource(detail);
         }
-        internal bool InProcces(AbstractEntity bindable, bool add)
+    internal bool InProcces(AbstractEntity bindable, bool add)
         {
             lock (_lockInProcces)
             {
@@ -798,7 +827,7 @@ namespace GH.Components
             }
             return false;
         }
-        private bool DoValidateControl(BaseEdit control)
+    private bool DoValidateControl(BaseEdit control)
         {
             if (ValidateControl == null)
                 return true;
@@ -806,7 +835,7 @@ namespace GH.Components
             ValidateControl.Invoke(this, e);
             return e.IsValid;
         }
-        internal bool ValidateBindingControls()
+    internal bool ValidateBindingControls()
         {
             if (_bindingControls.Count == 0)
                 return true;
@@ -824,7 +853,7 @@ namespace GH.Components
             }
             return true;
         }
-        private bool InternalPost()
+    private bool InternalPost()
         {
             if (InProcces(Entity, true))
                 return false;
@@ -851,12 +880,12 @@ namespace GH.Components
                 InProcces(Entity, false);
             return true;
         }
-        public void DisablePages(DisablePagesReason reason)
+    public void DisablePages(DisablePagesReason reason)
         {
             if (_disablePagesReasons.IndexOf(reason) == -1)
                 _disablePagesReasons.Add(reason);
         }
-        public void Insert()
+    public void Insert()
         {
             if (!_editGrants.AllowNew)
                 return;
@@ -870,7 +899,7 @@ namespace GH.Components
                 Post();
             }
         }
-        public virtual void Edit()
+    public virtual void Edit()
         {
             if (_editGrants.AllowEdit)
             {
@@ -890,7 +919,7 @@ namespace GH.Components
             else if (SupportPages)
                 CheckPages(DataState.Editing);
         }
-        private bool CheckCanEdit()
+    private bool CheckCanEdit()
         {
             bool canEdit = true;
             if (CanEdit != null)
@@ -899,7 +928,7 @@ namespace GH.Components
                 View.HideEditor();
             return canEdit;
         }
-        public void Refresh()
+    public void Refresh()
         {
             if (Entity != null)
             {
@@ -916,7 +945,7 @@ namespace GH.Components
                 RefreshFinish(Entity);
             }
         }
-        internal void RefreshFinish(object entity)
+    internal void RefreshFinish(object entity)
         {
             RunContext.Invoke(() =>
             {
@@ -924,7 +953,7 @@ namespace GH.Components
                 CheckBindingControlsReadOnly();
             });
         }
-        private void HideGridEditor()
+    private void HideGridEditor()
         {
             if (View != null)
             {
@@ -939,18 +968,18 @@ namespace GH.Components
             if (State != DataState.Canceling)
                 State = DataState.Browsing;
         }
-        public void Post()
+    public void Post()
         {
             if (!InternalPost())
                 return;
             if (View != null && View.IsEditorFocused)
                 HideGridEditor();
         }
-        public void EnablePages(DisablePagesReason reason)
+    public void EnablePages(DisablePagesReason reason)
         {
             _disablePagesReasons.Remove(reason);
         }
-        protected void GetGrants()
+    protected void GetGrants()
         {
             EditGrants e = new EditGrants(
                 _allowNew && !IsReadOnly && State == DataState.Browsing,
@@ -960,14 +989,14 @@ namespace GH.Components
             GetEditGrants?.Invoke(this, e);
             _editGrants = e;
         }
-        private void PrepareEditGroup()
+    private void PrepareEditGroup()
         {
             if (!AllowSaveCancel || ReadOnly || PageSupport.EditGroup == null || _buttonsPanel != null)
                 return;
             if (PageSupport.EditGroup.Owner is LayoutControlGh layoutControl)
                 _buttonsPanel = layoutControl.PrepareGroup(PageSupport.EditGroup);
         }
-        public void AddSaveSaveCancelPanel()
+    public void AddSaveSaveCancelPanel()
         {
             if (_buttonsPanel != null)
                 return;
@@ -997,7 +1026,7 @@ namespace GH.Components
                 CreateAction(EditTypes.Cancel, pos);
             }
         }
-        public void ExecuteAction(EditTypes type)
+    public void ExecuteAction(EditTypes type)
         {
             if (_actionList == null)
                 return;
@@ -1006,13 +1035,13 @@ namespace GH.Components
                 return;
             action.DoExecute();
         }
-        protected string GetQueryText(SqlTypes sqlType, bool closed = false)
+    protected string GetQueryText(SqlTypes sqlType, bool closed = false)
         {
             YesNoTextArgs e = new YesNoTextArgs(sqlType, Entity, closed);
             GetYesNoText?.Invoke(e);
             return e.ToString();
         }
-        internal void InternalDelete()
+    internal void InternalDelete()
         {
             if (_isLocalDataSet)
             {
@@ -1023,7 +1052,7 @@ namespace GH.Components
                 if (Repository != null)
                     Repository.Delete(Current);
         }
-        public void Delete()
+    public void Delete()
         {
             if (!_editGrants.AllowRemove || Count == 0)
                 return;
@@ -1039,7 +1068,7 @@ namespace GH.Components
             else
                 InternalDelete();
         }
-        public void Cancel()
+    public void Cancel()
         {
             if (DesignMode)
                 return;
@@ -1122,7 +1151,7 @@ namespace GH.Components
         //            break;
         //    }
         //}
-        private string Words(string input, string delimiter)
+    private string Words(string input, string delimiter)
         {
             StringBuilder stringBuilder = new StringBuilder();
             string str = "";
@@ -1133,7 +1162,7 @@ namespace GH.Components
             }
             return stringBuilder.ToString();
         }
-        public void ExportData(string toFolder = null)
+    public void ExportData(string toFolder = null)
         {
             if (Grid != null)
             {
@@ -1171,13 +1200,13 @@ namespace GH.Components
                 OpenFile(e.FileName);
             }
         }
-        private bool CanExecuteSaveAction()
+    private bool CanExecuteSaveAction()
         {
             if (Closed && (Status > _statusClosed || Status < _statusOpened))
                 return false;
             return true;
         }
-        private void ExecuteSaveAction(ActionDataGh action)
+    private void ExecuteSaveAction(ActionDataGh action)
         {
             if (EditMode)
                 Post();
@@ -1185,7 +1214,7 @@ namespace GH.Components
                 if (Closable)
                     CloseOpenDoc();
         }
-        protected void CloseOpenDoc()
+    protected void CloseOpenDoc()
         {
             if (!DlgHelper.DlgYesNo(GetQueryText(SqlTypes.CloseDocSql, Closed)))
                 return;
@@ -1204,7 +1233,7 @@ namespace GH.Components
             Closed = !Closed;
             Repository.CloseOpenDoc(Entity);
         }
-        private void DoBeforeCloseOpenDoc()
+    private void DoBeforeCloseOpenDoc()
         {
             if (SupportPages)
             {
@@ -1212,7 +1241,7 @@ namespace GH.Components
                     PageSupport.EditSelect();
             }
         }
-        private void DoAfterCloseOpenDoc()
+    private void DoAfterCloseOpenDoc()
         {
             if (SupportPages)
             {
@@ -1221,12 +1250,12 @@ namespace GH.Components
             }
             AfterCloseOpenDocument?.Invoke(this, EventArgs.Empty);
         }
-        public void CloseOpen()
+    public void CloseOpen()
         {
             Close();
             Open();
         }
-        protected void RefreshAll()
+    protected void RefreshAll()
         {
             CloseOpen();
         }

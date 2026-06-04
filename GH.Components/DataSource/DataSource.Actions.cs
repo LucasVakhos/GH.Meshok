@@ -8,16 +8,17 @@ namespace GH.Components
     public partial class DataSource
     {
         private IList<NavBarItem> _navbaritems = null;
-        private bool _supportDataActions = true;
+    private bool _supportDataActions = true;
         [GHProperty, DefaultValue(true), Description("Ставьте (SupportDataActions=false) если не нужно поддерживать ActionList")]
         public bool SupportDataActions { get => _supportDataActions; set => _supportDataActions = value; }
-        private bool _supportPopupMenu = true;
-        private bool? _cansearch;
+
+    private bool _supportPopupMenu = true;
+    private bool? _cansearch;
         [GHProperty, DefaultValue(true), Description("Ставьте (SupportPopupMenu=false) если не нужно поддерживать ActionList")]
         public bool SupportPopupMenu { get => _supportPopupMenu; set => _supportPopupMenu = value; }
         [GHProperty, DefaultValue(false)]
         public bool CreateAdditionalActions { get; set; } = false;
-        private bool InitActions()
+    private bool InitActions()
         {
             if (_actionList == null)
                 return false;
@@ -64,7 +65,7 @@ namespace GH.Components
             }
             return /*cnt > 0 || */_actionList.Actions.Count > 0;
         }
-        private int CreateAction(EditTypes editType, int cnt)
+    private int CreateAction(EditTypes editType, int cnt)
         {
             if (editType == EditTypes.Additional && !CreateAdditionalActions)
                 return cnt;
@@ -124,11 +125,11 @@ namespace GH.Components
             }
             return cnt;
         }
-        private void CreateAdditional(ActionCreateParams e)
+    private void CreateAdditional(ActionCreateParams e)
         {
             OnAdditionalActionCreate?.Invoke(e);
         }
-        private void Action_Update(object sender, EventArgs e)
+    private void Action_Update(object sender, EventArgs e)
         {
             if (sender is ActionDataGh action)
             {
@@ -206,11 +207,11 @@ namespace GH.Components
                 action.Enabled = actionUpdateArgs.Enabled;
             }
         }
-        private void UpdateAdditionalAction(ActionDataGh action)
+    private void UpdateAdditionalAction(ActionDataGh action)
         {
             OnAdditionalActionUpdate?.Invoke(action, EventArgs.Empty);
         }
-        private void Action_Execute(object sender, EventArgs e)
+    private void Action_Execute(object sender, EventArgs e)
         {
             if (sender is ActionDataGh action)
             {
@@ -247,11 +248,11 @@ namespace GH.Components
                 }
             }
         }
-        private void ExecuteAdditionalAction(ActionDataGh action)
+    private void ExecuteAdditionalAction(ActionDataGh action)
         {
             OnAdditionalActionExecute?.Invoke(action, EventArgs.Empty);
         }
-        private void InitRibbonEditGroup()
+    private void InitRibbonEditGroup()
         {
             if (ActionList == null)
                 return;
@@ -278,7 +279,7 @@ namespace GH.Components
                 ribbonControl.EndInit();
             }
         }
-        private void InitStripMenu()
+    private void InitStripMenu()
         {
             if (!SupportPopupMenu || ActionList == null)
                 return;
@@ -300,7 +301,7 @@ namespace GH.Components
                     ActionsCreateHelper.CreateMenuGroup(categoy, actions, menuStrip);
             }
         }
-        private void InitNavBars()
+    private void InitNavBars()
         {
             if (ActionList == null)
                 return;
@@ -316,7 +317,7 @@ namespace GH.Components
                 }
             }
         }
-        internal void Ctrl_Leave(object sender, EventArgs e)
+    internal void Ctrl_Leave(object sender, EventArgs e)
         {
             if (ActionList != null)
                 ActionList.ListenKeyDown = false;
@@ -326,7 +327,7 @@ namespace GH.Components
                     frame.Group.ItemLinks.Clear();
             }
         }
-        internal void Ctrl_Enter(object sender, EventArgs e)
+    internal void Ctrl_Enter(object sender, EventArgs e)
         {
             if (ActionList != null)
             {
@@ -343,14 +344,14 @@ namespace GH.Components
                 ActionList.ListenKeyDown = true;
             }
         }
-        private CaptionItem GetActionTexts(EditTypes action)
+    private CaptionItem GetActionTexts(EditTypes action)
         {
             var displayAtt = action.GetAttribute<DisplayAttribute>();
             CaptionItem captionItem = new CaptionItem(action, displayAtt.Name, displayAtt.Description);
             GetActionCaption?.Invoke(captionItem);
             return captionItem;
         }
-        private bool CanSearch()
+    private bool CanSearch()
         {
             if (_cansearch == null)
             {

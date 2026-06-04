@@ -6,7 +6,7 @@ namespace GH.Components
     public class GHControlDesignerAttribute : ControlDesigner
     {
         private DesignerActionListCollection actionLists;
-        public override DesignerActionListCollection ActionLists
+    public override DesignerActionListCollection ActionLists
         {
             get
             {
@@ -17,60 +17,65 @@ namespace GH.Components
                 return this.actionLists;
             }
         }
-        public override void Initialize(IComponent component)
+    public override void Initialize(IComponent component)
         {
             base.Initialize(component);
             PropertyGridExtender.Check((ComponentDesigner)this);
         }
-        protected virtual DesignerActionListCollection CreateActionLists()
+    protected virtual DesignerActionListCollection CreateActionLists()
         {
             DesignerActionListCollection list = new DesignerActionListCollection();
             this.RegisterActionLists(list);
             return list;
         }
-        protected virtual void RegisterActionLists(DesignerActionListCollection list)
+    protected virtual void RegisterActionLists(DesignerActionListCollection list)
         {
         }
-        protected virtual void ResetActionLists()
+    protected virtual void ResetActionLists()
         {
             this.actionLists = (DesignerActionListCollection)null;
         }
-        protected virtual bool CanUsePropertiesEditor
+
+    protected virtual bool CanUsePropertiesEditor
         {
             get
             {
                 return true;
             }
         }
-        protected virtual bool UseVerbsAsActionList
+
+    protected virtual bool UseVerbsAsActionList
         {
             get
             {
                 return false;
             }
         }
-        protected virtual bool AlwaysCreateActionLists
+
+    protected virtual bool AlwaysCreateActionLists
         {
             get
             {
                 return false;
             }
         }
-        public bool IsUseComponentSmartTags
+
+    public bool IsUseComponentSmartTags
         {
             get
             {
                 return this.CanUseComponentSmartTags;
             }
         }
-        protected virtual bool CanUseComponentSmartTags
+
+    protected virtual bool CanUseComponentSmartTags
         {
             get
             {
                 return false;
             }
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

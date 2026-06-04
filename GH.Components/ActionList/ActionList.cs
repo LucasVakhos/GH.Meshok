@@ -12,16 +12,16 @@ namespace GH.Components
     public class ActionList : Component, IExtenderProvider, ISupportInitialize
     {
         public event EventHandler Update;
-        private bool _enabled;
-        private ActionCollection _actions;
-        private Dictionary<Component, ActionGh> _targets;
-        private Dictionary<Type, ActionTargetDescriptionInfo> _typesDescription;
-        private bool _initializing;
-        private ContainerControl _owner;
-        private bool _listenKeyDown = false;
+    private bool _enabled;
+    private ActionCollection _actions;
+    private Dictionary<Component, ActionGh> _targets;
+    private Dictionary<Type, ActionTargetDescriptionInfo> _typesDescription;
+    private bool _initializing;
+    private ContainerControl _owner;
+    private bool _listenKeyDown = false;
         //private bool _attached = false;
-        private ToolTip _tooltip;
-        public ToolTip ToolTip
+    private ToolTip _tooltip;
+    public ToolTip ToolTip
         {
             get
             {
@@ -61,7 +61,8 @@ namespace GH.Components
                 return _actions;
             }
         }
-        public ActionList()
+
+    public ActionList()
         {
             _actions = new ActionCollection(this);
             _targets = new Dictionary<Component, ActionGh>();
@@ -71,34 +72,34 @@ namespace GH.Components
             if (this.IsDesignMode())
                 return;
         }
-        public void BeginInit()
+    public void BeginInit()
         {
             _initializing = true;
         }
-        public void EndInit()
+    public void EndInit()
         {
             _initializing = false;
             MessageHook.RegForQueue(this);
             checkInternalCollections();
             refreshActions();
         }
-        private void OnUpdate(EventArgs e)
+    private void OnUpdate(EventArgs e)
         {
             if (this.Update != null)
                 this.Update((object)this, e);
             foreach (var action in Actions)
                 action.DoUpdate();
         }
-        private void ActionList_Disposed(object sender, EventArgs e)
+    private void ActionList_Disposed(object sender, EventArgs e)
         {
             MessageHook.UnRegQueue(this);
             //RunContext.UnRegQueue(this);
         }
-        public void DoUpdate()
+    public void DoUpdate()
         {
             DoUpdate(EventArgs.Empty);
         }
-        internal virtual void DoUpdate(EventArgs eventArgs)
+    internal virtual void DoUpdate(EventArgs eventArgs)
         {
             if (Update != null)
                 Update(this, eventArgs);
@@ -108,17 +109,17 @@ namespace GH.Components
                     action.DoUpdate();
             }
         }
-        public ActionGh GetAction(Component extendee)
+    public ActionGh GetAction(Component extendee)
         {
             if (_targets.ContainsKey(extendee))
                 return _targets[extendee];
             return null;
         }
-        public Component GetExtendee(ActionGh action)
+    public Component GetExtendee(ActionGh action)
         {
             return _targets.Where(x => x.Value == action).FirstOrDefault().Key;
         }
-        public void SetAction(Component extendee, ActionGh action)
+    public void SetAction(Component extendee, ActionGh action)
         {
             if (!_initializing)
             {
@@ -149,15 +150,15 @@ namespace GH.Components
             }
             return false;
         }
-        internal bool OwnerKillFocus()
+    internal bool OwnerKillFocus()
         {
             throw new NotImplementedException();
         }
-        internal bool OwnerSetFocus()
+    internal bool OwnerSetFocus()
         {
             throw new NotImplementedException();
         }
-        public virtual Type[] GetSupportedTypes()
+    public virtual Type[] GetSupportedTypes()
         {
             List<Type> lst = new List<Type>()
             {
@@ -179,14 +180,14 @@ namespace GH.Components
                 return _typesDescription;
             }
         }
-        private void refreshActions()
+    private void refreshActions()
         {
             if (this.IsDesignMode())
                 return;
             foreach (ActionGh action in _actions)
                 action.RefreshEnabledCheckState();
         }
-        private void checkInternalCollections()
+    private void checkInternalCollections()
         {
             foreach (ActionGh action in _targets.Values)
             {
@@ -194,7 +195,8 @@ namespace GH.Components
                     throw new InvalidOperationException("Action owned by another action list or invalid Action.ActionList");
             }
         }
-        public ContainerControl Owner
+
+    public ContainerControl Owner
         {
             get
             {
@@ -217,7 +219,7 @@ namespace GH.Components
                 return getActiveControl(Owner);
             }
         }
-        private Control getActiveControl(ContainerControl containerControl)
+    private Control getActiveControl(ContainerControl containerControl)
         {
             if (containerControl == null)
                 return null;
@@ -225,7 +227,7 @@ namespace GH.Components
                 return getActiveControl((ContainerControl)containerControl.ActiveControl);
             return containerControl.ActiveControl;
         }
-        public void CheckShortcuts(object sender, KeyEventArgs e)
+    public void CheckShortcuts(object sender, KeyEventArgs e)
         {
             if (!ListenKeyDown)
                 return;
@@ -234,7 +236,8 @@ namespace GH.Components
                 action.ExecuteShortcut();
             }
         }
-        public override ISite Site
+
+    public override ISite Site
         {
             get
             {

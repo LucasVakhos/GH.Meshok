@@ -5,8 +5,8 @@ namespace GH.Components
     public static class Internet
     {
         public static string Error_message => "Нет подключения к Интернету!!!" + "\r\n" + "Проверьте все параметры подкулючения и попробуйте снова.";
-        private static DateTime _last_check = DateTime.Now.AddSeconds(-5);
-        private static bool checkStatus = false;
+    private static DateTime _last_check = DateTime.Now.AddSeconds(-5);
+    private static bool checkStatus = false;
         [DllImport("wininet.dll")]
         static extern bool InternetGetConnectedState(ref InternetConnectionState lpdwFlags, int dwReserved);
         [Flags]
@@ -20,7 +20,7 @@ namespace GH.Components
             INTERNET_CONNECTION_CONFIGURED = 0x40
         }
         static object _syncObj = new object();
-        public static bool CheckConnectionForDatabase()
+    public static bool CheckConnectionForDatabase()
         {
             if (RunContext.IsRemoteDataBase)
             {
@@ -62,7 +62,7 @@ namespace GH.Components
         /// </summary>
         /// <param name="serverList">Список серверов</param>
         /// <returns></returns>
-        public static bool PingServer(string[] serverList)
+    public static bool PingServer(string[] serverList)
         {
             bool haveAnInternetConnection = false;
             Ping ping = new Ping();

@@ -7,17 +7,16 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-
 namespace GH.Components
 {
     public class RunContext : ApplicationContext
     {
         public static readonly string ExeFullName = Process.GetCurrentProcess().MainModule.FileName;
-        public static readonly string ExeName = Path.GetFileName(ExeFullName);
-        public static readonly string ExePath = Path.GetDirectoryName(ExeFullName);
-        public static readonly string ProcessName = Path.GetFileNameWithoutExtension(ExeFullName);
-        private static CfgApp _appCfg = null;
-        public static CfgApp AppCfg
+    public static readonly string ExeName = Path.GetFileName(ExeFullName);
+    public static readonly string ExePath = Path.GetDirectoryName(ExeFullName);
+    public static readonly string ProcessName = Path.GetFileNameWithoutExtension(ExeFullName);
+    private static CfgApp _appCfg = null;
+    public static CfgApp AppCfg
         {
             get
             {
@@ -26,15 +25,17 @@ namespace GH.Components
                 return _appCfg;
             }
         }
-        internal static string ConfigsPath
+
+    internal static string ConfigsPath
         {
             get
             {
                 return Path.Combine(RunContext.ExePath, AppCfg.CfgPath);
             }
         }
-        private static BaseUser _user = null;
-        public static BaseUser SystemUser
+
+    private static BaseUser _user = null;
+    public static BaseUser SystemUser
         {
             get
             {
@@ -47,16 +48,18 @@ namespace GH.Components
                 return _user;
             }
         }
-        protected static SynchronizationContext SyncContext { get; set; }
-        public static CfgCoreConnection CfgConnection { get; set; }
-        public static string GetConfigsPath(object entity)
+
+    protected static SynchronizationContext SyncContext { get; set; }
+
+    public static CfgCoreConnection CfgConnection { get; set; }
+    public static string GetConfigsPath(object entity)
         {
             string file_name = Path.Combine(ConfigsPath, "{0}.xml");
             if (entity is Control control)
                 return string.Format(file_name, ControlPath(control));
             return string.Format(file_name, entity.GetType());
         }
-        private static string ControlPath(Control control)
+    private static string ControlPath(Control control)
         {
             if (control == null || control is IAppForm)
                 return string.Empty;
@@ -65,7 +68,8 @@ namespace GH.Components
                 return control.Name;
             return path + "." + control.Name;
         }
-        public static string AppCaption
+
+    public static string AppCaption
         {
             get
             {
@@ -73,7 +77,8 @@ namespace GH.Components
                 return res.Title;
             }
         }
-        public static Icon AppIcon
+
+    public static Icon AppIcon
         {
             get
             {
@@ -81,17 +86,19 @@ namespace GH.Components
                 return res;
             }
         }
-        public static void Send(SendOrPostCallback d, object state)
+    public static void Send(SendOrPostCallback d, object state)
         {
             if (SyncContext == null)
                 d(state);
             else
                 SyncContext.Send(d, state);
         }
-        private static RunContext _instance;
-        public static RunContext Instance { get => _instance; set => _instance = value; }
-        public static Form AppMainForm => Instance?.MainForm;
-        public static string RemoteServer
+
+    private static RunContext _instance;
+    public static RunContext Instance { get => _instance; set => _instance = value; }
+
+    public static Form AppMainForm => Instance?.MainForm;
+    public static string RemoteServer
         {
             get
             {
@@ -100,9 +107,10 @@ namespace GH.Components
                 return "www.google.com";
             }
         }
-        private static bool IsDisposed => AppMainForm == null || AppMainForm.IsDisposed;
-        private static bool InvokeRequired => AppMainForm != null && AppMainForm.InvokeRequired;
-        public static void Invoke(Action action)
+
+    private static bool IsDisposed => AppMainForm == null || AppMainForm.IsDisposed;
+    private static bool InvokeRequired => AppMainForm != null && AppMainForm.InvokeRequired;
+    public static void Invoke(Action action)
         {
             if (IsDisposed)
                 return;
@@ -115,7 +123,8 @@ namespace GH.Components
             }
             catch { }
         }
-        public static bool IsRemoteDataBase
+
+    public static bool IsRemoteDataBase
         {
             get
             {
@@ -142,7 +151,8 @@ namespace GH.Components
                 }
             }
         }
-        public static bool AppRunning
+
+    public static bool AppRunning
         {
             get => Instance._appRunning;
             set
@@ -162,16 +172,17 @@ namespace GH.Components
                 }
             }
         }
-        public List<ActionList> ActionQueue = null;
-        private bool _attached;
-        private bool _appRunning;
-        public RunContext()
+
+    public List<ActionList> ActionQueue = null;
+    private bool _attached;
+    private bool _appRunning;
+    public RunContext()
         {
             Instance = this;
             VersionHelper.CheckNewVersion();
             InitializeSomething();
         }
-        public virtual CfgApp GetCfgApp()
+    public virtual CfgApp GetCfgApp()
         {
             try
             {
@@ -183,48 +194,48 @@ namespace GH.Components
             }
             return new CfgApp();
         }
-        public virtual CfgCoreConnection GetConnectionSetting()
+    public virtual CfgCoreConnection GetConnectionSetting()
         {
             throw new NotImplemented(nameof(GetConnectionSetting), this);
         }
-        public static CfgForm GetConnectForm()
+    public static CfgForm GetConnectForm()
         {
             return Instance.CreateConnectForm();
         }
-        public virtual CfgForm CreateConnectForm()
+    public virtual CfgForm CreateConnectForm()
         {
             throw new NotImplemented(nameof(CreateConnectForm), this);
         }
-        protected virtual void InitializeSomething()
+    protected virtual void InitializeSomething()
         {
             throw new NotImplemented(nameof(InitializeSomething), this);
         }
-        protected virtual Type GetSplashScreen()
+    protected virtual Type GetSplashScreen()
         {
             return typeof(DefSplashScreen);
         }
-        public virtual Form GetMainForm()
+    public virtual Form GetMainForm()
         {
             throw new NotImplemented(nameof(GetMainForm), this);
         }
-        public static AboutBox InstanceGetAboutBox()
+    public static AboutBox InstanceGetAboutBox()
         {
             return Instance.GetAboutBox();
         }
-        public virtual AboutBox GetAboutBox()
+    public virtual AboutBox GetAboutBox()
         {
             throw new NotImplemented(nameof(GetAboutBox), this);
         }
-        internal void SetSqlFactoryCriator()
+    internal void SetSqlFactoryCriator()
         {
             IFactoryCriator factory = GetSqlFactoryCriator();
             NHHelper.SetMainFactoryCriator(factory);
         }
-        public virtual IFactoryCriator GetSqlFactoryCriator()
+    public virtual IFactoryCriator GetSqlFactoryCriator()
         {
             throw new NotImplemented(nameof(GetSqlFactoryCriator), this);
         }
-        public virtual Form GetLoginForm()
+    public virtual Form GetLoginForm()
         {
             throw new NotImplemented(nameof(GetLoginForm), this);
         }
@@ -282,7 +293,7 @@ namespace GH.Components
         //    MainForm.KeyPreview = true;
         //    MainForm.KeyDown += form_KeyDown;
         //}
-        private void form_KeyDown(object sender, KeyEventArgs e)
+    private void form_KeyDown(object sender, KeyEventArgs e)
         {
             if (ActionQueue != null)
             {
@@ -290,7 +301,7 @@ namespace GH.Components
                     item.CheckShortcuts(sender, e);
             }
         }
-        private void DetachKeyDownHandler()
+    private void DetachKeyDownHandler()
         {
             if (MainForm == null || !_attached)
                 return;

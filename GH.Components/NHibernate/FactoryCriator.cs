@@ -9,17 +9,17 @@ namespace GH.Components
         where TSetting : CfgCoreConnection
     {
         protected DbServerType _dbServerType;
-        public DbServerType DbServerType => _dbServerType;
-        public FactoryCriator()
+    public DbServerType DbServerType => _dbServerType;
+    public FactoryCriator()
         {
             SetServerType();
             NHHelper.SetVerasticallyFactoryCriator(this);
         }
-        protected virtual void SetServerType()
+    protected virtual void SetServerType()
         {
             throw new NotImplemented(nameof(SetServerType), this);
         }
-        public virtual ISessionFactory GetSessionFactory()
+    public virtual ISessionFactory GetSessionFactory()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace GH.Components
         //    throw new NotImplemented(nameof(GetCfg), this);
         //    //пример return IniHelper.Cfg<TSetting>();
         //}
-        public string GetConnectionString()
+    public string GetConnectionString()
         {
             try
             {

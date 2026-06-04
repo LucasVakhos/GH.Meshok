@@ -8,8 +8,9 @@
             AllowEdit = allowEdit;
             AllowRemove = allowRemove;
         }
-        public bool AllowNew;
-        public bool AllowEdit;
-        public bool AllowRemove;
+
+    public bool AllowNew;
+    public bool AllowEdit;
+    public bool AllowRemove;
     }
 }

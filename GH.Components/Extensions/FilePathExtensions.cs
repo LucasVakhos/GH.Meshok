@@ -1,6 +1,6 @@
 ﻿using System.Text;
 namespace GH.Components;
-public static class FilePathExtensions
+    public static class FilePathExtensions
 {
     /// <summary>
     /// Определяет кодировку файла по BOM; если BOM отсутствует — пытается эвристически отличить UTF-8 (без BOM)

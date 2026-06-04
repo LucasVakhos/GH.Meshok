@@ -5,7 +5,7 @@ namespace GH.Components
     public class AppIni
     {
         public static AppIni _instance = null;
-        public static AppIni Instance
+    public static AppIni Instance
         {
             get
             {
@@ -16,20 +16,22 @@ namespace GH.Components
         }
         string _exePath = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
         string _exeName = Assembly.GetEntryAssembly().GetName().Name;
-        public double ReadDouble(string v, double curs)
+    public double ReadDouble(string v, double curs)
         {
             throw new NotImplementedException();
         }
-        public void WriteDouble(string v, double curs)
+    public void WriteDouble(string v, double curs)
         {
             throw new NotImplementedException();
         }
-        private string ElementName
+
+    private string ElementName
         {
             get { return "add"; }
         }
-        private string _defaultSection = null;
-        public string DefaultSection
+
+    private string _defaultSection = null;
+    public string DefaultSection
         {
             get
             {
@@ -50,7 +52,7 @@ namespace GH.Components
                 _defaultSection = value;
             }
         }
-        public string ReadString(string key, string defaultValue)
+    public string ReadString(string key, string defaultValue)
         {
             if (key != "")
             {
@@ -106,27 +108,27 @@ namespace GH.Components
         //{
         //    //_path = new FileInfo(_exeName + ".ini").FullName;
         //}
-        public bool ReadBool(string key, bool defaultValue)
+    public bool ReadBool(string key, bool defaultValue)
         {
             if (key != "")
                 return bool.Parse(ReadString(key, $"{defaultValue}"));
             return defaultValue;
         }
-        public int ReadInteger(string key, int defaultValue)
+    public int ReadInteger(string key, int defaultValue)
         {
             if (key != "")
                 return int.Parse(ReadString(key, $"{defaultValue}"));
             return defaultValue;
         }
-        public void WriteBool(string v, bool baseRemote)
+    public void WriteBool(string v, bool baseRemote)
         {
             throw new NotImplementedException();
         }
-        public void WriteInteger(string v, int baseDialect)
+    public void WriteInteger(string v, int baseDialect)
         {
             throw new NotImplementedException();
         }
-        public void WriteString(string key, string defaultValue)
+    public void WriteString(string key, string defaultValue)
         {
             throw new NotImplementedException();
         }

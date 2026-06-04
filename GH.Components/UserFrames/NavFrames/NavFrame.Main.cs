@@ -9,13 +9,14 @@ namespace GH.Components
         private bool _isBase = false;
         [GHProperty, Browsable(false)]
         public bool IsBase => _isBase;
-        private BarButtonItem _barButton;
-        public BarButtonItem BarButton { get => _barButton; set => _barButton = value; }
-        private RibbonStatusBar _statusBar;
+    private BarButtonItem _barButton;
+    public BarButtonItem BarButton { get => _barButton; set => _barButton = value; }
+
+    private RibbonStatusBar _statusBar;
         FrameHolder Holder => FrameHolder.Holder;
         [GHProperty, DefaultValue(null)]
         public RibbonStatusBar StatusBar { get => _statusBar; set => _statusBar = value; }
-        public override void SelectFrame()
+    public override void SelectFrame()
         {
             if (ParentForm == null)
                 SelectFrame(this);
@@ -25,7 +26,7 @@ namespace GH.Components
                     details.PageControl.SelectedTabPage = details.Page;
             }
         }
-        private void SelectFrame(Control control)
+    private void SelectFrame(Control control)
         {
             if (control is NavFrame navFrame && navFrame.IsBase)
                 navFrame.BarButton.PerformClick();
@@ -35,7 +36,7 @@ namespace GH.Components
                 else
                     SelectFrame(control.Parent);
         }
-        internal void InitAsBase()
+    internal void InitAsBase()
         {
             _isBase = true;
             _group = Holder.NavBar.Groups.Add();
@@ -53,7 +54,7 @@ namespace GH.Components
             Holder.FrameGroup.ItemLinks.Add(BarButton);
             HandleFocusTracking(Controls);
         }
-        protected void HandleFocusTracking(ControlCollection controlCollection)
+    protected void HandleFocusTracking(ControlCollection controlCollection)
         {
             foreach (Control control in controlCollection)
             {
@@ -71,10 +72,10 @@ namespace GH.Components
             ActiveControl = sender as Control;
             ControlGotFocus(sender);
         }
-        protected virtual void ControlGotFocus(object sender)
+    protected virtual void ControlGotFocus(object sender)
         {
         }
-        private void _barButton_ItemClick(object sender, ItemClickEventArgs e)
+    private void _barButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             Group.NavBar.ActiveGroup = Group;
         }

@@ -9,8 +9,8 @@ namespace GH.Components
         protected class NameList<T> : ListBox
         {
             private object value;
-            private IWindowsFormsEditorService service;
-            public NameList(Type type, IWindowsFormsEditorService service, object value)
+    private IWindowsFormsEditorService service;
+    public NameList(Type type, IWindowsFormsEditorService service, object value)
             {
                 this.service = service;
                 this.value = value;
@@ -22,40 +22,43 @@ namespace GH.Components
                     base.Items.Add(o.Name);
                 }
             }
-            private static bool IsAbstractEntity(Type type)
+    private static bool IsAbstractEntity(Type type)
             {
                 if (type.BaseType != typeof(AbstractEntity) && type.BaseType != typeof(object))
                     return IsAbstractEntity(type.BaseType);
                 return type.BaseType == typeof(AbstractEntity);
             }
-            protected override void OnClick(EventArgs e)
+    protected override void OnClick(EventArgs e)
             {
                 base.OnClick(e);
                 value = base.SelectedItem;
                 service.CloseDropDown();
             }
-            public object Value
+
+    public object Value
             {
                 get { return value; }
             }
         }
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+    public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.DropDown;
         }
-        public override bool IsDropDownResizable
+
+    public override bool IsDropDownResizable
         {
             get { return true; }
         }
-        protected DataSource GetDataSource(ITypeDescriptorContext context)
+    protected DataSource GetDataSource(ITypeDescriptorContext context)
         {
             FieldInfo fi = context.Instance.GetType().GetField("_owner", BindingFlags.NonPublic | BindingFlags.Instance);
             return fi.GetValue(context.Instance) as DataSource;
         }
     }
+
     public class FieldBoolListEditor : DocSupportBaseEditor
     {
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+    public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             if (provider == null)
                 return value;
@@ -70,9 +73,10 @@ namespace GH.Components
             return ui.Value;
         }
     }
+
     public class FieldIntListEditor : DocSupportBaseEditor
     {
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+    public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             if (provider == null)
                 return value;

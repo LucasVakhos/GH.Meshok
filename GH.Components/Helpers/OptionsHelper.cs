@@ -3,26 +3,27 @@ namespace GH.Components
 {
     public class OptionsHelper
     {
-        public static string GetObjectText(object obj)
+    public static string GetObjectText(object obj)
         {
             return OptionsHelper.GetObjectText(obj, false);
         }
-        public static void SetOptionValue(object obj, string name, object value)
+    public static void SetOptionValue(object obj, string name, object value)
         {
             TypeDescriptor.GetProperties(obj)[name]?.SetValue(obj, value);
         }
-        public static object GetOptionValue(object obj, string name)
+    public static object GetOptionValue(object obj, string name)
         {
             return TypeDescriptor.GetProperties(obj)[name]?.GetValue(obj);
         }
-        public static T GetOptionValue<T>(object obj, string name)
+
+    public static T GetOptionValue<T>(object obj, string name)
         {
             PropertyDescriptor property = TypeDescriptor.GetProperties(obj)[name];
             if (property != null)
                 return (T)property.GetValue(obj);
             return default(T);
         }
-        public static string GetObjectText(object obj, bool includeSubObjects)
+    public static string GetObjectText(object obj, bool includeSubObjects)
         {
             string str1 = string.Empty;
             try

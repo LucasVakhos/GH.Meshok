@@ -7,7 +7,7 @@ namespace GH.Components
     public class GridHighLiteProcessor
     {
         private static GridHighLiteProcessor _HLproc;
-        public static GridHighLiteProcessor HighLiters
+    public static GridHighLiteProcessor HighLiters
         {
             get
             {
@@ -16,47 +16,48 @@ namespace GH.Components
                 return _HLproc;
             }
         }
-        internal static BindingSource _bsMain;
-        internal static BindingSource _bsDetails;
-        internal static IGridHighLiter MainCurrent => _bsMain.Current as IGridHighLiter;
-        public static void SetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
+
+    internal static BindingSource _bsMain;
+    internal static BindingSource _bsDetails;
+    internal static IGridHighLiter MainCurrent => _bsMain.Current as IGridHighLiter;
+    public static void SetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
         {
             HighLiters.GetRowCellStyle(entity, appearance, focused);
         }
-        internal static void ShowSetup()
+    internal static void ShowSetup()
         {
             HighLiters.Show();
         }
-        internal static void SelectType(Type concreteType)
+    internal static void SelectType(Type concreteType)
         {
             HighLiters.Select(concreteType);
         }
-        internal static void DeSelectType()
+    internal static void DeSelectType()
         {
             HighLiters.DeSelect();
         }
-        private static void _bsMain_PositionChanged(object sender, EventArgs e)
+    private static void _bsMain_PositionChanged(object sender, EventArgs e)
         {
             HighLiters._selected = MainCurrent;
             _bsDetails.DataSource = MainCurrent?.Items;
         }
         IList<IGridHighLiter> _highLiters = new List<IGridHighLiter>();
-        private IGridHighLiter _selected;
-        public IGridHighLiter Selected => _selected;
-        public IList<IGridHighLiter> GetList() => _highLiters;
-        public void Select(Type bindable)
+    private IGridHighLiter _selected;
+    public IGridHighLiter Selected => _selected;
+    public IList<IGridHighLiter> GetList() => _highLiters;
+    public void Select(Type bindable)
         {
             _selected = _highLiters.Where(h => h.SupportInterface(bindable)).FirstOrDefault();
         }
-        internal void DeSelect()
+    internal void DeSelect()
         {
             _selected = null;
         }
-        public void Add(IGridHighLiter highLiter)
+    public void Add(IGridHighLiter highLiter)
         {
             _highLiters.Add(highLiter);
         }
-        public void GetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
+    public void GetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
         {
             if (Selected != null)
             {
@@ -67,20 +68,20 @@ namespace GH.Components
                 if (item.GetRowCellStyle(entity, appearance, focused))
                     return;
         }
-        private void ClearSources()
+    private void ClearSources()
         {
             _bsMain.PositionChanged -= _bsMain_PositionChanged;
             _bsMain = null;
             _bsDetails = null;
         }
-        internal void SetSources(BindingSource bsMain, BindingSource bsDetails)
+    internal void SetSources(BindingSource bsMain, BindingSource bsDetails)
         {
             _bsMain = bsMain;
             _bsDetails = bsDetails;
             _bsMain.PositionChanged += _bsMain_PositionChanged;
             _bsMain.DataSource = GetList();
         }
-        public void Show()
+    public void Show()
         {
             using (GridHighLiteSetting setting = new GridHighLiteSetting())
             {
@@ -88,12 +89,13 @@ namespace GH.Components
                 ClearSources();
             }
         }
-        public void Cancel()
+    public void Cancel()
         {
             foreach (IGridHighLiter item in _highLiters)
                 item.Cancel();
         }
-        public bool HasChanges
+
+    public bool HasChanges
         {
             get
             {
@@ -103,17 +105,18 @@ namespace GH.Components
                 return false;
             }
         }
-        internal void Save()
+    internal void Save()
         {
             foreach (IGridHighLiter item in _highLiters)
                 item.Save();
         }
-        internal void LoadDefauls()
+    internal void LoadDefauls()
         {
             MainCurrent?.LoadDefauls();
             _bsDetails.ResetBindings(false);
         }
     }
+
     public interface IGridHighLiter
     {
         string Name { get; }
@@ -125,12 +128,13 @@ namespace GH.Components
         void Save();
         bool SupportInterface(Type bindable);
     }
+
     public class GridHighLiter<T> : IGridHighLiter where T : BaseEntity
     {
         IList<HighLiterItem> _items = new List<HighLiterItem>();
-        public IList<HighLiterItem> Items => _items;
-        protected object _entity;
-        public bool HasChanges
+    public IList<HighLiterItem> Items => _items;
+    protected object _entity;
+    public bool HasChanges
         {
             get
             {
@@ -140,38 +144,39 @@ namespace GH.Components
                 return false;
             }
         }
-        public int EntityId => GetEntityId();
-        protected virtual Type Intf => typeof(IGridHighLiter);
-        private readonly string _name;
+
+    public int EntityId => GetEntityId();
+    protected virtual Type Intf => typeof(IGridHighLiter);
+    private readonly string _name;
         [UpdatableProperty(Caption = "Группа подсветки", ToolTip = "Одна из групп подсветки")]
         public string Name => _name;
-        public GridHighLiter(string name)
+    public GridHighLiter(string name)
         {
             _name = name;
             foreach (var item in GetList())
                 _items.Add(new HighLiterItem(item));
             LoadFromXML();
         }
-        public bool SupportInterface(Type bindable)
+    public bool SupportInterface(Type bindable)
         {
             return bindable.GetInterfaces().Contains(Intf);
         }
-        private IList<T> GetList()
+    private IList<T> GetList()
         {
             return new NHRepository<T>().AsTypeList();
         }
-        protected virtual int GetEntityId()
+    protected virtual int GetEntityId()
         {
             if (_entity is HighLiterItem item)
                 return item.Id;
             return -1000;
         }
-        public virtual void LoadDefauls()
+    public virtual void LoadDefauls()
         {
             foreach (HighLiterItem item in Items)
                 item.NewAppearance();
         }
-        public bool GetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
+    public bool GetRowCellStyle(object entity, AppearanceObject appearance, bool focused)
         {
             if (entity == null)
                 return false;
@@ -191,34 +196,34 @@ namespace GH.Components
             }
             return false;
         }
-        protected virtual bool SpecialRowCellStyle(AppearanceObject appearance, bool focused)
+    protected virtual bool SpecialRowCellStyle(AppearanceObject appearance, bool focused)
         {
             return false;
         }
-        public override bool Equals(object obj)
+    public override bool Equals(object obj)
         {
             var liter = obj as GridHighLiter<T>;
             return liter != null &&
                    Name == liter.Name;
         }
-        public override int GetHashCode()
+    public override int GetHashCode()
         {
             var hashCode = 5743141;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
             return hashCode;
         }
-        public void Cancel()
+    public void Cancel()
         {
             foreach (var item in _items)
                 item.CancelEdit();
         }
-        public void Save()
+    public void Save()
         {
             foreach (HighLiterItem item in Items)
                 item.Save();
             SaveToXML();
         }
-        private void LoadFromXML()
+    private void LoadFromXML()
         {
             string file_name = RunContext.GetConfigsPath(this);
             if (!File.Exists(file_name))
@@ -264,7 +269,7 @@ namespace GH.Components
                 }
             }
         }
-        private void SaveToXML()
+    private void SaveToXML()
         {
             XElement root = new XElement(nameof(HighLiterItem) + "s");
             XDocument doc = new XDocument(root);
@@ -286,14 +291,15 @@ namespace GH.Components
             doc.Save(file_name);
         }
     }
+
     public class HighLiterItem : IEditableObject
     {
         const string rootGroup = "<Root>";
         const string editGroup = rootGroup + "/" + "<EditGroup>";
         const string styleGroup = editGroup + "/" + "<SyleGroup>";
         object _savedCopy = null;
-        public bool Saved => _savedCopy == null;
-        public FontStyle FontStyle
+    public bool Saved => _savedCopy == null;
+    public FontStyle FontStyle
         {
             get
             {
@@ -309,9 +315,10 @@ namespace GH.Components
                 return result;
             }
         }
-        private BaseEntity _prototype;
-        public BaseEntity Prototype => _prototype;
-        public bool HasChanges => WasChanged();
+
+    private BaseEntity _prototype;
+    public BaseEntity Prototype => _prototype;
+    public bool HasChanges => WasChanged();
         [UpdatableProperty(Caption = "ID подсветки", Group = editGroup, Order = 0)]
         public int Id { get; }
         [UpdatableProperty(Caption = "Имя подсветки", Group = editGroup, Order = 1)]
@@ -330,13 +337,14 @@ namespace GH.Components
         public bool FontUnderline { get; set; }
         [UpdatableProperty(Caption = "Перечеркнутый", Group = styleGroup, Order = 3)]
         public bool FontStrikeout { get; set; }
-        public HighLiterItem(BaseEntity item)
+
+    public HighLiterItem(BaseEntity item)
         {
             _prototype = item;
             Id = item.id;
             Name = GetOrCreatePropertyInfos(item).Where(x => x.Name.ToUpper().EndsWith("_NAME")).FirstOrDefault().GetValue(item).ToString();
         }
-        public void NewAppearance()
+    public void NewAppearance()
         {
             Enabled = false;
             ForeColor = Color.Transparent;
@@ -347,29 +355,29 @@ namespace GH.Components
             FontStrikeout = false;
             Save();
         }
-        public static Color Invert(Color color)
+    public static Color Invert(Color color)
         {
             return Color.FromArgb(color.ToArgb() ^ 0xFFFFFF);
         }
-        internal static IEnumerable<PropertyInfo> GetOrCreatePropertyInfos(object model)
+    internal static IEnumerable<PropertyInfo> GetOrCreatePropertyInfos(object model)
         {
             return from p in model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty)
                    where p.SetMethod != null && p.GetMethod != null
                    select p;
         }
-        public void BeginEdit()
+    public void BeginEdit()
         {
             GridHighLiteProcessor._bsDetails.ResetCurrentItem();
             if (!Saved)
                 return;
             _savedCopy = MemberwiseClone();
         }
-        public void Save()
+    public void Save()
         {
             _savedCopy = null;
         }
-        public void EndEdit() { }
-        public void CancelEdit()
+    public void EndEdit() { }
+    public void CancelEdit()
         {
             if (Saved)
                 return;
@@ -381,13 +389,13 @@ namespace GH.Components
             }
             Save();
         }
-        private bool WasChanged()
+    private bool WasChanged()
         {
             if (_savedCopy == null)
                 return false;
             return !Equals(_savedCopy);
         }
-        public override bool Equals(object obj)
+    public override bool Equals(object obj)
         {
             var item = obj as HighLiterItem;
             return item != null &&
@@ -400,7 +408,7 @@ namespace GH.Components
                    EqualityComparer<Color>.Default.Equals(ForeColor, item.ForeColor) &&
                    EqualityComparer<Color>.Default.Equals(BackColor, item.BackColor);
         }
-        public override int GetHashCode()
+    public override int GetHashCode()
         {
             var hashCode = -1661384260;
             hashCode = hashCode * -1521134295 + Id.GetHashCode();

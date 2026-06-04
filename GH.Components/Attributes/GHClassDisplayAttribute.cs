@@ -4,6 +4,7 @@
     public sealed class GHClassDisplayAttribute : Attribute
     {
         public string Caption { get; set; }
-        public string ToolTip { get; set; }
+
+    public string ToolTip { get; set; }
     }
 }

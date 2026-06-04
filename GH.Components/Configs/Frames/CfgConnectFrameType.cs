@@ -6,8 +6,8 @@ namespace GH.Components
     public class CfgConnectFrameType<T> : CfgConnectFrame where T : CfgCoreConnection
     {
         //public const string ctrlPrefix = "edit";
-        private T _cfg;
-        protected T Cfg
+    private T _cfg;
+    protected T Cfg
         {
             get => _cfg;
             set
@@ -17,7 +17,8 @@ namespace GH.Components
                     _cfg.SetFrame(this as CfgConnectFrame);
             }
         }
-        public CfgConnectFrameType()
+
+    public CfgConnectFrameType()
         {
             //Cfg = GetCfg() as T;
             Cfg = IniHelper.Cfg<T>();
@@ -30,16 +31,17 @@ namespace GH.Components
         //    throw new NotImplemented(nameof(GetCfg), this);
         //    //return IniHelper.Cfg<T>();
         //}
-        protected Field[] GetFields()
+    protected Field[] GetFields()
         {
             return Cfg.GetFields();
         }
-        public T1 GetControl<T1>(string name) where T1 : Control
+
+    public T1 GetControl<T1>(string name) where T1 : Control
         {
             T1 val = layoutControl.Controls.Find(name, false).OfType<T1>().FirstOrDefault() as T1;
             return val;
         }
-        protected void InitEditGroup()
+    protected void InitEditGroup()
         {
             if (IsDesignMode)
                 return;
@@ -56,12 +58,13 @@ namespace GH.Components
             dataSource.AddSaveSaveCancelPanel();
             Align(EditGroup);
         }
-        protected /*virtual*/ string[] GetExceptFields()
+
+    protected /*virtual*/ string[] GetExceptFields()
         {
             return new string[] { nameof(CfgCoreConnection.AutoEntering), nameof(CfgCoreConnection.UserLogin), nameof(CfgCoreConnection.UserPassword) };
             //throw new NotImplemented(nameof(GetExceptFields), this);
         }
-        protected override void OnLoad(EventArgs e)
+    protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if (!IsDesignMode)
@@ -70,7 +73,7 @@ namespace GH.Components
                 dataSource.Open();
             }
         }
-        private void DataSource_OnOpen(out IList list)
+    private void DataSource_OnOpen(out IList list)
         {
             list = new List<T>();
             list.Add(Cfg);

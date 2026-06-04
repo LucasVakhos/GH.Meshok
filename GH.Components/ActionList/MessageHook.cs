@@ -28,12 +28,12 @@ namespace GH.Components
             _clipWatcher.Start();
             _hook = new MessageHook();
         }
-        private static void ClipboardModified(object sender, ClipboardEventArgs e)
+    private static void ClipboardModified(object sender, ClipboardEventArgs e)
         {
             Console.WriteLine("Clipboard updated with data '{0}' of format {1}", e.Data,
                                 e.DataFormat.ToString());
         }
-        private static void ApplicationWindowChange(object sender, ApplicationEventArgs e)
+    private static void ApplicationWindowChange(object sender, ApplicationEventArgs e)
         {
             if (e.Event == ApplicationEvents.Launched && !RunContext.AppRunning)
             {
@@ -44,11 +44,11 @@ namespace GH.Components
                 }
             }
         }
-        private static void Application_ApplicationExit(object sender, EventArgs e)
+    private static void Application_ApplicationExit(object sender, EventArgs e)
         {
             Destroy();
         }
-        private static void Destroy()
+    private static void Destroy()
         {
             _queue.Clear();
             _hook.Dispose();
@@ -64,24 +64,26 @@ namespace GH.Components
             _log = null;
 #endif
         }
-        public static void RegForQueue(ActionList list)
+    public static void RegForQueue(ActionList list)
         {
             if (_queue.Contains(list))
                 return;
             _queue.Add(list);
         }
-        public static void UnRegQueue(ActionList list)
+    public static void UnRegQueue(ActionList list)
         {
             if (_queue.Contains(list))
                 _queue.Remove(list);
         }
-        internal class InnerKeyEventArgs : KeyEventArgs
+
+    internal class InnerKeyEventArgs : KeyEventArgs
         {
             public InnerKeyEventArgs(Keys keyData) : base(keyData)
             {
             }
-            private bool Modifier => Alt || Shift || Control;
-            private bool HotKey
+
+    private bool Modifier => Alt || Shift || Control;
+    private bool HotKey
             {
                 get
                 {
@@ -91,7 +93,8 @@ namespace GH.Components
                     return false;
                 }
             }
-            private bool LetterKey
+
+    private bool LetterKey
             {
                 get
                 {
@@ -100,7 +103,8 @@ namespace GH.Components
                     return true;
                 }
             }
-            public bool IsChortcut
+
+    public bool IsChortcut
             {
                 get
                 {
@@ -110,11 +114,12 @@ namespace GH.Components
                 }
             }
         }
-        public MessageHook()
+
+    public MessageHook()
         {
             Application.AddMessageFilter(this);
         }
-        private void WmKeyDownUp(ref Message m)
+    private void WmKeyDownUp(ref Message m)
         {
             if (m.Msg == (int)WM_KEYDOWN || m.Msg == (int)WM_SYSKEYDOWN)
             {
@@ -131,16 +136,16 @@ namespace GH.Components
             {
             }
         }
-        private void Update()
+    private void Update()
         {
             foreach (ActionList item in _queue.FindAll(x => x.Active))
                 item.DoUpdate();
         }
-        public void Dispose()
+    public void Dispose()
         {
             GC.SuppressFinalize(this);
         }
-        public bool PreFilterMessage(ref Message m)
+    public bool PreFilterMessage(ref Message m)
         {
 #if WITH_LOG
             switch ((GH.Components.WM_Messages)m.Msg)

@@ -12,7 +12,7 @@ namespace GH.Components
         {
             InitializeComponent();
         }
-        protected void InitDetailFrame(DetailsFrame control, LayoutControlItem place)
+    protected void InitDetailFrame(DetailsFrame control, LayoutControlItem place)
         {
             layoutControl.SuspendLayout();
             layoutControl.Controls.Add(control);
@@ -43,26 +43,28 @@ namespace GH.Components
             control.MasterSource = dataSource;
         }
     }
+
     public class DataFrameDesigner : ControlDesigner
     {
         private FrameTypesActionList FrameTypesAction;
-        public override void Initialize(IComponent component)
+    public override void Initialize(IComponent component)
         {
             FrameTypesAction = new FrameTypesActionList(this);
             (GetService(typeof(DesignerActionService)) as DesignerActionService)?.Add(Component, FrameTypesAction);
         }
     }
+
     public class FrameTypesActionList : DesignerActionList
     {
         private ControlDesigner _designer;
-        private IDesignerHost _host;
-        public FrameTypesActionList(ControlDesigner owner)
+    private IDesignerHost _host;
+    public FrameTypesActionList(ControlDesigner owner)
           : base(owner.Component)
         {
             this._designer = owner;
             this._host = this.GetService(typeof(IDesignerHost)) as IDesignerHost;
         }
-        private string GetActionName()
+    private string GetActionName()
         {
             //PropertyDescriptor property = TypeDescriptor.GetProperties((object)this.Component)["Dock"];
             //if (property == null)
@@ -72,14 +74,14 @@ namespace GH.Components
             //return System.Design.SR.GetString("DesignerShortcutDockInParent");
             return "Create Dictionary";
         }
-        public override DesignerActionItemCollection GetSortedActionItems()
+    public override DesignerActionItemCollection GetSortedActionItems()
         {
             DesignerActionItemCollection actionItemCollection = base.GetSortedActionItems();
             if (this.GetActionName() != null)
                 actionItemCollection.Add((DesignerActionItem)new DesignerVerbItem(new DesignerVerb(this.GetActionName(), new EventHandler(this.OnDockActionClick))));
             return actionItemCollection;
         }
-        private void OnDockActionClick(object sender, EventArgs e)
+    private void OnDockActionClick(object sender, EventArgs e)
         {
             DesignerVerb designerVerb = sender as DesignerVerb;
             if (designerVerb == null || this._host == null)
@@ -95,49 +97,55 @@ namespace GH.Components
             }
         }
     }
+
     public class DesignerVerbItem : DesignerActionMethodItem
     {
         private DesignerVerb _targetVerb;
-        public DesignerVerbItem(DesignerVerb targetVerb) : base(null, null, targetVerb.Text)
+    public DesignerVerbItem(DesignerVerb targetVerb) : base(null, null, targetVerb.Text)
         {
             _targetVerb = targetVerb;
         }
-        public override string Category
+
+    public override string Category
         {
             get
             {
                 return "Verbs";
             }
         }
-        public override string Description
+
+    public override string Description
         {
             get
             {
                 return this._targetVerb.Description;
             }
         }
-        public override string DisplayName
+
+    public override string DisplayName
         {
             get
             {
                 return this._targetVerb.Text;
             }
         }
-        public override string MemberName
+
+    public override string MemberName
         {
             get
             {
                 return (string)null;
             }
         }
-        public override bool IncludeAsDesignerVerb
+
+    public override bool IncludeAsDesignerVerb
         {
             get
             {
                 return false;
             }
         }
-        public override void Invoke()
+    public override void Invoke()
         {
             this._targetVerb.Invoke();
         }

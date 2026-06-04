@@ -5,7 +5,7 @@ namespace GH.Components
     public partial class GridHighLiteSetting : XtraForm
     {
         protected GridHighLiteProcessor HighLiters => GridHighLiteProcessor.HighLiters;
-        public GridHighLiteSetting()
+    public GridHighLiteSetting()
         {
             InitializeComponent();
             SetupView(viewMain);
@@ -28,27 +28,27 @@ namespace GH.Components
             view.OptionsView.ShowFooter = false;
             view.OptionsView.ColumnAutoWidth = true;
         }
-        private void bsMain_PositionChanged(object sender, EventArgs e)
+    private void bsMain_PositionChanged(object sender, EventArgs e)
         {
         }
-        private void actSave_Update(object sender, EventArgs e)
+    private void actSave_Update(object sender, EventArgs e)
         {
             actSave.Enabled = HighLiters.HasChanges;
         }
-        private void actLoadDefaults_Execute(object sender, EventArgs e)
+    private void actLoadDefaults_Execute(object sender, EventArgs e)
         {
             HighLiters.LoadDefauls();
             HighLiters.Save();
         }
-        private void GridHighLiteSetting_FormClosed(object sender, FormClosedEventArgs e)
+    private void GridHighLiteSetting_FormClosed(object sender, FormClosedEventArgs e)
         {
             HighLiters.Cancel();
         }
-        private void actCancel_Execute(object sender, EventArgs e)
+    private void actCancel_Execute(object sender, EventArgs e)
         {
             Close();
         }
-        private void actSave_Execute(object sender, EventArgs e)
+    private void actSave_Execute(object sender, EventArgs e)
         {
             HighLiters.Save();
             Close();

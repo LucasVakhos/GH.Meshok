@@ -7,20 +7,20 @@ namespace GH.Components
     public class ViewHandlerGh : GridHandler
     {
         private GridHitInfo _hitInfo;
-        public ViewHandlerGh(GridView view) : base(view)
+    public ViewHandlerGh(GridView view) : base(view)
         {
         }
-        protected override GridViewMenu CreateMenuEx(GridViewMenu menu)
+    protected override GridViewMenu CreateMenuEx(GridViewMenu menu)
         {
             GridViewMenu newmenu = base.CreateMenuEx(menu);
             return newmenu;
         }
-        protected override bool OnMouseDown(MouseEventArgs e)
+    protected override bool OnMouseDown(MouseEventArgs e)
         {
             _hitInfo = View.CalcHitInfo(new Point(e.X, e.Y));
             return base.OnMouseDown(e);
         }
-        protected override void OnDoubleClick(MouseEventArgs ev)
+    protected override void OnDoubleClick(MouseEventArgs ev)
         {
             base.OnDoubleClick(ev);
             if (View.FocusedRowHandle != _hitInfo.RowHandle)
@@ -32,7 +32,7 @@ namespace GH.Components
                 source.Edit();
             }
         }
-        protected override void OnKeyDown(KeyEventArgs e)
+    protected override void OnKeyDown(KeyEventArgs e)
         {
             if (View.RowCount == 0)
             {

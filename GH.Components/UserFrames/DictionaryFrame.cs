@@ -13,11 +13,11 @@
         //private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
         //private DevExpress.XtraLayout.LayoutControlGroup PageView;
         //public DevExpress.XtraEditors.SpinEdit idSpinEdit;
-        public DictionaryFrame()
+    public DictionaryFrame()
         {
             InitializeComponent();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             //this.gridGh = new GH.Components.GridGh();
             //this.viewGh = new GH.Components.ViewGh();

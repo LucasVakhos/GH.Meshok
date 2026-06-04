@@ -16,7 +16,7 @@ namespace GH.Extensions
         /// <summary>
         /// Рекурсивно ищет первый дочерний элемент, реализующий указанный интерфейс.
         /// </summary>
-        private static Control FindDescendant(Control parent, System.Type interfaceType)
+    private static Control FindDescendant(Control parent, System.Type interfaceType)
         {
             // Проверяем всех прямых потомков текущего контейнера
             foreach (Control child in parent.Controls)
@@ -109,16 +109,17 @@ namespace GH.Extensions
             copier(entity, destination);
             return destination;
         }
-        private static object GetPropertyValue(object obj, string propertyName)
+    private static object GetPropertyValue(object obj, string propertyName)
         {
             return obj.GetType().GetProperty(propertyName)?.GetValue(obj);
         }
-        private static Action<object, object> GetCopier<TSource, TDest>()
+
+    private static Action<object, object> GetCopier<TSource, TDest>()
         {
             return GetCopier(typeof(TSource), typeof(TDest));
         }
         //private static readonly Dictionary<(Type, Type), Action<object, object>> CopyCache = new();
-        private static Action<object, object> GetCopier(Type sourceType, Type destType)
+    private static Action<object, object> GetCopier(Type sourceType, Type destType)
         {
             var key = (sourceType, destType);
             // 1. Быстрая проверка без блокировки
@@ -148,7 +149,8 @@ namespace GH.Extensions
         //    }
         //    return copier;
         //}
-        private static Action<object, object> BuildCopier(Type sourceType, Type destType)
+
+    private static Action<object, object> BuildCopier(Type sourceType, Type destType)
         {
             var sourceParam = Expression.Parameter(typeof(object), "source");
             var destParam = Expression.Parameter(typeof(object), "dest");
@@ -180,18 +182,18 @@ namespace GH.Extensions
         /// <summary>
         /// Получает значение атрибута [Display(Name="...")] у элемента перечисления.
         /// </summary>
-        public static string GetDisplayValue(this Enum value)
+    public static string GetDisplayValue(this Enum value)
         {
             return value.GetType().GetMember(value.ToString()).FirstOrDefault()?.GetCustomAttribute<DisplayAttribute>()?.GetName() ?? value.ToString();
         }
-        public static int Int(this InfoType value)
+    public static int Int(this InfoType value)
         {
             return (int)value;
         }
         /// <summary>
         /// Генерирует MD5-хеш строки для использования в качестве ключа идемпотентности.
         /// </summary>
-        public static string ToIdempotencyKey(this string value)
+    public static string ToIdempotencyKey(this string value)
         {
             if (string.IsNullOrEmpty(value))
             {

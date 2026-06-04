@@ -5,23 +5,23 @@ namespace GH.Components
     public partial class ConnectionForm : SimpleForm
     {
         protected DataSource dataSource;
-        protected ActionList actionList;
-        protected GH.Components.LayoutControlGh layoutControl;
-        protected DevExpress.XtraLayout.LayoutControlGroup rootGroup;
-        protected DevExpress.XtraLayout.LayoutControlGroup EditGroup;
-        protected ActionGh actOK;
-        protected ActionGh actCancel;
-        protected SimpleButton btnOK;
-        protected SimpleButton btnCancel;
-        protected DevExpress.XtraLayout.LayoutControlItem lcOK;
-        protected DevExpress.XtraLayout.LayoutControlItem lcCancel;
-        private IContainer components;
-        protected DevExpress.XtraLayout.EmptySpaceItem emptySpaceNearButtons;
-        public ConnectionForm()
+    protected ActionList actionList;
+    protected GH.Components.LayoutControlGh layoutControl;
+    protected DevExpress.XtraLayout.LayoutControlGroup rootGroup;
+    protected DevExpress.XtraLayout.LayoutControlGroup EditGroup;
+    protected ActionGh actOK;
+    protected ActionGh actCancel;
+    protected SimpleButton btnOK;
+    protected SimpleButton btnCancel;
+    protected DevExpress.XtraLayout.LayoutControlItem lcOK;
+    protected DevExpress.XtraLayout.LayoutControlItem lcCancel;
+    private IContainer components;
+    protected DevExpress.XtraLayout.EmptySpaceItem emptySpaceNearButtons;
+    public ConnectionForm()
         {
             InitializeComponent();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             this.dataSource = new GH.Components.DataSource(this.components);
@@ -195,7 +195,7 @@ namespace GH.Components
             ((System.ComponentModel.ISupportInitialize)(this.emptySpaceNearButtons)).EndInit();
             this.ResumeLayout(false);
         }
-        private void Form_Load(object sender, EventArgs e)
+    private void Form_Load(object sender, EventArgs e)
         {
             if (Created && !DesignMode)
             {
@@ -205,11 +205,11 @@ namespace GH.Components
                 dataSource.CloseOpen();
             }
         }
-        private void actOK_Execute(object sender, EventArgs e)
+    private void actOK_Execute(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
         }
-        private void actCancel_Execute(object sender, EventArgs e)
+    private void actCancel_Execute(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }

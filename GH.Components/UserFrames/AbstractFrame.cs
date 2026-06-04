@@ -15,7 +15,7 @@ namespace GH.Components
         public Form MainForm => RunContext.Instance.MainForm;
         [Browsable(false)]
         public IRibbonForm IMmainForm => RunContext.Instance.MainForm as IRibbonForm;
-        private Control _owner;
+    private Control _owner;
         [GHProperty, Browsable(true)]
         public Control Owner
         {
@@ -29,8 +29,9 @@ namespace GH.Components
                 _owner = value;
             }
         }
-        protected bool IsDesignMode => this.IsDesignMode();
-        public override ISite Site
+
+    protected bool IsDesignMode => this.IsDesignMode();
+    public override ISite Site
         {
             get
             {
@@ -49,7 +50,8 @@ namespace GH.Components
                 Owner = (Control)rootComponent;
             }
         }
-        private Image _smallImage;
+
+    private Image _smallImage;
         [GHProperty, DefaultValue(null)]
         [Editor("DevExpress.Utils.Design.DXImageEditor, DevExpress.Design.v17.2", typeof(UITypeEditor))]
         public Image Image
@@ -63,7 +65,8 @@ namespace GH.Components
                 _smallImage = value;
             }
         }
-        private Image _largeImage;
+
+    private Image _largeImage;
         [GHProperty, DefaultValue(null)]
         [Editor("DevExpress.Utils.Design.DXImageEditor, DevExpress.Design.v17.2", typeof(UITypeEditor))]
         public Image LargeImage
@@ -79,37 +82,38 @@ namespace GH.Components
         }
         [GHProperty, Browsable(true)]
         public virtual string Caption { get => Text; set => Text = value; }
-        protected void DlgInfo(string message)
+    protected void DlgInfo(string message)
         {
             DlgHelper.DlgInfo(message);
         }
-        protected void DlgWarning(string message)
+    protected void DlgWarning(string message)
         {
             DlgHelper.DlgWarning(message);
         }
-        protected void DlgError(string message)
+    protected void DlgError(string message)
         {
             DlgHelper.DlgError(message);
         }
-        protected bool DlgYesNo(string message)
+    protected bool DlgYesNo(string message)
         {
             return DlgHelper.DlgYesNo(message);
         }
-        public virtual void OpenData()
+    public virtual void OpenData()
         {
             foreach (DataSource source in EnumerateFields<DataSource>())
             {
                 source.CloseOpen();
             }
         }
-        public virtual void CloseData()
+    public virtual void CloseData()
         {
             foreach (DataSource source in EnumerateFields<DataSource>())
             {
                 source.Close();
             }
         }
-        protected IEnumerable<T> EnumerateFields<T>()
+
+    protected IEnumerable<T> EnumerateFields<T>()
         {
             return from x in GetType().GetFields(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.GetProperty)
                    where typeof(T).IsAssignableFrom(x.FieldType)
@@ -117,7 +121,7 @@ namespace GH.Components
                    where f != null
                    select f;
         }
-        public virtual void SelectFrame()
+    public virtual void SelectFrame()
         {
             if (Owner is AbstractFrame frame)
                 frame.SelectFrame();
@@ -128,18 +132,18 @@ namespace GH.Components
             }
             Select();
         }
-        public void FocusIt()
+    public void FocusIt()
         {
             LayoutControl layoutControl = Controls.OfType<LayoutControl>().FirstOrDefault();
             if (layoutControl?.Controls.OfType<BaseEdit>().OrderBy(o => o.TabIndex).FirstOrDefault() is BaseEdit baseEdit)
                 FocusIt(baseEdit);
         }
-        private static void FocusIt(BaseEdit baseEdit)
+    private static void FocusIt(BaseEdit baseEdit)
         {
             baseEdit.SelectAll();
             baseEdit.Focus();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             this.SuspendLayout();
             // 

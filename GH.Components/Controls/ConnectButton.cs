@@ -11,12 +11,12 @@ namespace GH.Components
     {
         const int _minWidth = 150;
         const int _minHeight = 24;
-        private bool tested = false;
-        private bool testOk = false;
-        private IContainer components;
-        private ImageCollection images;
-        private LayoutControlItem _lcLabelInfo = null;
-        protected LayoutControlItem lсLabel
+    private bool tested = false;
+    private bool testOk = false;
+    private IContainer components;
+    private ImageCollection images;
+    private LayoutControlItem _lcLabelInfo = null;
+    protected LayoutControlItem lсLabel
         {
             get => _lcLabelInfo;
             set
@@ -33,7 +33,8 @@ namespace GH.Components
                 }
             }
         }
-        public override string Text
+
+    public override string Text
         {
             get => base.Text;
             set
@@ -41,8 +42,9 @@ namespace GH.Components
                 base.Text = "Проверить соединение";
             }
         }
-        private LabelControl _label;
-        protected LabelControl Label
+
+    private LabelControl _label;
+    protected LabelControl Label
         {
             get => _label;
             set
@@ -74,7 +76,8 @@ namespace GH.Components
         //        }
         //    }
         //}
-        public ConnectButton()
+
+    public ConnectButton()
         {
             InitializeComponent();
             Text = "Проверить соединение";
@@ -83,7 +86,7 @@ namespace GH.Components
             MinimumSize = new System.Drawing.Size(_minWidth, _minHeight);
             Click += ConnectButton_Click;
         }
-        protected override void OnParentChanged(EventArgs e)
+    protected override void OnParentChanged(EventArgs e)
         {
             if (Parent != null && Parent is DataLayoutControl layoutControl && layoutControl.DataSource is DataSource data)
             {
@@ -104,7 +107,7 @@ namespace GH.Components
             }
             base.OnParentChanged(e);
         }
-        private void RevertControls()
+    private void RevertControls()
         {
             bool chek = !Enabled;
             switch (chek)
@@ -137,7 +140,7 @@ namespace GH.Components
             Label.Invalidate();
             Invalidate();
         }
-        public virtual void ConnectButton_Click(object sender, EventArgs e)
+    public virtual void ConnectButton_Click(object sender, EventArgs e)
         {
             FocusIt();
             if (Parent is DataLayoutControl dataLayout && dataLayout.DataSource is DataSource data)
@@ -161,19 +164,19 @@ namespace GH.Components
                 }
             }
         }
-        private void FocusIt()
+    private void FocusIt()
         {
             if (Parent is DataLayoutControl dataLayout && dataLayout.Controls.OfType<BaseEdit>().OrderBy(o => o.TabIndex).FirstOrDefault() is BaseEdit baseEdit)
                 FocusIt(baseEdit);
             else
                 Focus();
         }
-        private static void FocusIt(BaseEdit baseEdit)
+    private static void FocusIt(BaseEdit baseEdit)
         {
             baseEdit.SelectAll();
             baseEdit.Focus();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             components = new Container();
             ComponentResourceManager resources = new ComponentResourceManager(typeof(ConnectButton));

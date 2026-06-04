@@ -8,17 +8,17 @@ namespace GH.Components
         public virtual int id { get; set; }
         [UpdatableProperty(Caption = "Наименование", ToolTip = "Наименование")]
         public virtual string Name { get; set; }
-        public override bool Equals(object obj)
+    public override bool Equals(object obj)
         {
             if (obj is BaseEntity objEntity)
                 return (id == 0 && base.Equals(obj)) || id == objEntity.id;
             return false;
         }
-        public override int GetHashCode()
+    public override int GetHashCode()
         {
             return 1877310944 + id.GetHashCode();
         }
-        public override void CancelEdit()
+    public override void CancelEdit()
         {
             if (id == 0)
                 return;

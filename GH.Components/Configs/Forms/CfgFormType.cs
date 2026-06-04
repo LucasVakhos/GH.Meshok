@@ -6,7 +6,7 @@ namespace GH.Components
     public class CfgFormType<T> : CfgForm where T : CfgBaseFrame
     {
         private T _cfgFrame;
-        public T CfgFrame
+    public T CfgFrame
         {
             get => _cfgFrame;
             set
@@ -58,8 +58,10 @@ namespace GH.Components
                 }
             }
         }
-        public bool IsConnect { get; private set; }
-        private void Suspend(Control value, LayoutControlItem lcControl)
+
+    public bool IsConnect { get;
+    private set; }
+    private void Suspend(Control value, LayoutControlItem lcControl)
         {
             FrameGroup.BeginInit();
             lcControl.BeginInit();
@@ -67,7 +69,7 @@ namespace GH.Components
             layoutControl.SuspendLayout();
             SuspendLayout();
         }
-        private void Resume(Control value, LayoutControlItem lcControl)
+    private void Resume(Control value, LayoutControlItem lcControl)
         {
             FrameGroup.EndInit();
             lcControl.EndInit();
@@ -78,7 +80,8 @@ namespace GH.Components
             ClientSize = SizeHeper.NewSize(size);
             layoutControl.Dock = DockStyle.Fill;
         }
-        public CfgFormType()
+
+    public CfgFormType()
         {
             if (IsDesignMode)
                 return;
@@ -89,20 +92,20 @@ namespace GH.Components
         //{
         //    throw new NotImplemented(nameof(GetFrame), this);
         //}
-        private void ActEnter_Update(object sender, System.EventArgs e)
+    private void ActEnter_Update(object sender, System.EventArgs e)
         {
             actEnter.Enabled = EnterEnabled();
         }
-        protected virtual bool EnterEnabled()
+    protected virtual bool EnterEnabled()
         {
             return IsConnect;
         }
-        private void ActEnter_Execute(object sender, System.EventArgs e)
+    private void ActEnter_Execute(object sender, System.EventArgs e)
         {
             DialogResult = DialogResult.OK;
             CfgFrame.Save();
         }
-        private void ActCancel_Execute(object sender, System.EventArgs e)
+    private void ActCancel_Execute(object sender, System.EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
         }

@@ -7,12 +7,14 @@ namespace GH.Components
     public partial class ActtionsImages : Component, ISupportInitialize
     {
         private ImageCollection imageSmall;
-        public ImageCollection SmallImages { get => imageSmall; set => imageSmall = value; }
-        private ImageCollection imageLarge;
-        public ImageCollection LargeImages { get => imageLarge; set => imageLarge = value; }
-        private IContainer components = null;
-        private static ActtionsImages _images;
-        public static ActtionsImages Instance
+    public ImageCollection SmallImages { get => imageSmall; set => imageSmall = value; }
+
+    private ImageCollection imageLarge;
+    public ImageCollection LargeImages { get => imageLarge; set => imageLarge = value; }
+
+    private IContainer components = null;
+    private static ActtionsImages _images;
+    public static ActtionsImages Instance
         {
             get
             {
@@ -21,15 +23,17 @@ namespace GH.Components
                 return _images;
             }
         }
-        public ActtionsImages()
+
+    public ActtionsImages()
         {
             InitializeComponent();
         }
-        public ActtionsImages(IContainer container) : this()
+
+    public ActtionsImages(IContainer container) : this()
         {
             container.Add(this);
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -37,7 +41,7 @@ namespace GH.Components
             }
             base.Dispose(disposing);
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             ComponentResourceManager resources = new ComponentResourceManager(typeof(ActtionsImages));
             imageSmall = new ImageCollection();
@@ -58,10 +62,10 @@ namespace GH.Components
             ((ISupportInitialize)(imageSmall)).EndInit();
             ((ISupportInitialize)(imageLarge)).EndInit();
         }
-        public void BeginInit()
+    public void BeginInit()
         {
         }
-        public void EndInit()
+    public void EndInit()
         {
             if (this.IsDesignMode())
                 return;

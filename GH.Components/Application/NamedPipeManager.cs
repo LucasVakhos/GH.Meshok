@@ -8,11 +8,11 @@ namespace GH.Components
     public class NamedPipeManager
     {
         public static string NamedPipeName { get; } = "Pipe_" + Path.GetFileNameWithoutExtension(Application.ExecutablePath);
-        public event Action<string> ReceiveString;
-        private const string EXIT_STRING = "__EXIT__";
-        public const string ACTIVE_STRING = "__ACTIVE__";
-        private BackgroundWorker backgroundWorker;
-        public void Start()
+    public event Action<string> ReceiveString;
+    private const string EXIT_STRING = "__EXIT__";
+    public const string ACTIVE_STRING = "__ACTIVE__";
+    private BackgroundWorker backgroundWorker;
+    public void Start()
         {
             backgroundWorker = new BackgroundWorker();
             backgroundWorker.WorkerReportsProgress = true;
@@ -21,15 +21,15 @@ namespace GH.Components
             backgroundWorker.RunWorkerCompleted += BackgroundWorker_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
         }
-        public void Stop()
+    public void Stop()
         {
             Write(EXIT_STRING);
         }
-        private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+    private void BackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             backgroundWorker.Dispose();
         }
-        private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+    private void BackgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             if (ReceiveString == null)
                 return;
@@ -38,7 +38,7 @@ namespace GH.Components
                 ReceiveString.Invoke(e.UserState as string);
             });
         }
-        private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+    private void BackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             while (true)
             {
@@ -54,7 +54,7 @@ namespace GH.Components
                 backgroundWorker.ReportProgress(0, result);
             }
         }
-        public static bool Write(string[] text, int connectTimeout = 300)
+    public static bool Write(string[] text, int connectTimeout = 300)
         {
             using (var client = new NamedPipeClientStream(NamedPipeName))
             {
@@ -77,7 +77,7 @@ namespace GH.Components
             }
             return true;
         }
-        public static bool Write(string text, int connectTimeout = 300)
+    public static bool Write(string text, int connectTimeout = 300)
         {
             using (var client = new NamedPipeClientStream(NamedPipeName))
             {

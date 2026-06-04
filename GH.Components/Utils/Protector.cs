@@ -10,7 +10,7 @@ namespace GH.Components
         // число итераций должно быть не меньше 1000, мы будем использовать
         // 2000 итераций
         private static readonly int iterations = 2000;
-        public static string Encrypt(string plainText, string password)
+    public static string Encrypt(string plainText, string password)
         {
             byte[] plainBytes = Encoding.Unicode.GetBytes(plainText);
             var aes = Aes.Create();
@@ -25,7 +25,7 @@ namespace GH.Components
             }
             return Convert.ToBase64String(ms.ToArray());
         }
-        public static string Decrypt(string cryptoText, string password)
+    public static string Decrypt(string cryptoText, string password)
         {
             byte[] cryptoBytes = Convert.FromBase64String(cryptoText);
             var aes = Aes.Create();

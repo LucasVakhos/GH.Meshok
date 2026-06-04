@@ -9,8 +9,8 @@ namespace GH.Components
         protected class InnerList<TClass, TValuesList> : ListBox where TClass : class
         {
             private object value;
-            private IWindowsFormsEditorService service;
-            public InnerList(UITypeEditor host, IWindowsFormsEditorService service, object value)
+    private IWindowsFormsEditorService service;
+    public InnerList(UITypeEditor host, IWindowsFormsEditorService service, object value)
             {
                 this.service = service;
                 this.value = value;
@@ -28,13 +28,14 @@ namespace GH.Components
                     }
                 }
             }
-            protected override void OnClick(EventArgs e)
+    protected override void OnClick(EventArgs e)
             {
                 base.OnClick(e);
                 value = base.SelectedItem;
                 service.CloseDropDown();
             }
-            public object Value
+
+    public object Value
             {
                 get { return value; }
             }

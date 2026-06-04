@@ -5,7 +5,7 @@ namespace GH.Components
 {
     public static class ActionsCreateHelper
     {
-        public static RibbonPageGroup CreateRibbonPageGroup(string categoy, List<ActionGh> actions, RibbonPage editPage, RibbonBarManager manager)
+    public static RibbonPageGroup CreateRibbonPageGroup(string categoy, List<ActionGh> actions, RibbonPage editPage, RibbonBarManager manager)
         {
             RibbonPageGroup editGroup = new RibbonPageGroup();
             editPage.Groups.Add(editGroup);
@@ -21,7 +21,7 @@ namespace GH.Components
             }
             return editGroup;
         }
-        public static void CreateMenuGroup(string categoy, List<ActionGh> actions, ContextMenuStrip menuStrip)
+    public static void CreateMenuGroup(string categoy, List<ActionGh> actions, ContextMenuStrip menuStrip)
         {
             if (menuStrip.Items.Count > 0)
             {
@@ -35,7 +35,7 @@ namespace GH.Components
                 item.ActionList.SetAction(menuItem, item);
             }
         }
-        public static void CreateNavBarItemGroup(string categoy, List<ActionGh> actions, IList<NavBarItem> navbaritems)
+    public static void CreateNavBarItemGroup(string categoy, List<ActionGh> actions, IList<NavBarItem> navbaritems)
         {
             NavBarSeparatorItem separatorItem = new NavBarSeparatorItem();
             navbaritems.Add(separatorItem);
@@ -47,6 +47,7 @@ namespace GH.Components
             }
         }
     }
+
     public class BarButtonItemGH : BarButtonItem
     {
         public BarButtonItemGH(RibbonBarManager manager, ActionGh item) : base(manager, item.Caption)

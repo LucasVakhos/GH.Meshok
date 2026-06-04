@@ -6,15 +6,16 @@ namespace GH.Components
         where TUser : BaseUser
     {
         private TConfig _config;
-        private IList<TUser> _users = null;
-        protected virtual IList<TUser> Users { get => _users; set => _users = value; }
+    private IList<TUser> _users = null;
+    protected virtual IList<TUser> Users { get => _users; set => _users = value; }
         [GHProperty]
         public LoginInputType LoginInputType { get; set; }
-        public LoginFrameType()
+
+    public LoginFrameType()
         {
             FinalInitialize();
         }
-        private void FinalInitialize()
+    private void FinalInitialize()
         {
             if (!IsDesignMode)
             {
@@ -32,11 +33,11 @@ namespace GH.Components
         //    throw new NotImplemented(nameof(GetCfg), this);
         //    //return IniHelper.Cfg<TConfig>();
         //}
-        protected virtual IList GetAllUsers()
+    protected virtual IList GetAllUsers()
         {
             return (new NHRepository<TUser>() as INHRepository).SelectAll();
         }
-        protected override void OnLoad(EventArgs e)
+    protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
             if (!IsDesignMode)
@@ -63,16 +64,16 @@ namespace GH.Components
                 dataSource.Open();
             }
         }
-        private void LoginFrameType_GetBaseUser(ref BaseUser user)
+    private void LoginFrameType_GetBaseUser(ref BaseUser user)
         {
             user = Users.Where(x => x.Login == _config.UserLogin && x.Password == _config.UserPassword).FirstOrDefault();
         }
-        private void DataSource_OnOpen(out IList list)
+    private void DataSource_OnOpen(out IList list)
         {
             list = new List<TConfig>();
             list.Add(_config);
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

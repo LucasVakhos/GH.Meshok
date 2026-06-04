@@ -6,6 +6,7 @@
         {
             RoleName = roleName;
         }
-        public string RoleName { get; set; } = "USER";
+
+    public string RoleName { get; set; } = "USER";
     }
 }

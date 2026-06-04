@@ -10,16 +10,17 @@ namespace GH.Components
         public ViewGhInfoRegistrator()
         {
         }
-        public override string ViewName => nameof(ViewGh);
-        public override BaseView CreateView(GridControl grid)
+
+    public override string ViewName => nameof(ViewGh);
+    public override BaseView CreateView(GridControl grid)
         {
             return new ViewGh(grid);
         }
-        public override BaseViewInfo CreateViewInfo(BaseView view)
+    public override BaseViewInfo CreateViewInfo(BaseView view)
         {
             return new ViewInfoGh(view as ViewGh);
         }
-        public override BaseViewHandler CreateHandler(BaseView view)
+    public override BaseViewHandler CreateHandler(BaseView view)
         {
             return new ViewHandlerGh(view as ViewGh);
         }

@@ -5,9 +5,9 @@ namespace GH.Components
     public class DetailsFrame : LightDataFrame, IDetailsFrame
     {
         private DataSource _masterSource;
-        private LayoutControlItem _place;
-        private LayoutControlGroup _page;
-        private TabbedGroup _pages;
+    private LayoutControlItem _place;
+    private LayoutControlGroup _page;
+    private TabbedGroup _pages;
         [GHProperty, Browsable(false)]
         public LayoutControlItem Place
         {
@@ -32,14 +32,16 @@ namespace GH.Components
                 }
             }
         }
-        public LayoutControlGroup Page => _page;
-        public TabbedGroup PageControl => _pages;
+
+    public LayoutControlGroup Page => _page;
+    public TabbedGroup PageControl => _pages;
         //public DetailsFrame(DataSource masterSource, LayoutControlItem place) : this()
         //{
         //    Place = place;
         //    MasterSource = masterSource;
         //}
-        public DetailsFrame()
+
+    public DetailsFrame()
         {
             InitializeComponent();
         }
@@ -66,7 +68,8 @@ namespace GH.Components
                 }
             }
         }
-        internal int Document_id
+
+    internal int Document_id
         {
             get
             {
@@ -75,7 +78,8 @@ namespace GH.Components
                 return Document.id;
             }
         }
-        internal ProtoEntity Document
+
+    internal ProtoEntity Document
         {
             get
             {
@@ -84,7 +88,8 @@ namespace GH.Components
                 return MasterSource.Current as ProtoEntity;
             }
         }
-        internal virtual bool Closed
+
+    internal virtual bool Closed
         {
             get
             {
@@ -93,11 +98,11 @@ namespace GH.Components
                 return MasterSource.Closed;
             }
         }
-        private void _masterSource_PositionChanged(object sender, EventArgs e)
+    private void _masterSource_PositionChanged(object sender, EventArgs e)
         {
             DoStateChanged();
         }
-        private void _masterSource_ListChanged(object sender, ListChangedEventArgs e)
+    private void _masterSource_ListChanged(object sender, ListChangedEventArgs e)
         {
             switch (e.ListChangedType)
             {
@@ -122,21 +127,21 @@ namespace GH.Components
             }
             DoStateChanged();
         }
-        private void DoStateChanged()
+    private void DoStateChanged()
         {
             StateChanged?.Invoke(this, EventArgs.Empty);
         }
-        protected override void OnEnter(EventArgs e)
+    protected override void OnEnter(EventArgs e)
         {
             _masterSource.DisablePages(DisablePagesReason.DetailProcessing);
             base.OnEnter(e);
         }
-        protected override void OnLeave(EventArgs e)
+    protected override void OnLeave(EventArgs e)
         {
             _masterSource.EnablePages(DisablePagesReason.DetailProcessing);
             base.OnLeave(e);
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             ((System.ComponentModel.ISupportInitialize)(this.dataSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.actionList)).BeginInit();

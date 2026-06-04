@@ -17,11 +17,12 @@ namespace GH.Components
                 return _group;
             }
         }
-        public NavFrame()
+
+    public NavFrame()
         {
             InitializeComponent();
         }
-        private NavBarGroup FindGroup(Control control)
+    private NavBarGroup FindGroup(Control control)
         {
             if (control == null)
                 return null;
@@ -33,7 +34,7 @@ namespace GH.Components
         //{
         //    base.Dispose(disposing);
         //}
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             //navbaritems = new List<NavBarItem>();
             SuspendLayout();

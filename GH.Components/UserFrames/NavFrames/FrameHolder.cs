@@ -10,8 +10,8 @@ namespace GH.Components
     public class FrameHolder : XtraUserControl
     {
         private IList<SavedFrame> frames = new List<SavedFrame>();
-        private static FrameHolder _panel;
-        public static FrameHolder Holder
+    private static FrameHolder _panel;
+    public static FrameHolder Holder
         {
             get
             {
@@ -27,13 +27,14 @@ namespace GH.Components
                 return _panel;
             }
         }
-        private RibbonPageGroup _frameGroup;
-        private NavBarControl _navBar;
-        private NavFrame _currFrame;
-        private bool _appRunning;
+
+    private RibbonPageGroup _frameGroup;
+    private NavBarControl _navBar;
+    private NavFrame _currFrame;
+    private bool _appRunning;
         //private FinalizeList finalizeList;
-        private RibbonControl _ribbon;
-        private RibbonStatusBar _statusBar;
+    private RibbonControl _ribbon;
+    private RibbonStatusBar _statusBar;
         [Browsable(false)]
         public Control Owner { get; set; }
         [GHProperty, DefaultValue(null)]
@@ -55,11 +56,12 @@ namespace GH.Components
         public RibbonControl Ribbon { get => _ribbon; set => _ribbon = value; }
         [GHProperty, DefaultValue(null)]
         public RibbonStatusBar StatusBar { get => _statusBar; set => _statusBar = value; }
-        public FrameHolder()
+
+    public FrameHolder()
         {
             Dock = DockStyle.Fill;
         }
-        public void InitFrames(Type[] types)
+    public void InitFrames(Type[] types)
         {
             SplashScreenManager.Default?.SendCommand(SplashScreenCommand.SetProgressMax, new SplashCommandArgs(types.Length, 0));
             int i = 1;
@@ -87,11 +89,11 @@ namespace GH.Components
                 }
             }
         }
-        private void NavBar_ActiveGroupChanged(object sender, NavBarGroupEventArgs e)
+    private void NavBar_ActiveGroupChanged(object sender, NavBarGroupEventArgs e)
         {
             CurrFrame = e.Group.Tag as NavFrame;
         }
-        public void AddNavFrame(Type frame)
+    public void AddNavFrame(Type frame)
         {
             Type[] types = new Type[1];
             types[0] = typeof(Control);
@@ -113,7 +115,7 @@ namespace GH.Components
                 }
             }
         }
-        public void CloseData(Type frame)
+    public void CloseData(Type frame)
         {
             foreach (SavedFrame item in frames.Where(x => x.GetType() == frame))
             {
@@ -148,7 +150,7 @@ namespace GH.Components
                 }
             }
         }
-        public void CLose()
+    public void CLose()
         {
             CurrFrame = null;
         }

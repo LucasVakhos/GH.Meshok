@@ -9,7 +9,7 @@ namespace GH.Components
     public class PathSeacher : ComboBoxEdit, ISupportInitialize
     {
         private IContainer components = null;
-        public override ISite Site
+    public override ISite Site
         {
             get
             {
@@ -28,8 +28,9 @@ namespace GH.Components
                 Owner = (ContainerControl)rootComponent;
             }
         }
-        private XtraOpenFileDialog openFileDialog;
-        private ContainerControl _owner;
+
+    private XtraOpenFileDialog openFileDialog;
+    private ContainerControl _owner;
         [GHProperty, DefaultValue(null)]
         public ContainerControl Owner
         {
@@ -46,7 +47,8 @@ namespace GH.Components
                 _owner = value;
             }
         }
-        private CheckEdit _remoteControl;
+
+    private CheckEdit _remoteControl;
         [GHProperty, DefaultValue(null)]
         public CheckEdit RemoteControl
         {
@@ -62,7 +64,8 @@ namespace GH.Components
                     value.CheckedChanged += RemoteControl_CheckedChanged;
             }
         }
-        private TextEdit _serverControl;
+
+    private TextEdit _serverControl;
         [GHProperty, DefaultValue(null)]
         public TextEdit ServerControl
         {
@@ -78,14 +81,15 @@ namespace GH.Components
         //[Editor("System.Windows.Forms.Design.StringCollectionEditor, System.Design", typeof(UITypeEditor))]
         //[Localizable(true)]
         //public ComboBoxItemCollection Pathes { get => Properties.Items; set => Properties.Items.Assign(value); }
-        public PathSeacher()
+
+    public PathSeacher()
         {
             InitializeComponent();
         }
-        public void BeginInit()
+    public void BeginInit()
         {
         }
-        public void EndInit()
+    public void EndInit()
         {
             if (IsDesignMode)
                 return;
@@ -98,12 +102,12 @@ namespace GH.Components
             RemoteControl_CheckedChanged(this, EventArgs.Empty);
             BindingContextChanged += PathSeacher_BindingContextChanged;
         }
-        private void PathSeacher_BindingContextChanged(object sender, EventArgs e)
+    private void PathSeacher_BindingContextChanged(object sender, EventArgs e)
         {
             BindingContextChanged -= PathSeacher_BindingContextChanged;
             BindingManager.CurrentItemChanged += BindingManager_CurrentItemChanged;
         }
-        private void BindingManager_CurrentItemChanged(object sender, EventArgs e)
+    private void BindingManager_CurrentItemChanged(object sender, EventArgs e)
         {
             var obj = BindingManager.Current.GetType().GetProperty("Pathes");
             if (obj.GetValue(BindingManager.Current) is List<string> pathes)
@@ -125,7 +129,7 @@ namespace GH.Components
                 }
             }
         }
-        private void RemoteControl_CheckedChanged(object sender, EventArgs e)
+    private void RemoteControl_CheckedChanged(object sender, EventArgs e)
         {
             if (RemoteControl == null)
                 return;
@@ -142,7 +146,7 @@ namespace GH.Components
             }
             Invalidate();
         }
-        private void CheckServer(bool remote)
+    private void CheckServer(bool remote)
         {
             //ReadOnly = !remote;
             Properties.Buttons[1].Enabled = !remote;
@@ -155,7 +159,7 @@ namespace GH.Components
                 ServerControl.Invalidate();
             }
         }
-        private void FdbPath_ButtonClick(object sender, ButtonPressedEventArgs e)
+    private void FdbPath_ButtonClick(object sender, ButtonPressedEventArgs e)
         {
             if (e.Button.Kind == ButtonPredefines.DropDown)
             {
@@ -191,7 +195,7 @@ namespace GH.Components
                 //throw;
             }
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
             {
@@ -199,7 +203,7 @@ namespace GH.Components
             }
             base.Dispose(disposing);
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             this.components = new Container();
             this.openFileDialog = new XtraOpenFileDialog(this.components);

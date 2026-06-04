@@ -11,14 +11,14 @@ namespace GH.Components
     public static class UtilsGh
     {
         public const int WM_SYSCOMMAND = 0x0112;
-        public const int SC_CLOSE = 0xF060;
+    public const int SC_CLOSE = 0xF060;
         [DllImport("user32.dll")]
         public static extern int SendMessage(int hWnd, uint Msg, int wParam, int lParam);
         [DllImport("USER32.DLL", CharSet = CharSet.Unicode)]
         public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
-        public static async void WaitAndKeysendWindowAsinc(string win_title, string sent_text)
+    public static async void WaitAndKeysendWindowAsinc(string win_title, string sent_text)
         {
             int wait_step = 0;
             while (wait_step < 1000)
@@ -40,7 +40,7 @@ namespace GH.Components
                 wait_step++;
             }
         }
-        public static void SaveTextToFile(string text, string filePath, bool openDir = false)
+    public static void SaveTextToFile(string text, string filePath, bool openDir = false)
         {
             string dir = Path.Combine(Application.StartupPath, IniHelper.CfgAppForm().ExportPath);
             string ext = Path.GetExtension(filePath);
@@ -59,7 +59,7 @@ namespace GH.Components
             }
             OpenDirrectory(filePath);
         }
-        public static void OpenDirrectory(string filePath)
+    public static void OpenDirrectory(string filePath)
         {
             Process process = new Process();
             ProcessStartInfo info = new ProcessStartInfo("Explorer", " /select, " + filePath);
@@ -67,7 +67,7 @@ namespace GH.Components
             process.StartInfo = info;
             process.Start();
         }
-        public static string FormatAdress(string address)
+    public static string FormatAdress(string address)
         {
             address = " " + address.Replace(" .", ".").Replace(".", ". ").Replace("  ", " ");
             string[] comaChars = { "," };
@@ -108,7 +108,7 @@ namespace GH.Components
             }
             return address.Trim();
         }
-        public static bool IsZip(string zip)
+    public static bool IsZip(string zip)
         {
             if (zip.Length == 6)
             {
@@ -119,13 +119,13 @@ namespace GH.Components
             else
                 return false;
         }
-        public static bool IsPhone(string phone)
+    public static bool IsPhone(string phone)
         {
             string pattern = @"^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$";
             Match isMatch = Regex.Match(phone, pattern, RegexOptions.IgnoreCase);
             return isMatch.Success;
         }
-        public static void SetupLookups(object item)
+    public static void SetupLookups(object item)
         {
             if (item == null)
                 return;
@@ -157,11 +157,11 @@ namespace GH.Components
                             }
                         }
         }
-        public static string CalculateProcessing(int processed, int total)
+    public static string CalculateProcessing(int processed, int total)
         {
             return string.Format("{0} из {1}", processed, total);
         }
-        public static string CalculateRemaining(DateTime processStarted, int totalElements, int processedElements)
+    public static string CalculateRemaining(DateTime processStarted, int totalElements, int processedElements)
         {
             int secondsRemaining = 0;
             int totalSecond = (int)(DateTime.Now - processStarted).TotalSeconds;
@@ -173,11 +173,11 @@ namespace GH.Components
             }
             return new TimeSpan(0, 0, secondsRemaining).ToString(@"hh\:mm\:ss");
         }
-        public static string CalculateDuration(DateTime processStarted)
+    public static string CalculateDuration(DateTime processStarted)
         {
             return TimeSpan.FromTicks(DateTime.Now.Subtract(processStarted).Ticks).ToString(@"hh\:mm\:ss");
         }
-        public static bool EmailIsValid(string email)
+    public static bool EmailIsValid(string email)
         {
             string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
             Match isMatch = Regex.Match(email, pattern, RegexOptions.IgnoreCase);
@@ -218,7 +218,7 @@ namespace GH.Components
         //        wait_step++;
         //    }
         //}
-        private static string CountSumm(string barcode)
+    private static string CountSumm(string barcode)
         {
             if (barcode.Length < 12)
                 return "";
@@ -240,13 +240,13 @@ namespace GH.Components
             sum = (10 - (sum % 10)) % 10;
             return sum.ToString();
         }
-        private static bool Ean13(string barcode)
+    private static bool Ean13(string barcode)
         {
             if (barcode.Substring(barcode.Length - 1, 1) == CountSumm(barcode))
                 return true;
             return false;
         }
-        public static string CheckBarcode(string barcode)
+    public static string CheckBarcode(string barcode)
         {
             string result = barcode.Trim();
             bool isBar = Regex.IsMatch(result, @"\d");
@@ -290,8 +290,9 @@ namespace GH.Components
         //    PrFolder.StartInfo = psi;
         //    PrFolder.Start();
         //}
-        private static string pass = "AbCdEfGh";
-        public static string DeCrypt(string filePath)
+
+    private static string pass = "AbCdEfGh";
+    public static string DeCrypt(string filePath)
         {
             string result = null;
             if (File.Exists(filePath))
@@ -318,7 +319,7 @@ namespace GH.Components
                 catch { }
             return result;
         }
-        public static void EnCrypt(string filePath, string content)
+    public static void EnCrypt(string filePath, string content)
         {
             using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {

@@ -4,7 +4,7 @@ namespace GH.Components
     public static class DlgHelper
     {
         private static Form mainForm;
-        public static Form MainForm
+    public static Form MainForm
         {
             get
             {
@@ -13,13 +13,15 @@ namespace GH.Components
                 return mainForm;
             }
         }
-        public static DialogResult DialogResult { get; private set; }
-        private static void MessageBox(object param)
+
+    public static DialogResult DialogResult { get;
+    private set; }
+    private static void MessageBox(object param)
         {
             XtraMessageBoxArgs args = param as XtraMessageBoxArgs;
             DialogResult = XtraMessageBox.Show(args);
         }
-        private static XtraMessageBoxArgs GetArgs(string message, Icon icon, bool yesNo = false)
+    private static XtraMessageBoxArgs GetArgs(string message, Icon icon, bool yesNo = false)
         {
             XtraMessageBoxArgs args = new XtraMessageBoxArgs();
             args.Caption = RunContext.AppMainForm == null ? RunContext.AppCaption : RunContext.AppMainForm.Text;
@@ -41,25 +43,25 @@ namespace GH.Components
             args.Owner = RunContext.AppMainForm;
             return args;
         }
-        public static bool DlgYesNo(string message)
+    public static bool DlgYesNo(string message)
         {
             XtraMessageBoxArgs args = GetArgs(message, SystemIcons.Question, true);
             RunContext.Send(MessageBox, args);
             return DialogResult == DialogResult.Yes;
         }
-        public static void DlgInfo(string message)
+    public static void DlgInfo(string message)
         {
             VoidDlg(GetArgs(message, SystemIcons.Information));
         }
-        public static void DlgWarning(string message)
+    public static void DlgWarning(string message)
         {
             VoidDlg(GetArgs(message, SystemIcons.Warning));
         }
-        public static void DlgError(string message)
+    public static void DlgError(string message)
         {
             VoidDlg(GetArgs(message, SystemIcons.Error));
         }
-        private static void VoidDlg(XtraMessageBoxArgs args)
+    private static void VoidDlg(XtraMessageBoxArgs args)
         {
             RunContext.Send(MessageBox, args);
         }

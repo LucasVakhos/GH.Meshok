@@ -4,11 +4,12 @@ using DevExpress.XtraLayout.Utils;
 namespace GH.Components
 {
     public enum ItemType { OK, Cancel, Spase }
+
     public class Buttonitem : LayoutControlItem
     {
         int height = 28;
         int width = 125;
-        public Buttonitem(ItemType item, SimpleButton btn, ButtonsPanel buttonsPanel)
+    public Buttonitem(ItemType item, SimpleButton btn, ButtonsPanel buttonsPanel)
         {
             Control = btn;
             btn.Appearance.Options.UseTextOptions = true;
@@ -41,6 +42,7 @@ namespace GH.Components
             }
         }
     }
+
     public class ButtonsPanel : LayoutControlGroup
     {
         public ButtonsPanel(LayoutGroup parentGroup) : base(parentGroup)
@@ -55,7 +57,7 @@ namespace GH.Components
             foreach (ItemType item in Enum.GetValues(typeof(ItemType)))
                 layoutItem = AddMyItem(item, (item != ItemType.Spase ? new SimpleButton() : null), layoutItem, InsertType.Right);
         }
-        private BaseLayoutItem AddMyItem(ItemType item, SimpleButton btn, BaseLayoutItem baseLayout, InsertType right)
+    private BaseLayoutItem AddMyItem(ItemType item, SimpleButton btn, BaseLayoutItem baseLayout, InsertType right)
         {
             LayoutControlItem newLayout = null;
             if (item == ItemType.Spase)
@@ -64,7 +66,9 @@ namespace GH.Components
                 newLayout = AddItem(new Buttonitem(item, btn, this), baseLayout, InsertType.Right);
             return newLayout;
         }
-        public SimpleButton btnOK { get; set; }
-        public SimpleButton btnCancel { get; set; }
+
+    public SimpleButton btnOK { get; set; }
+
+    public SimpleButton btnCancel { get; set; }
     }
 }

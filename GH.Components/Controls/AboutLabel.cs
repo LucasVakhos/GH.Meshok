@@ -6,7 +6,7 @@ namespace GH.Components
     public class AboutLabel : BarStaticItem
     {
         Form _form;
-        public AboutLabel(Form form)
+    public AboutLabel(Form form)
         {
             _form = form;
             if (form.Icon != null)
@@ -27,7 +27,7 @@ namespace GH.Components
                 barsForm.StatusBar.ItemLinks.Add(this);
             }
         }
-        private void AboutLabel_ItemClick(object sender, ItemClickEventArgs e)
+    private void AboutLabel_ItemClick(object sender, ItemClickEventArgs e)
         {
             using (AboutBox about = RunContext.InstanceGetAboutBox())
             {

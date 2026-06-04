@@ -3,7 +3,7 @@
     public static class IniHelper
     {
         private static IniFile _iniFile;
-        public static IniFile IniFile
+    public static IniFile IniFile
         {
             get
             {
@@ -12,7 +12,7 @@
                 return _iniFile;
             }
         }
-        public static CfgApp CfgAppForm()
+    public static CfgApp CfgAppForm()
         {
             CfgCore cfg = null;
             IniFile.TryGetValue(nameof(CfgApp), out cfg);
@@ -28,7 +28,8 @@
             }
             throw new Exception($"Чтото пошло не так в {nameof(CfgAppForm)}!!!");
         }
-        public static T CoreCfg<T>() where T : CfgCore
+
+    public static T CoreCfg<T>() where T : CfgCore
         {
             T cfg = GetCoreConfig<T>();
             if (cfg == null)
@@ -44,7 +45,8 @@
             }
             return cfg;
         }
-        public static T Cfg<T>() where T : CfgCoreConnection
+
+    public static T Cfg<T>() where T : CfgCoreConnection
         {
             T cfg = GetConfig<T>();
             if (cfg == null)
@@ -60,31 +62,35 @@
             }
             return cfg;
         }
-        private static T GetCoreConfig<T>() where T : CfgCore
+
+    private static T GetCoreConfig<T>() where T : CfgCore
         {
             CfgCore ret;
             IniFile.TryGetValue(typeof(T).Name, out ret);
             return ret as T;
         }
-        private static T GetConfig<T>() where T : CfgCoreConnection
+
+    private static T GetConfig<T>() where T : CfgCoreConnection
         {
             CfgCore ret;
             IniFile.TryGetValue(typeof(T).Name, out ret);
             return ret as T;
         }
-        private static T CreateCoreConfig<T>() where T : CfgCore
+
+    private static T CreateCoreConfig<T>() where T : CfgCore
         {
             return (T)Activator.CreateInstance(typeof(T));
         }
-        private static T CreateConfig<T>() where T : CfgCoreConnection
+
+    private static T CreateConfig<T>() where T : CfgCoreConnection
         {
             return (T)Activator.CreateInstance(typeof(T));
         }
-        internal static void SaveAll()
+    internal static void SaveAll()
         {
             IniFile.SaveAll();
         }
-        internal static void AddInstance(CfgCoreConnection cfgCoreConnection)
+    internal static void AddInstance(CfgCoreConnection cfgCoreConnection)
         {
             IniFile.AddInstance(cfgCoreConnection);
         }

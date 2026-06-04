@@ -5,7 +5,7 @@ namespace GH.Components
     public delegate void GetBaseUserEvent(ref BaseUser user);
     public class CfgCoreConnection : CfgCore
     {
-        protected override void LoadDefauls()
+    protected override void LoadDefauls()
         {
             foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(this, false))
             {
@@ -13,7 +13,8 @@ namespace GH.Components
                     Default(property, att.Default);
             }
         }
-        public bool IsComplete
+
+    public bool IsComplete
         {
             get
             {
@@ -26,7 +27,7 @@ namespace GH.Components
                 return true;
             }
         }
-        public void CheckIdentity()
+    public void CheckIdentity()
         {
             if (UserLogin != User.Login || UserPassword != User.Password)
             {
@@ -44,8 +45,8 @@ namespace GH.Components
         [DataMember]
         [DbConnectionProperty(Category = Category.User, Caption = "Auto entering", ToolTip = "Автовход если доступ разрешён", Default = false)]
         public bool AutoEntering { get; set; } = false;
-        private BaseUser _user = null;
-        protected BaseUser User
+    private BaseUser _user = null;
+    protected BaseUser User
         {
             get
             {
@@ -57,22 +58,23 @@ namespace GH.Components
             }
             set => _user = value;
         }
-        public BaseUser GetUser()
+    public BaseUser GetUser()
         {
             return User;
         }
-        public event GetBaseUserEvent GetBaseUser;
-        public bool UserIsValid => User != null && User.Login == UserLogin && User.Password == UserPassword;
-        protected CfgConnectFrame Frame { get; set; }
-        public virtual string ConnectionString()
+
+    public event GetBaseUserEvent GetBaseUser;
+    public bool UserIsValid => User != null && User.Login == UserLogin && User.Password == UserPassword;
+    protected CfgConnectFrame Frame { get; set; }
+    public virtual string ConnectionString()
         {
             throw new NotImplemented(nameof(ConnectionString), this);
         }
-        public virtual bool TestConnection()
+    public virtual bool TestConnection()
         {
             throw new NotImplemented(nameof(TestConnection), this);
         }
-        public bool ConnectIsOK()
+    public bool ConnectIsOK()
         {
             CfgForm connectForm = RunContext.GetConnectForm();
             if (connectForm == null)
@@ -84,15 +86,15 @@ namespace GH.Components
                 return connectForm.ShowDialog() == DialogResult.OK;
             }
         }
-        public virtual bool IsRemoteDataBase()
+    public virtual bool IsRemoteDataBase()
         {
             throw new NotImplemented(nameof(IsRemoteDataBase), this);
         }
-        public virtual string GetRemoteServer()
+    public virtual string GetRemoteServer()
         {
             throw new NotImplemented(nameof(GetRemoteServer), this);
         }
-        internal void SetFrame(CfgConnectFrame cfgConnectFrame)
+    internal void SetFrame(CfgConnectFrame cfgConnectFrame)
         {
             Frame = cfgConnectFrame;
         }

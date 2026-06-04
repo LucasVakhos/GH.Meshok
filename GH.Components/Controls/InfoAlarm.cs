@@ -9,23 +9,23 @@ namespace GH.Components
     public class InfoAlarm : Component, IDisposable
     {
         private const int _base_interval = 1000 * 60 * 10;
-        private const int _1_min = 1000 * 60;
-        private const int _05_sec = 250;
-        private const int _10_sec = 1000 * 10;
-        private const int _blinks = 5;
-        private bool disposedValue = false; // Для определения избыточных вызовов
+    private const int _1_min = 1000 * 60;
+    private const int _05_sec = 250;
+    private const int _10_sec = 1000 * 10;
+    private const int _blinks = 5;
+    private bool disposedValue = false; // Для определения избыточных вызовов
         private IContainer components = null;
-        protected DataSource dataSource;
-        private Timer timer;
-        private RibbonStatusBar StatusBar => _mainForm == null ? null : _mainForm.StatusBar;
-        private RibbonControl Ribbon => _mainForm == null ? null : _mainForm.Ribbon;
-        private BarStaticItem _updateLabel;
-        private BarItemLink _updateLink;
-        private int _blink_count = 0;
-        private IRibbonForm _mainForm;
-        public IUpdateAlarm Update => dataSource.Entity as IUpdateAlarm;
-        public AbstractEntity Entity => dataSource.Entity;
-        public event OnGetSqlString GetSqlString
+    protected DataSource dataSource;
+    private Timer timer;
+    private RibbonStatusBar StatusBar => _mainForm == null ? null : _mainForm.StatusBar;
+    private RibbonControl Ribbon => _mainForm == null ? null : _mainForm.Ribbon;
+    private BarStaticItem _updateLabel;
+    private BarItemLink _updateLink;
+    private int _blink_count = 0;
+    private IRibbonForm _mainForm;
+    public IUpdateAlarm Update => dataSource.Entity as IUpdateAlarm;
+    public AbstractEntity Entity => dataSource.Entity;
+    public event OnGetSqlString GetSqlString
         {
             add
             {
@@ -36,7 +36,8 @@ namespace GH.Components
                 dataSource.GetSqlString -= value;
             }
         }
-        public event GetRepository GetRepository
+
+    public event GetRepository GetRepository
         {
             add
             {
@@ -47,13 +48,15 @@ namespace GH.Components
                 dataSource.GetRepository -= value;
             }
         }
-        public event HasUpdateHandler OnHasUpdate;
-        public event UpdateViewedHandler OnUpdateViewed;
-        protected virtual bool HasUpdate()
+
+    public event HasUpdateHandler OnHasUpdate;
+    public event UpdateViewedHandler OnUpdateViewed;
+    protected virtual bool HasUpdate()
         {
             return Update.has_update;
         }
-        public InfoAlarm(Form form)
+
+    public InfoAlarm(Form form)
         {
             _mainForm = form as IRibbonForm;
             if (_mainForm == null)
@@ -63,7 +66,7 @@ namespace GH.Components
             InitializeComponent();
             timer.Start();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             components = new Container();
             dataSource = new DataSource(components);
@@ -74,11 +77,11 @@ namespace GH.Components
             timer.Interval = _10_sec;
             timer.Tick += _timer_Tick;
         }
-        private void _dataSource_AfterPost(object sender, EventArgs e)
+    private void _dataSource_AfterPost(object sender, EventArgs e)
         {
             DisposeUpdateLabel();
         }
-        private void _dataSource_AfterOpen(object sender, EventArgs e)
+    private void _dataSource_AfterOpen(object sender, EventArgs e)
         {
             if (HasUpdate())
                 CreateInfo();
@@ -88,7 +91,7 @@ namespace GH.Components
                 timer.Start();
             }
         }
-        private void CreateInfo()
+    private void CreateInfo()
         {
             if (_updateLabel != null)
                 return;
@@ -106,12 +109,12 @@ namespace GH.Components
             timer.Start();
             OnHasUpdate?.Invoke(this);
         }
-        private void _updateLabel_ItemClick(object sender, ItemClickEventArgs e)
+    private void _updateLabel_ItemClick(object sender, ItemClickEventArgs e)
         {
             //InformBase();
             SelectFrame();
         }
-        public void InformBase()
+    public void InformBase()
         {
             if (HasUpdate())
             {
@@ -123,19 +126,19 @@ namespace GH.Components
                 timer.Start();
             }
         }
-        protected virtual string GetCaption()
+    protected virtual string GetCaption()
         {
             return "Alarm!!! Перезапишите метод GetCaption()";
         }
-        protected virtual void SelectFrame()
+    protected virtual void SelectFrame()
         {
         }
-        protected virtual void UpdateBase()
+    protected virtual void UpdateBase()
         {
             dataSource.Edit();
             dataSource.Post();
         }
-        private void _timer_Tick(object sender, EventArgs e)
+    private void _timer_Tick(object sender, EventArgs e)
         {
             timer.Stop();
             if (_updateLabel == null)
@@ -178,7 +181,7 @@ namespace GH.Components
                    where f != null
                    select f;
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
@@ -193,7 +196,7 @@ namespace GH.Components
                 disposedValue = true;
             }
         }
-        private void DisposeUpdateLabel()
+    private void DisposeUpdateLabel()
         {
             if (_updateLabel != null)
             {
@@ -222,6 +225,7 @@ namespace GH.Components
             }
         }
     }
+
     public delegate void UpdateViewedHandler();
     public delegate void HasUpdateHandler(InfoAlarm alarm);
 }

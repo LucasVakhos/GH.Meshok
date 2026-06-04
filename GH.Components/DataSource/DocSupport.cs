@@ -79,11 +79,12 @@ namespace GH.Components
                     _owner._statusOpened = _owner._statusClosed - 1;
             }
         }
-        public DocSupport(DataSource owner)
+
+    public DocSupport(DataSource owner)
         {
             _owner = owner;
         }
-        public override string ToString()
+    public override string ToString()
         {
             string res = "";
             if (CloseOpenField != null)

@@ -13,14 +13,15 @@ namespace GH.Components
     public class LoginControl : LayoutControlItem
     {
         private static LoginControl login;
-        public static LoginControl Load<T>(LayoutControlItem item, BindingSource source) where T : BaseUser
+    public static LoginControl Load<T>(LayoutControlItem item, BindingSource source) where T : BaseUser
         {
             if (login == null)
                 new LoginControl(item, source);
             login.LookUpDataSource = (new NHRepository<T>() as INHRepository).KeyEntityLookupList();
             return login;
         }
-        private LoginInputType _userType = LoginInputType.AsDirectInputData;
+
+    private LoginInputType _userType = LoginInputType.AsDirectInputData;
         [DefaultValue(LoginInputType.AsDirectInputData)]
         public LoginInputType UserType
         {
@@ -33,12 +34,12 @@ namespace GH.Components
                 SetEditor(value);
             }
         }
-        public override void EndInit()
+    public override void EndInit()
         {
             SetEditor(UserType);
             base.EndInit();
         }
-        private void SetEditor(LoginInputType userType)
+    private void SetEditor(LoginInputType userType)
         {
             //if (!IsInitialized)
             LayoutControl.SuspendLayout();
@@ -60,7 +61,7 @@ namespace GH.Components
             if (Control.CanFocus)
                 Control.Focus();
         }
-        private void Assigne(LayoutControlItem item)
+    private void Assigne(LayoutControlItem item)
         {
             Text = item.Text;
             Location = new Point(item.Location.X, item.Location.Y);
@@ -68,12 +69,13 @@ namespace GH.Components
             item.Parent.AddItem(this, item, DevExpress.XtraLayout.Utils.InsertType.Bottom);
             Parent.Remove(item);
         }
-        public object LookUpDataSource
+
+    public object LookUpDataSource
         {
             get => (textEdits[LoginInputType.AsSelectFromCombo] as LookUpEdit).Properties.DataSource;
             set => (textEdits[LoginInputType.AsSelectFromCombo] as LookUpEdit).Properties.DataSource = value;
         }
-        private void CtreateComboLogin(LoginInputType item)
+    private void CtreateComboLogin(LoginInputType item)
         {
             TextEdit comboLogin;
             if (item == LoginInputType.AsSelectFromCombo)
@@ -99,14 +101,15 @@ namespace GH.Components
             comboLogin.StyleController = LayoutControl;
             textEdits.Add(item, comboLogin);
         }
-        private object NHRepository<T>()
+
+    private object NHRepository<T>()
         {
             throw new NotImplementedException();
         }
         Dictionary<LoginInputType, TextEdit> textEdits = new Dictionary<LoginInputType, TextEdit>();
         BindingSource DataSource;
         LayoutControl LayoutControl;
-        public LoginControl(LayoutControlItem item, BindingSource source)
+    public LoginControl(LayoutControlItem item, BindingSource source)
         {
             if (item.Owner is LayoutControl layoutControl)
             {
@@ -122,7 +125,7 @@ namespace GH.Components
             Disposed += LoginControl_Disposed;
             SetEditor(UserType);
         }
-        private void LoginControl_Disposed(object sender, EventArgs e)
+    private void LoginControl_Disposed(object sender, EventArgs e)
         {
             foreach (KeyValuePair<LoginInputType, TextEdit> item in textEdits)
                 item.Value.Dispose();

@@ -6,7 +6,7 @@ namespace GH.Components
     public class CfgCore : AbstractEntity
     {
         internal static bool _loading = false;
-        internal string ConfigPath
+    internal string ConfigPath
         {
             get
             {
@@ -15,11 +15,12 @@ namespace GH.Components
                 return Path.Combine(RunContext.ConfigsPath, GetName() + ".ini");
             }
         }
-        public virtual string GetName()
+    public virtual string GetName()
         {
             return GetType().Name;
         }
-        public CfgCore()
+
+    public CfgCore()
         {
             IniHelper.IniFile.TryGetValue(this.GetName(), out CfgCore cfg);
             if (cfg == null)
@@ -30,7 +31,7 @@ namespace GH.Components
             else
                 Assigne(cfg);
         }
-        public void Load()
+    public void Load()
         {
             if (_loading)
                 return;
@@ -70,7 +71,7 @@ namespace GH.Components
                 _loading = false;
             }
         }
-        protected virtual void LoadDefauls()
+    protected virtual void LoadDefauls()
         {
             foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(this, false))
             {
@@ -78,7 +79,7 @@ namespace GH.Components
                     Default(property, att.Default);
             }
         }
-        protected void Default(PropertyDescriptor property, object val)
+    protected void Default(PropertyDescriptor property, object val)
         {
             if (property.GetValue(this) != null)
                 return;
@@ -87,15 +88,15 @@ namespace GH.Components
             else
                 property.SetValue(this, GetDefault(property.Name));
         }
-        public virtual object GetDefault(string name)
+    public virtual object GetDefault(string name)
         {
             throw new NotImplemented(nameof(GetDefault), this);
         }
-        protected virtual void CreateSomething()
+    protected virtual void CreateSomething()
         {
             throw new NotImplemented(nameof(CreateSomething), this);
         }
-        public void Save(bool anything = false)
+    public void Save(bool anything = false)
         {
             if (!(anything || HasChanges))
                 return;

@@ -25,16 +25,18 @@ namespace GH.Components
         //    return ImageCollection.GetImageListImage(DefaultImages.LargeImages, buttonType.ToString());
         //}
         ImageCollection _smallImages = new ImageCollection();
-        public ImageCollection SmallImages { get => _smallImages; set => _smallImages = value; }
+    public ImageCollection SmallImages { get => _smallImages; set => _smallImages = value; }
         ImageCollection _largeImages = CreateLargeImages();
-        private static ImageCollection CreateLargeImages()
+    private static ImageCollection CreateLargeImages()
         {
             ImageCollection largeImages = new ImageCollection();
             largeImages.ImageSize = new Size(32, 32);
             return largeImages;
         }
-        public ImageCollection LargeImages { get => _largeImages; set => _largeImages = value; }
-        public EditImages() : base()
+
+    public ImageCollection LargeImages { get => _largeImages; set => _largeImages = value; }
+
+    public EditImages() : base()
         {
             //InitImages();
             //if (DesignMode)
@@ -43,7 +45,7 @@ namespace GH.Components
             //    throw new Exception("EditImages в проекте может быть только один!!!");
             //_images = this;
         }
-        private void SetFromResource(EditTypes editType)
+    private void SetFromResource(EditTypes editType)
         {
             //string name = null;
             //string path = edit_path;
@@ -78,7 +80,7 @@ namespace GH.Components
             //_smallImages.AddImage(ImageResourceCache.Default.GetImage(path + name + small_ext), editType.ToString());
             //_largeImages.AddImage(ImageResourceCache.Default.GetImage(path + name + large_ext), editType.ToString());
         }
-        private void InitImages()
+    private void InitImages()
         {
             foreach (EditTypes editType in Enum.GetValues(typeof(EditTypes)))
                 SetFromResource(editType);

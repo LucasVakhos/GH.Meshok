@@ -6,11 +6,11 @@ namespace GH.Components
     public class SimpleForm : XtraForm
     {
         public bool IsDesignMode => this.IsDesignMode();
-        public bool IsRuntimeMode => !IsDesignMode;
-        public SimpleForm()
+    public bool IsRuntimeMode => !IsDesignMode;
+    public SimpleForm()
         {
         }
-        protected override void OnLoad(EventArgs e)
+    protected override void OnLoad(EventArgs e)
         {
             if (IsRuntimeMode)
             {

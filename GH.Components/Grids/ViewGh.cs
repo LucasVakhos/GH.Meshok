@@ -27,18 +27,20 @@ namespace GH.Components
             RestoreGridDefaults,
             Other
         }
-        private readonly Stream _layoutAsDesigned = new MemoryStream();
-        private bool _firstLayout = true;
-        internal IList<DXMenuItem> _titleItems = new List<DXMenuItem>();
-        protected override string ViewName => nameof(ViewGh);
-        public ViewGh()
+
+    private readonly Stream _layoutAsDesigned = new MemoryStream();
+    private bool _firstLayout = true;
+    internal IList<DXMenuItem> _titleItems = new List<DXMenuItem>();
+    protected override string ViewName => nameof(ViewGh);
+    public ViewGh()
         {
         }
-        public ViewGh(GridControl grid) : base(grid)
+
+    public ViewGh(GridControl grid) : base(grid)
         {
             InitOptions();
         }
-        private void InitOptions()
+    private void InitOptions()
         {
             OptionsBehavior.ReadOnly = true;
             OptionsBehavior.Editable = false;
@@ -49,11 +51,11 @@ namespace GH.Components
             OptionsView.ColumnAutoWidth = false;
             OptionsView.ShowFooter = true;
         }
-        public override void BeginInit()
+    public override void BeginInit()
         {
             base.BeginInit();
         }
-        public override void EndInit()
+    public override void EndInit()
         {
             if (!IsDesignMode && GridControl.DataSource is GH.Components.DataSource data && data.DataSource != null)
             {
@@ -63,7 +65,7 @@ namespace GH.Components
             }
             base.EndInit();
         }
-        private void CreateTileItems(GridViewMenu menu)
+    private void CreateTileItems(GridViewMenu menu)
         {
             InitTileItems();
             foreach (var item in _titleItems)
@@ -87,7 +89,7 @@ namespace GH.Components
                 menu.Items.Add(item);
             }
         }
-        internal virtual void InitTileItems()
+    internal virtual void InitTileItems()
         {
             if (_titleItems.Count == 0)
             {
@@ -103,7 +105,7 @@ namespace GH.Components
                 }
             }
         }
-        private Image GetImage(ShowTypes showType)
+    private Image GetImage(ShowTypes showType)
         {
             switch (showType)
             {
@@ -120,7 +122,7 @@ namespace GH.Components
             }
             return (Image)null;
         }
-        private void MyMenuClick(object sender, EventArgs e)
+    private void MyMenuClick(object sender, EventArgs e)
         {
             switch ((ShowTypes)(sender as DXMenuItem).Tag)
             {
@@ -143,7 +145,7 @@ namespace GH.Components
                     break;
             }
         }
-        protected override void RaisePopupMenuShowing(PopupMenuShowingEventArgs e)
+    protected override void RaisePopupMenuShowing(PopupMenuShowingEventArgs e)
         {
             if (e.MenuType == GridMenuType.Column)
             {
@@ -151,7 +153,7 @@ namespace GH.Components
             }
             base.RaisePopupMenuShowing(e);
         }
-        protected override void DoInternalLayout()
+    protected override void DoInternalLayout()
         {
             if (IsDesignMode)
             {
@@ -165,7 +167,7 @@ namespace GH.Components
                 _firstLayout = false;
             }
         }
-        private void FormatColumns()
+    private void FormatColumns()
         {
             GridControl.UseEmbeddedNavigator = false;
             GroupSummary.Clear();
@@ -220,7 +222,7 @@ namespace GH.Components
                 }
             }
         }
-        public void RestoreDefaultLayout(Stream layout = null)
+    public void RestoreDefaultLayout(Stream layout = null)
         {
             if (layout == null)
                 layout = _layoutAsDesigned;
@@ -228,7 +230,7 @@ namespace GH.Components
             RestoreLayoutFromStream(layout);
             Reload();
         }
-        protected override void Dispose(bool disposing)
+    protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

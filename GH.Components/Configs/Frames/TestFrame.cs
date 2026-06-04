@@ -9,7 +9,7 @@ namespace GH.Components
         {
             InitializeComponent();
         }
-        private void layoutControlGh1_DefaultLayoutLoaded(object sender, System.EventArgs e)
+    private void layoutControlGh1_DefaultLayoutLoaded(object sender, System.EventArgs e)
         {
         }
     }

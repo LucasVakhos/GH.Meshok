@@ -5,24 +5,24 @@ namespace GH.Components
     public partial class ProcWaitForm : WaitForm
     {
         internal static Queue<string> infos = new Queue<string>();
-        public ProcWaitForm()
+    public ProcWaitForm()
         {
             InitializeComponent();
             this.progressPanel1.AutoHeight = true;
             UpdateProcessor.waitForm = this;
             NewDescription();
         }
-        public override void SetCaption(string caption)
+    public override void SetCaption(string caption)
         {
             base.SetCaption(caption);
             this.progressPanel1.Caption = caption;
         }
-        public override void SetDescription(string description)
+    public override void SetDescription(string description)
         {
             base.SetDescription(description);
             this.progressPanel1.Description = description;
         }
-        public override void ProcessCommand(Enum cmd, object arg)
+    public override void ProcessCommand(Enum cmd, object arg)
         {
             switch ((WaitFormCommand)cmd)
             {
@@ -34,45 +34,50 @@ namespace GH.Components
             }
             base.ProcessCommand(cmd, arg);
         }
-        private void NewDescription()
+    private void NewDescription()
         {
             string info = infos.Dequeue();
             SetDescription(info);
         }
-        public enum WaitFormCommand
+
+    public enum WaitFormCommand
         {
             NextInfo,
         }
     }
+
     public class UpdateProcessor
     {
         internal static ProcWaitForm waitForm;
-        private static object _lock = new object();
-        private static int _splashCount = 0;
-        private Control _paretnt;
-        private bool _animate = true;
-        private SqlTypes _procType = SqlTypes.SelectSql;
-        private Action _execute;
-        private Action _afterExecute;
-        public UpdateProcessor(SqlTypes procType, Action execute, Action afterExecute = null)
+    private static object _lock = new object();
+    private static int _splashCount = 0;
+    private Control _paretnt;
+    private bool _animate = true;
+    private SqlTypes _procType = SqlTypes.SelectSql;
+    private Action _execute;
+    private Action _afterExecute;
+    public UpdateProcessor(SqlTypes procType, Action execute, Action afterExecute = null)
         {
             _procType = procType;
             _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _afterExecute = afterExecute ?? new Action(() => { });
         }
-        public UpdateProcessor(SqlTypes procType, bool animate, Action execute, Action afterExecute = null) : this(procType, execute, afterExecute)
+
+    public UpdateProcessor(SqlTypes procType, bool animate, Action execute, Action afterExecute = null) : this(procType, execute, afterExecute)
         {
             _animate = animate;
         }
-        public UpdateProcessor(SqlTypes procType, Control paretnt, bool animate, Action execute, Action afterExecute = null) : this(procType, animate, execute, afterExecute)
+
+    public UpdateProcessor(SqlTypes procType, Control paretnt, bool animate, Action execute, Action afterExecute = null) : this(procType, animate, execute, afterExecute)
         {
             _paretnt = paretnt;
         }
-        public UpdateProcessor(SqlTypes procType, Control paretnt, Action execute, Action afterExecute = null) : this(procType, execute, afterExecute)
+
+    public UpdateProcessor(SqlTypes procType, Control paretnt, Action execute, Action afterExecute = null) : this(procType, execute, afterExecute)
         {
             _paretnt = paretnt;
         }
-        public void Execute()
+    public void Execute()
         {
             if (!Internet.CheckConnectionForDatabase())
                 return;
@@ -102,7 +107,7 @@ namespace GH.Components
             Console.WriteLine($"Id предыдущей задачи: {t.Id}");
             Thread.Sleep(3000);
         }
-        private static void ShowWaitInfo(string info, Control paretnt)
+    private static void ShowWaitInfo(string info, Control paretnt)
         {
             lock (_lock)
             {
@@ -119,7 +124,7 @@ namespace GH.Components
                 }
             }
         }
-        private static void HideWaitInfo()
+    private static void HideWaitInfo()
         {
             lock (_lock)
             {

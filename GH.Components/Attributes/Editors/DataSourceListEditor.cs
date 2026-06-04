@@ -8,7 +8,7 @@ namespace GH.Components
         public DataSourceListEditor()
         {
         }
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+    public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
             if (provider == null)
                 return value;
@@ -19,11 +19,12 @@ namespace GH.Components
             service.DropDownControl(ui);
             return ui.Value;
         }
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
+    public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
         {
             return UITypeEditorEditStyle.DropDown;
         }
-        public override bool IsDropDownResizable
+
+    public override bool IsDropDownResizable
         {
             get { return true; }
         }

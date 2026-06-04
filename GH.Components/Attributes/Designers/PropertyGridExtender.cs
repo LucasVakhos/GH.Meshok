@@ -11,28 +11,28 @@ namespace GH.Components
     public class PropertyGridExtender
     {
         private ContainerControl container;
-        private PropertyGridExtender.FilterTextEdit filterEdit;
-        private PropertyGrid propertyGrid;
-        private int internalSizing;
-        private object[] selectedObjects;
-        public static void Check(ComponentDesigner designer)
+    private PropertyGridExtender.FilterTextEdit filterEdit;
+    private PropertyGrid propertyGrid;
+    private int internalSizing;
+    private object[] selectedObjects;
+    public static void Check(ComponentDesigner designer)
         {
             if (designer == null || designer.Component == null)
                 return;
             PropertyGridExtender.Check((System.IServiceProvider)designer.Component.Site);
         }
-        public static void Check(System.IServiceProvider serviceProvider)
+    public static void Check(System.IServiceProvider serviceProvider)
         {
             if (!RegistryDesignerSkinHelper.AllowPropertyGridFiltering)
                 return;
             new PropertyGridExtender().ExtendPropertyGrid(serviceProvider, false);
         }
-        public static void Disable(System.IServiceProvider serviceProvider)
+    public static void Disable(System.IServiceProvider serviceProvider)
         {
             RegistryDesignerSkinHelper.AllowPropertyGridFiltering = false;
             new PropertyGridExtender().ExtendPropertyGrid(serviceProvider, true);
         }
-        public void ExtendPropertyGrid(System.IServiceProvider services, bool removeOnly = false)
+    public void ExtendPropertyGrid(System.IServiceProvider services, bool removeOnly = false)
         {
             if (services == null || !removeOnly && !RegistryDesignerSkinHelper.AllowPropertyGridFiltering)
                 return;
@@ -68,15 +68,15 @@ namespace GH.Components
                 this.OnResizeGrid((object)this, EventArgs.Empty);
             }
         }
-        private void OnGridDisposed(object sender, EventArgs e)
+    private void OnGridDisposed(object sender, EventArgs e)
         {
             this.Remove(true);
         }
-        private void OnStyleChanged(object sender, EventArgs e)
+    private void OnStyleChanged(object sender, EventArgs e)
         {
             this.OnResizeGrid((object)this, EventArgs.Empty);
         }
-        private bool ReplacePropertyTab(PropertyGrid pg, bool restoreOriginal = false)
+    private bool ReplacePropertyTab(PropertyGrid pg, bool restoreOriginal = false)
         {
             //FieldInfo field = typeof(PropertyGrid).GetField("viewTabs", BindingFlags.Instance | BindingFlags.NonPublic);
             //if (field == (FieldInfo)null || !(field.GetValue((object)pg) is PropertyTab[] propertyTabArray))
@@ -102,11 +102,11 @@ namespace GH.Components
             //pg.Refresh();
             return true;
         }
-        private void OnPropertyTabChanged(object s, PropertyTabChangedEventArgs e)
+    private void OnPropertyTabChanged(object s, PropertyTabChangedEventArgs e)
         {
             this.OnResizeGrid((object)this, EventArgs.Empty);
         }
-        protected void Remove(bool propertyGridDestroyed = false)
+    protected void Remove(bool propertyGridDestroyed = false)
         {
             this.propertyGrid.Resize -= new EventHandler(this.OnResizeGrid);
             this.propertyGrid.SelectedObjectsChanged -= new EventHandler(this.OnSelectedObjectsChanged);
@@ -121,7 +121,7 @@ namespace GH.Components
             this.filterEdit.Dispose();
             this.filterEdit = (PropertyGridExtender.FilterTextEdit)null;
         }
-        private PropertyGridExtender.FilterTextEdit CreateFilterEdit(
+    private PropertyGridExtender.FilterTextEdit CreateFilterEdit(
           System.IServiceProvider services)
         {
             PropertyGridExtender.FilterTextEdit filterTextEdit = new PropertyGridExtender.FilterTextEdit();
@@ -137,15 +137,15 @@ namespace GH.Components
             filterTextEdit.LostFocus += new EventHandler(this.OnEditorListFocus);
             return filterTextEdit;
         }
-        private void OnEditorListFocus(object sender, EventArgs e)
+    private void OnEditorListFocus(object sender, EventArgs e)
         {
             ((PropertyGridExtender.FilterTextEdit)sender).UpdateNullText();
         }
-        private bool IsAllowFilter()
+    private bool IsAllowFilter()
         {
             return this.propertyGrid.SelectedTab == null || !(this.propertyGrid.SelectedTab is EventsTab);
         }
-        private void OnResizeGrid(object sender, EventArgs e)
+    private void OnResizeGrid(object sender, EventArgs e)
         {
             if (this.internalSizing > 0 || this.filterEdit == null || this.propertyGrid == null)
                 return;
@@ -163,7 +163,7 @@ namespace GH.Components
             }
             --this.internalSizing;
         }
-        private void OnSelectedObjectsChanged(object sender, EventArgs e)
+    private void OnSelectedObjectsChanged(object sender, EventArgs e)
         {
             PropertyGrid pg = (PropertyGrid)sender;
             if (this.filterEdit == null || (pg.SelectedObject == null || string.IsNullOrEmpty(this.Filter)))
@@ -174,7 +174,7 @@ namespace GH.Components
             }
             this.UpdatePropertyGridSelectedObjects(pg, false);
         }
-        private bool CheckSelectedDifferentObjects(object[] currentSelectedObjects)
+    private bool CheckSelectedDifferentObjects(object[] currentSelectedObjects)
         {
             object[] selectedObjects = this.selectedObjects;
             this.selectedObjects = (object[])currentSelectedObjects.Clone();
@@ -187,22 +187,24 @@ namespace GH.Components
             }
             return true;
         }
-        private void UpdatePropertyGridSelectedObjects(PropertyGrid pg, bool saveState = false)
+    private void UpdatePropertyGridSelectedObjects(PropertyGrid pg, bool saveState = false)
         {
             pg.Refresh();
         }
-        internal string Filter
+
+    internal string Filter
         {
             get
             {
                 return this.filterEdit == null ? string.Empty : this.filterEdit.Text.ToLower();
             }
         }
-        private void OnFilterEditValueChanged(object sender, EventArgs e)
+    private void OnFilterEditValueChanged(object sender, EventArgs e)
         {
             this.UpdatePropertyGridSelectedObjects(this.propertyGrid, true);
         }
-        private class FilterTextEdit : ButtonEdit
+
+    private class FilterTextEdit : ButtonEdit
         {
             public FilterTextEdit()
             {
@@ -215,32 +217,32 @@ namespace GH.Components
                 });
                 this.ButtonClick += new ButtonPressedEventHandler(this.FilterTextEdit_ButtonClick);
             }
-            private void FilterTextEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
+    private void FilterTextEdit_ButtonClick(object sender, ButtonPressedEventArgs e)
             {
                 this.EditValue = (object)"";
             }
-            protected override void OnEditValueChanged()
+    protected override void OnEditValueChanged()
             {
                 base.OnEditValueChanged();
                 if (this.Properties.Buttons.LastOrDefault<DevExpress.XtraEditors.Controls.EditorButton>() == null)
                     return;
                 this.Properties.Buttons.LastOrDefault<DevExpress.XtraEditors.Controls.EditorButton>().Enabled = !string.IsNullOrEmpty((this.EditValue ?? (object)"").ToString());
             }
-            internal void ResetFilter()
+    internal void ResetFilter()
             {
                 this.Text = "";
                 if (this.ContainsFocus)
                     return;
                 this.UpdateNullText();
             }
-            internal void UpdateNullText()
+    internal void UpdateNullText()
             {
                 this.IsModified = false;
                 this.OnLeave(EventArgs.Empty);
                 this.UpdateMaskBoxDisplayText();
                 this.LayoutChanged();
             }
-            protected override bool ProcessDialogKey(Keys keyData)
+    protected override bool ProcessDialogKey(Keys keyData)
             {
                 switch (keyData)
                 {

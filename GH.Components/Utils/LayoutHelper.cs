@@ -82,7 +82,7 @@ namespace GH.Components
         //        && layout.Parent is ISupportEditorChange support)
         //        support.EditorChanged(sender);
         //}
-        public static void Align(LayoutControlGroup group)
+    public static void Align(LayoutControlGroup group)
         {
             foreach (BaseLayoutItem item in group.Items)
             {

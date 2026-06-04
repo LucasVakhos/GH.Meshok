@@ -7,15 +7,15 @@ namespace GH.Components
     {
         const int _minWidth = 150;
         const int _minHeight = 24;
-        private SimpleButton connectButton;
-        private LayoutControlItem infoLabel;
-        private DevExpress.Utils.ImageCollection imagees;
+    private SimpleButton connectButton;
+    private LayoutControlItem infoLabel;
+    private DevExpress.Utils.ImageCollection imagees;
         //private System.ComponentModel.IContainer components;
-        private DataLayoutControl styleController;
-        private bool tested = false;
-        private System.ComponentModel.IContainer components;
-        private bool testOk = false;
-        public DataLayoutControl StyleController
+    private DataLayoutControl styleController;
+    private bool tested = false;
+    private System.ComponentModel.IContainer components;
+    private bool testOk = false;
+    public DataLayoutControl StyleController
         {
             get => styleController;
             set
@@ -27,7 +27,8 @@ namespace GH.Components
                 infoLabel.StyleController = value;
             }
         }
-        public TestConnectButton()
+
+    public TestConnectButton()
         {
             InitializeComponent();
             RuntimeInitialize();
@@ -42,7 +43,7 @@ namespace GH.Components
         //this.imagees.Images.SetKeyName(3, "no_checking");
         //this.imagees.InsertGalleryImage("check_connection", "images/business%20objects/bocontact_16x16.png", DevExpress.Images.ImageResourceCache.Default.GetImage("images/business%20objects/bocontact_16x16.png"), 4);
         //this.imagees.Images.SetKeyName(4, "check_connection");
-        private void RevertControls()
+    private void RevertControls()
         {
             bool chek = !connectButton.Enabled;
             switch (chek)
@@ -75,7 +76,7 @@ namespace GH.Components
             }
             connectButton.Enabled = chek;
         }
-        public virtual void ConnectButton_Click(object sender, EventArgs e)
+    public virtual void ConnectButton_Click(object sender, EventArgs e)
         {
             RevertControls();
             try
@@ -97,19 +98,19 @@ namespace GH.Components
                 RevertControls();
             }
         }
-        private void FocusIt()
+    private void FocusIt()
         {
             if (StyleController?.Controls.OfType<BaseEdit>().OrderBy(o => o.TabIndex).FirstOrDefault() is BaseEdit baseEdit)
                 FocusIt(baseEdit);
             else
                 Focus();
         }
-        private static void FocusIt(BaseEdit baseEdit)
+    private static void FocusIt(BaseEdit baseEdit)
         {
             baseEdit.SelectAll();
             baseEdit.Focus();
         }
-        private void RuntimeInitialize()
+    private void RuntimeInitialize()
         {
             //if (DesignMode)
             //    return;
@@ -120,7 +121,7 @@ namespace GH.Components
             this.infoLabel.MinimumSize = new System.Drawing.Size(0, _minHeight);
             this.ResumeLayout(false);
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TestConnectButton));
@@ -186,7 +187,7 @@ namespace GH.Components
             ((System.ComponentModel.ISupportInitialize)(this.imagees)).EndInit();
             this.ResumeLayout(false);
         }
-        private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+    private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
         }
     }

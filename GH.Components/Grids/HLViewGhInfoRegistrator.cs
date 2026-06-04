@@ -8,15 +8,15 @@ namespace GH.Components
     public class HLViewGhInfoRegistrator : GridInfoRegistrator
     {
         public override string ViewName => nameof(HighlightingViewGh);
-        public override BaseView CreateView(GridControl grid)
+    public override BaseView CreateView(GridControl grid)
         {
             return new HighlightingViewGh(grid);
         }
-        public override BaseViewInfo CreateViewInfo(BaseView view)
+    public override BaseViewInfo CreateViewInfo(BaseView view)
         {
             return new ViewInfoGh(view as HighlightingViewGh);
         }
-        public override BaseViewHandler CreateHandler(BaseView view)
+    public override BaseViewHandler CreateHandler(BaseView view)
         {
             return new ViewHandlerGh(view as HighlightingViewGh);
         }

@@ -5,13 +5,9 @@
 // Assembly location: E:\C#\KULAKOVSKY\AmigoPlus\AmigoPlus\bin\Debug\lib\GH.Components.Windows.Forms.Actions.dll
 using DevExpress.XtraBars;
 using DevExpress.XtraNavBar;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Drawing.Design;
 using System.Reflection;
-using System.Windows.Forms;
 //using static System.Windows.Forms.ImageList;
 namespace GH.Components
 {
@@ -47,6 +43,7 @@ namespace GH.Components
                 actionList = value;
             }
         }
+
         public object Tag { get; set; }
         [DefaultValue("")]
         [UpdatableProperty]
@@ -130,6 +127,7 @@ namespace GH.Components
                     UpdateAllTargets(nameof(Enabled), (object)value);
             }
         }
+
         private Image _image;
         [DefaultValue(null)]
         [UpdatableProperty]
@@ -148,6 +146,7 @@ namespace GH.Components
                 UpdateAllTargets(nameof(Image), value);
             }
         }
+
         private Image _largeImage;
         [DefaultValue(null)]
         [UpdatableProperty]
@@ -237,6 +236,7 @@ namespace GH.Components
                     UpdateAllTargets(nameof(ToolTipText), (object)value);
             }
         }
+
         public ActionGh()
         {
             targets = new List<Component>();
@@ -250,6 +250,7 @@ namespace GH.Components
             _clickEventHandler = target_Click;
             _checkStateChangedEventHandler = target_CheckStateChanged;
         }
+
         protected ActionGh.ActionWorkingState WorkingState
         {
             get
@@ -261,6 +262,7 @@ namespace GH.Components
                 workingState = value;
             }
         }
+
         public event CancelEventHandler BeforeExecute;
         protected virtual void OnBeforeExecute(CancelEventArgs e)
         {
@@ -268,6 +270,7 @@ namespace GH.Components
                 return;
             BeforeExecute((object)this, e);
         }
+
         public event EventHandler Execute;
         protected virtual void OnExecute(EventArgs e)
         {
@@ -280,6 +283,7 @@ namespace GH.Components
                 return;
             Execute((object)this, e);
         }
+
         public event EventHandler AfterExecute;
         protected virtual void OnAfterExecute(EventArgs e)
         {
@@ -287,6 +291,7 @@ namespace GH.Components
                 return;
             AfterExecute((object)this, e);
         }
+
         public event EventHandler Update;
         protected virtual void OnUpdate(EventArgs e)
         {
@@ -416,8 +421,7 @@ namespace GH.Components
         }
         private void toolbar_ButtonClick(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (!targets.Contains((Component)e.Button))
-                return;
+            if (!targets.Contains((Component)e.Button)) return;
             handleClick((object)e.Button, (EventArgs)e);
         }
         private void target_Click(object sender, EventArgs e)
@@ -434,6 +438,7 @@ namespace GH.Components
         {
             handleCheckStateChanged(sender, e);
         }
+
         internal bool InterceptingCheckStateChanged
         {
             get
@@ -470,6 +475,7 @@ namespace GH.Components
                 Checked = !Checked;
             DoExecute();
         }
+
         protected enum ActionWorkingState
         {
             Listening,

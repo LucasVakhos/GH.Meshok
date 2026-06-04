@@ -10,9 +10,10 @@ namespace GH.Components
             InitializeComponent();
             AppContext.RegInfoPanel(this);
         }
-        protected ITitle title => _source.Current as ITitle;
+
+    protected ITitle title => _source.Current as ITitle;
         BindingSource _source = null;
-        public void RegDataSource(BindingSource source)
+    public void RegDataSource(BindingSource source)
         {
             if (_source != null)
             {
@@ -26,7 +27,7 @@ namespace GH.Components
                 dataSource.CloseOpen();
             }
         }
-        private void Source_PositionChanged(object sender, System.EventArgs e)
+    private void Source_PositionChanged(object sender, System.EventArgs e)
         {
             dataSource.ReOpenByTimer();
         }

@@ -6,11 +6,13 @@
           : base(message)
         {
         }
-        public GHException(string message, Exception innerException)
+
+    public GHException(string message, Exception innerException)
           : base(message, innerException)
         {
         }
-        public GHException()
+
+    public GHException()
         {
         }
     }

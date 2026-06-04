@@ -27,10 +27,12 @@ namespace GH.Components
                 _password = value;
             }
         }
-        private string _password = null;
+
+    private string _password = null;
         [UpdatableProperty(Caption = "Активен", ToolTip = "Активен", Group = "Данные пользователя")]
         public virtual bool Active { get; set; }
     }
+
     public class UserMap : ClassMap<BaseUser>
     {
         public UserMap()

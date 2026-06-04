@@ -15,39 +15,46 @@ namespace GH.Components
         RefreshSql,
         ExecuteSql
     }
+
     public class NHRepositorySetting
     {
         static int _pageSize = 10000;
-        public static int PageSize { get => _pageSize; set => _pageSize = value; }
-        private int _pageNumber = 1;
-        public int PageNumber { get => _pageNumber; set => _pageNumber = value; }
+    public static int PageSize { get => _pageSize; set => _pageSize = value; }
+
+    private int _pageNumber = 1;
+    public int PageNumber { get => _pageNumber; set => _pageNumber = value; }
     }
+
     public class NHRepository<T> : NHRepositorySetting, INHRepository where T : BaseEntity
     {
         protected DbServerType DbServerType;
-        public NHRepository()
+    public NHRepository()
         {
             DbServerType = NHHelper.BaseCriator.DbServerType;
         }
         Type INHRepository.ConcreteType => ConcreteType;
-        private Type ConcreteType => typeof(T);
+    private Type ConcreteType => typeof(T);
         Func<SqlTypes, BaseEntity, string> INHRepository.GetSQL { get => GetSQL; set => GetSQL = value; }
-        private Func<SqlTypes, BaseEntity, string> GetSQL { get; set; } = null;
+
+    private Func<SqlTypes, BaseEntity, string> GetSQL { get; set; } = null;
         Action<object> INHRepository.PostFinish { get => PostFinish; set => PostFinish = value; }
-        public Action<object> PostFinish { get; set; } = null;
-        private void FinishPost(T entity)
+
+    public Action<object> PostFinish { get; set; } = null;
+    private void FinishPost(T entity)
         {
             PostFinish?.Invoke(entity);
         }
         Action<BaseEntity> INHRepository.DeleteFinish { get => DeleteFinish; set => DeleteFinish = value; }
-        private Action<BaseEntity> DeleteFinish { get; set; } = null;
-        private void FinishDelete(T entity)
+
+    private Action<BaseEntity> DeleteFinish { get; set; } = null;
+    private void FinishDelete(T entity)
         {
             DeleteFinish?.Invoke(entity);
         }
         bool INHRepository.RefreshAfterPost { get => NeedRefresh; set => NeedRefresh = value; }
-        private bool NeedRefresh { get; set; }
-        private bool Animate(SqlTypes sqlType)
+
+    private bool NeedRefresh { get; set; }
+    private bool Animate(SqlTypes sqlType)
         {
             switch (sqlType)
             {
@@ -69,9 +76,11 @@ namespace GH.Components
             return false;
         }
         bool INHRepository.NeedLoadingAnimate { get => NeedLoadingAnimate; set => NeedLoadingAnimate = value; }
-        private bool NeedLoadingAnimate { get; set; }
+
+    private bool NeedLoadingAnimate { get; set; }
         Control INHRepository.Control { get => Control; set => Control = value; }
-        private Control Control { get; set; }
+
+    private Control Control { get; set; }
         KeyValuePair<int, string>[] INHRepository.KeyIntLookupList()
         {
             return ((IList<T>)InnerSelectAll()).ToDictionary(x => x.id, x => x.Name).ToArray();
@@ -80,11 +89,11 @@ namespace GH.Components
         {
             return ((IList<T>)InnerSelectAll()).ToDictionary(x => (BaseEntity)x, x => x.Name).ToArray();
         }
-        private ISession OpenSession()
+    private ISession OpenSession()
         {
             return NHHelper.OpenSession(DbServerType);
         }
-        private string GetDeleteSql(T entity)
+    private string GetDeleteSql(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.DeleteSql, entity);
@@ -94,7 +103,7 @@ namespace GH.Components
         {
             Delete((T)entity);
         }
-        private void Delete(T entity)
+    private void Delete(T entity)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.DeleteSql,
@@ -128,7 +137,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        public void DeleteAll(ICollection<T> entitys)
+    public void DeleteAll(ICollection<T> entitys)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.DeleteSql,
@@ -192,7 +201,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        private void ExequteQuery(string execSQL)
+    private void ExequteQuery(string execSQL)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.ExecuteSql,
@@ -215,7 +224,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        public BaseEntity Get(object id)
+    public BaseEntity Get(object id)
         {
             BaseEntity bindable = null;
             if (Internet.CheckConnectionForDatabase())
@@ -234,7 +243,7 @@ namespace GH.Components
             }
             return bindable;
         }
-        private string GetInsertSql(T entity)
+    private string GetInsertSql(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.InsertSql, entity);
@@ -244,7 +253,7 @@ namespace GH.Components
         {
             Save((T)entity);
         }
-        private void Save(T entity)
+    private void Save(T entity)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.InsertSql,
@@ -285,7 +294,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        private string GetUpdateSql(T entity)
+    private string GetUpdateSql(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.UpdateSql, entity);
@@ -295,7 +304,7 @@ namespace GH.Components
         {
             Update((T)entity);
         }
-        private void Update(T entity)
+    private void Update(T entity)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.UpdateSql,
@@ -331,13 +340,13 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        private string GetSaveOrUpdate(T entity)
+    private string GetSaveOrUpdate(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.SaveOrUpdateSql, entity);
             return null;
         }
-        public void SaveOrUpdate(T entity)
+    public void SaveOrUpdate(T entity)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.SaveOrUpdateSql,
@@ -379,12 +388,13 @@ namespace GH.Components
             processor.Execute();
         }
         Action<object> INHRepository.CloseOpenDocFinish { get => CloseOpenDocFinish; set => CloseOpenDocFinish = value; }
-        private Action<object> CloseOpenDocFinish { get; set; } = null;
-        private void DoCloseOpenDocFinish(T entity)
+
+    private Action<object> CloseOpenDocFinish { get; set; } = null;
+    private void DoCloseOpenDocFinish(T entity)
         {
             CloseOpenDocFinish?.Invoke(entity);
         }
-        private string GetCloseOpenDoc(T entity)
+    private string GetCloseOpenDoc(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.CloseDocSql, entity);
@@ -394,7 +404,7 @@ namespace GH.Components
         {
             CloseOpenDoc((T)entity);
         }
-        private void CloseOpenDoc(T entity)
+    private void CloseOpenDoc(T entity)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.CloseDocSql,
@@ -434,7 +444,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        public void UpdateAll(ICollection<T> entitys)
+    public void UpdateAll(ICollection<T> entitys)
         {
             UpdateProcessor processor = new UpdateProcessor(
                 SqlTypes.UpdateSql,
@@ -472,7 +482,7 @@ namespace GH.Components
                 });
             processor.Execute();
         }
-        private string GetResreshSql(T entity)
+    private string GetResreshSql(T entity)
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.RefreshSql, entity);
@@ -482,7 +492,7 @@ namespace GH.Components
         {
             Refresh((T)entity);
         }
-        private void Refresh(T entity)
+    private void Refresh(T entity)
         {
             if (!Internet.CheckConnectionForDatabase())
                 return;
@@ -506,7 +516,7 @@ namespace GH.Components
                 }
             }
         }
-        public void Replicate(T entity)
+    public void Replicate(T entity)
         {
             if (!Internet.CheckConnectionForDatabase())
                 return;
@@ -526,34 +536,37 @@ namespace GH.Components
                 }
             }
         }
-        private string SelectSql()
+    private string SelectSql()
         {
             if (GetSQL != null)
                 return GetSQL.Invoke(SqlTypes.SelectSql, null);
             return null;
         }
         Func<Dictionary<string, bool>> INHRepository.GetSorting { get => GetSorting; set => GetSorting = value; }
-        private Func<Dictionary<string, bool>> GetSorting { get; set; }
-        private Dictionary<string, bool> Sorting()
+
+    private Func<Dictionary<string, bool>> GetSorting { get; set; }
+
+    private Dictionary<string, bool> Sorting()
         {
             if (GetSorting != null)
                 return GetSorting.Invoke();
             return null;
         }
         Func<Dictionary<string, object>> INHRepository.GetParams { get => GetParams; set => GetParams = value; }
-        private Func<Dictionary<string, object>> GetParams { get; set; } = null;
-        private Dictionary<string, object> Params()
+
+    private Func<Dictionary<string, object>> GetParams { get; set; } = null;
+    private Dictionary<string, object> Params()
         {
             if (GetParams != null)
                 return GetParams.Invoke();
             return null;
         }
-        public IList<T> AsTypeList()
+    public IList<T> AsTypeList()
         {
             var lst = InnerSelectAll();
             return lst;
         }
-        private IList<T> InnerSelectAll()
+    private IList<T> InnerSelectAll()
         {
             string sql = SelectSql();
             List<T> lst = null;
@@ -609,7 +622,7 @@ namespace GH.Components
             }
             return lst ?? new List<T>();
         }
-        private IList<T> InnerSelectAllAsync()
+    private IList<T> InnerSelectAllAsync()
         {
             IList<T> lst = null;
             UpdateProcessor processor = new UpdateProcessor(
@@ -677,7 +690,7 @@ namespace GH.Components
         {
             return SelectFormProcedure(entity, sql);
         }
-        private BaseEntity SelectFormProcedure(BaseEntity entity, string sql)
+    private BaseEntity SelectFormProcedure(BaseEntity entity, string sql)
         {
             BaseEntity res = null;
             try
@@ -703,7 +716,7 @@ namespace GH.Components
             }
             return res;
         }
-        private static void SetParams(BaseEntity entity, IQuery q)
+    private static void SetParams(BaseEntity entity, IQuery q)
         {
             if (q.NamedParameters.Length == 0)
                 return;
@@ -738,7 +751,7 @@ namespace GH.Components
                     q.SetParameter(par, value);
             }
         }
-        private static Type GetPureType(PropertyInfo info)
+    private static Type GetPureType(PropertyInfo info)
         {
             if (info.PropertyType.IsGenericType)
             {

@@ -10,17 +10,17 @@ namespace GH.Components
         private object _savedCopy = null;
         [Bindable(BindableSupport.No)]
         public virtual bool HasChanges => WasChanged();
-        protected object GetSavedCopy()
+    protected object GetSavedCopy()
         {
             return _savedCopy;
         }
-        public virtual void BeginEdit()
+    public virtual void BeginEdit()
         {
             if (_savedCopy != null)
                 return;
             _savedCopy = this.MemberwiseClone();
         }
-        public virtual void CancelEdit()
+    public virtual void CancelEdit()
         {
             if (_savedCopy == null)
                 return;
@@ -32,7 +32,7 @@ namespace GH.Components
             }
             EndEdit();
         }
-        public virtual void CancelEdit(string group = null)
+    public virtual void CancelEdit(string group = null)
         {
             if (_savedCopy == null)
                 return;
@@ -43,11 +43,11 @@ namespace GH.Components
                 prop.SetValue(this, copyProp.GetValue(_savedCopy));
             }
         }
-        public virtual void EndEdit()
+    public virtual void EndEdit()
         {
             _savedCopy = null;
         }
-        public virtual void Assigne(object entity)
+    public virtual void Assigne(object entity)
         {
             if (entity == null || GetType() != entity.GetType())
                 return;
@@ -60,7 +60,7 @@ namespace GH.Components
             if (_savedCopy != null)
                 _savedCopy = MemberwiseClone();
         }
-        public virtual bool WasChanged(string group = null)
+    public virtual bool WasChanged(string group = null)
         {
             if (_savedCopy == null)
                 return false;
@@ -83,7 +83,7 @@ namespace GH.Components
             }
             return false;
         }
-        public virtual bool ValueChanged(string name)
+    public virtual bool ValueChanged(string name)
         {
             if (_savedCopy == null)
                 return false;
@@ -97,29 +97,29 @@ namespace GH.Components
             object obj2 = copy_value.GetValue(_savedCopy);
             return !Convert.Equals(obj1, obj2);
         }
-        public static PropertyInfo GetProperty(IEditableObject model, string name)
+    public static PropertyInfo GetProperty(IEditableObject model, string name)
         {
             return GetPropertys(model).FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
         }
-        public static IEnumerable<PropertyInfo> GetPropertys(IEditableObject model)
+    public static IEnumerable<PropertyInfo> GetPropertys(IEditableObject model)
         {
             return from p in model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.SetProperty | BindingFlags.FlattenHierarchy)
                    where p.SetMethod != null || p.GetMethod != null
                    select p;
         }
-        public static IEnumerable<PropertyInfo> GetReadPropertys(IEditableObject model)
+    public static IEnumerable<PropertyInfo> GetReadPropertys(IEditableObject model)
         {
             return from p in model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.FlattenHierarchy)
                    where p.GetMethod != null
                    select p;
         }
-        public static IEnumerable<PropertyInfo> GetWritePropertys(IEditableObject model, bool withID = false)
+    public static IEnumerable<PropertyInfo> GetWritePropertys(IEditableObject model, bool withID = false)
         {
             return from p in model.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.FlattenHierarchy)
                    where p.SetMethod != null && (withID || p.Name != "id")
                    select p;
         }
-        public override string ToString()
+    public override string ToString()
         {
             string result = null;
             foreach (Field field in GetFields())
@@ -132,11 +132,11 @@ namespace GH.Components
             }
             return result ?? base.ToString();
         }
-        public virtual Field[] GetFields()
+    public virtual Field[] GetFields()
         {
             return Field.GetFields<UpdatablePropertyAttribute>(this, null, true);
         }
-        private string ValToSting(object val)
+    private string ValToSting(object val)
         {
             if (val == null)
                 return "(Пусто)";
@@ -149,33 +149,33 @@ namespace GH.Components
                 return string.Format("{0:d}", val);
             return val.ToString();
         }
-        public virtual object AsValue(string name)
+    public virtual object AsValue(string name)
         {
             var this_value = GetReadPropertys(this as IEditableObject).FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
             if (this_value == null)
                 return null;
             return this_value.GetValue(this);
         }
-        public virtual void AsValue(string name, object value)
+    public virtual void AsValue(string name, object value)
         {
             var this_value = GetWritePropertys(this as IEditableObject).FirstOrDefault(x => x.Name.ToLower() == name.ToLower());
             if (this_value == null)
                 return;
             this_value.SetValue(this, value);
         }
-        public virtual int AsInteger(string name)
+    public virtual int AsInteger(string name)
         {
             return (int)AsValue(name);
         }
-        public virtual void AsInteger(string name, int value)
+    public virtual void AsInteger(string name, int value)
         {
             AsValue(name, value);
         }
-        public virtual bool AsBoolean(string name)
+    public virtual bool AsBoolean(string name)
         {
             return (bool)AsValue(name);
         }
-        public virtual void AsBoolean(string name, bool value)
+    public virtual void AsBoolean(string name, bool value)
         {
             AsValue(name, value);
         }

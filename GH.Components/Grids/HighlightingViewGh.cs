@@ -10,10 +10,11 @@ namespace GH.Components
         public HighlightingViewGh()
         {
         }
-        public HighlightingViewGh(GridControl grid) : base(grid)
+
+    public HighlightingViewGh(GridControl grid) : base(grid)
         {
         }
-        internal override void InitTileItems()
+    internal override void InitTileItems()
         {
             base.InitTileItems();
             if (_titleItems.Any(x => (ShowTypes)x.Tag == ShowTypes.Other))
@@ -24,11 +25,11 @@ namespace GH.Components
             item.Tag = ShowTypes.Other;
             _titleItems.Add(item);
         }
-        private void HighLiteClick(object sender, EventArgs e)
+    private void HighLiteClick(object sender, EventArgs e)
         {
             GridHighLiteProcessor.ShowSetup();
         }
-        protected override AppearanceObject RaiseGetRowCellStyle(int rowHandle, GridColumn column, GridRowCellState state, AppearanceObject appearance)
+    protected override AppearanceObject RaiseGetRowCellStyle(int rowHandle, GridColumn column, GridRowCellState state, AppearanceObject appearance)
         {
             if (IsDesignMode)
                 return base.RaiseGetRowCellStyle(rowHandle, column, state, appearance);
@@ -38,7 +39,7 @@ namespace GH.Components
             GridHighLiteProcessor.SetRowCellStyle(obj, appearance, rowHandle == FocusedRowHandle && GridControlIsFocused);
             return base.RaiseGetRowCellStyle(rowHandle, column, state, appearance);
         }
-        internal object GetEntyty(int rowHandle)
+    internal object GetEntyty(int rowHandle)
         {
             if (rowHandle < 0)
                 return null;
@@ -53,11 +54,11 @@ namespace GH.Components
             }
             return null;
         }
-        internal void SelectHighlightr(Type concreteType)
+    internal void SelectHighlightr(Type concreteType)
         {
             GridHighLiteProcessor.SelectType(concreteType);
         }
-        internal void DeSelectHighlightr()
+    internal void DeSelectHighlightr()
         {
             GridHighLiteProcessor.DeSelectType();
         }

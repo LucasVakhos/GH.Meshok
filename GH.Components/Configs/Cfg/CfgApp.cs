@@ -7,14 +7,14 @@ namespace GH.Components
     public class CfgApp : CfgCore
     {
         internal const string keyName = "Application.key";
-        internal const string exportPath = "Exports";
-        internal const string cfgPath = "Configs";
-        internal const string logsFolder = "Logs";
-        internal const string downloadWebFolder = "DownloadWebFolder";
-        internal const string importSourceFolder = "ImportSources";
-        internal const string ordersFolder = "Orders";
-        internal static DefaultLookAndFeel _defaultLook;
-        internal static DefaultLookAndFeel DefaultLook
+    internal const string exportPath = "Exports";
+    internal const string cfgPath = "Configs";
+    internal const string logsFolder = "Logs";
+    internal const string downloadWebFolder = "DownloadWebFolder";
+    internal const string importSourceFolder = "ImportSources";
+    internal const string ordersFolder = "Orders";
+    internal static DefaultLookAndFeel _defaultLook;
+    internal static DefaultLookAndFeel DefaultLook
         {
             get
             {
@@ -23,8 +23,9 @@ namespace GH.Components
                 return _defaultLook;
             }
         }
-        private Form _form;
-        public event Action<Form> OnRestore;
+
+    private Form _form;
+    public event Action<Form> OnRestore;
         [DataMember]
         [UpdatableProperty(Caption = "Version", ToolTip = "Текущая версия программы", ReadOnly = true)]
         public string ProductVersion { get; set; } = "0.0.0.0";
@@ -61,7 +62,7 @@ namespace GH.Components
         public int NavBarExpandedWidth { get; set; } = 185;
         [DataMember]
         public NavPaneState NavBarPaneState { get; set; } = NavPaneState.Expanded;
-        internal virtual Form Form
+    internal virtual Form Form
         {
             get => _form;
             set
@@ -81,11 +82,11 @@ namespace GH.Components
                 }
             }
         }
-        internal void Restore()
+    internal void Restore()
         {
             Restore(RunContext.AppMainForm);
         }
-        protected virtual void Restore(Form form)
+    protected virtual void Restore(Form form)
         {
             bool isMain = RunContext.AppMainForm == form;
             Point location = Location;
@@ -121,7 +122,7 @@ namespace GH.Components
             }
             OnRestore?.Invoke(form);
         }
-        private void NavBarControl_SizeChanged(object sender, EventArgs e)
+    private void NavBarControl_SizeChanged(object sender, EventArgs e)
         {
             if (sender is NavBarControl navBar)
             {
@@ -130,7 +131,7 @@ namespace GH.Components
                 NavBarPaneState = navBar.OptionsNavPane.NavPaneState;
             }
         }
-        private void MainForm_Resize(object sender, System.EventArgs e)
+    private void MainForm_Resize(object sender, System.EventArgs e)
         {
             if (sender is Form form)
             {
@@ -138,13 +139,14 @@ namespace GH.Components
                 Location = form.Location;
             }
         }
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+    private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             WindowState = _form.WindowState;
             Save(true);
             IniHelper.SaveAll();
         }
-        public CfgApp() : base()
+
+    public CfgApp() : base()
         {
             if (_loading)
                 return;
@@ -155,7 +157,7 @@ namespace GH.Components
         {
             SkinName = DefaultLook.LookAndFeel.ActiveSkinName;
         }
-        public bool TestConnection()
+    public bool TestConnection()
         {
             if (!Internet.PingServer(new string[] { DownloadWebFolder }))
             {
@@ -166,7 +168,7 @@ namespace GH.Components
             }
             return true;
         }
-        private void MainForm_Load(object sender, EventArgs e)
+    private void MainForm_Load(object sender, EventArgs e)
         {
             if (sender is Form form)
             {

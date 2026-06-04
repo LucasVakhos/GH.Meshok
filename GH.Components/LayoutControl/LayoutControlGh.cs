@@ -33,7 +33,8 @@ namespace GH.Components
                 Owner = (ContainerControl)rootComponent;
             }
         }
-        private ContainerControl _owner;
+
+    private ContainerControl _owner;
         [GHProperty]
         public ContainerControl Owner
         {
@@ -50,15 +51,16 @@ namespace GH.Components
                 _owner = value;
             }
         }
-        public LayoutControlGh()
+
+    public LayoutControlGh()
         {
             //Dock = DockStyle.Fill;
             OptionsFocus.EnableAutoTabOrder = true;
         }
-        public override void BeginInit()
+    public override void BeginInit()
         {
         }
-        public override void EndInit()
+    public override void EndInit()
         {
             if (!Created)
             {
@@ -75,14 +77,14 @@ namespace GH.Components
             }
             base.EndInit();
         }
-        private bool LastLevel()
+    private bool LastLevel()
         {
             if (DataSource is DataSource source)
                 return (source.EntityType != null);
             else
                 return ObjectHelper.EnumerateFields<DataSource>(Owner).Any(x => x.EntityType != null);
         }
-        private void InitLayoutControlItems()
+    private void InitLayoutControlItems()
         {
             if (DataSource is DataSource dataSource)
                 InitByDataSource(dataSource);
@@ -90,7 +92,7 @@ namespace GH.Components
                 foreach (DataSource data in ObjectHelper.EnumerateFields<DataSource>(Owner).Where(x => x.PageSupport.EditGroup != null))
                     InitByDataSource(data);
         }
-        private void InitByDataSource(DataSource data)
+    private void InitByDataSource(DataSource data)
         {
             if (data.PageSupport.EditGroup == null || !Root.Contains(data.PageSupport.EditGroup))
                 return;
@@ -137,7 +139,7 @@ namespace GH.Components
                 }
             }
         }
-        public void LoadControls()
+    public void LoadControls()
         {
             foreach (var item in Controls)
             {
@@ -145,7 +147,7 @@ namespace GH.Components
                     saved.LoadControls();
             }
         }
-        public void SaveControls()
+    public void SaveControls()
         {
             foreach (var item in Controls)
             {
@@ -153,7 +155,7 @@ namespace GH.Components
                     saved.SaveControls();
             }
         }
-        public ButtonsPanel PrepareGroup(LayoutItemContainer item)
+    public ButtonsPanel PrepareGroup(LayoutItemContainer item)
         {
             if (item is TabbedControlGroup || !(item is LayoutControlGroup))
                 return null;
@@ -174,7 +176,7 @@ namespace GH.Components
             //parentGroup.AddItem(new EmptySpaceItem(), panel, InsertType.Bottom);
             return AddSaveSaveCancelPanel(editGrop);
         }
-        internal ButtonsPanel AddSaveSaveCancelPanel(LayoutControlGroup editGroup)
+    internal ButtonsPanel AddSaveSaveCancelPanel(LayoutControlGroup editGroup)
         {
             ButtonsPanel panel = new ButtonsPanel(editGroup.Parent);
             editGroup.Parent.AddItem(panel, editGroup, InsertType.Bottom);
@@ -186,7 +188,7 @@ namespace GH.Components
             editGroup.Parent.AddItem(new EmptySpaceItem(), panel, InsertType.Bottom);
             return panel;
         }
-        public LayoutControlGroup AppControlToPage(Control control, IPagesFrame pageParam, LayoutControlGroup newPage = null)
+    public LayoutControlGroup AppControlToPage(Control control, IPagesFrame pageParam, LayoutControlGroup newPage = null)
         {
             if (control is CfgBaseFrame yesNoFrame)
             {
@@ -217,7 +219,7 @@ namespace GH.Components
             Root.EndInit();
             return newPage;
         }
-        private void PagesGroup_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
+    private void PagesGroup_SelectedPageChanged(object sender, LayoutTabPageChangedEventArgs e)
         {
             var control = e.Page.Items.OfType<LayoutControlItem>().Where(x => x.Control != null).OrderBy(o => o.Control.TabIndex).FirstOrDefault();
             if (control != null)
@@ -231,7 +233,7 @@ namespace GH.Components
                         control.Control.Focus();
             }
         }
-        private static void FocusIt(BaseEdit baseEdit)
+    private static void FocusIt(BaseEdit baseEdit)
         {
             baseEdit.SelectAll();
             baseEdit.Focus();

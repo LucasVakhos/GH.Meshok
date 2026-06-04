@@ -11,8 +11,9 @@ namespace GH.Components
     public class CustomPagesNavigator<T> : XtraUserControl where T : ProtoEntity
     {
         private ProtoEntity _pageFilter;
-        protected ProtoEntity PageFilter { get => _pageFilter; set => _pageFilter = value; }
-        private IPage PageIntf => _pageFilter as IPage;
+    protected ProtoEntity PageFilter { get => _pageFilter; set => _pageFilter = value; }
+
+    private IPage PageIntf => _pageFilter as IPage;
         const int on_page = 10000;
         class Page
         {
@@ -20,26 +21,29 @@ namespace GH.Components
             {
                 No = no + 1;
             }
-            public int No { get; }
-            public override bool Equals(object obj)
+
+    public int No { get; }
+    public override bool Equals(object obj)
             {
                 var page = obj as Page;
                 return page != null &&
                        No == page.No;
             }
-            public override int GetHashCode()
+    public override int GetHashCode()
             {
                 return 733287466 + No.GetHashCode();
             }
         }
-        private Rectangle NavPlace
+
+    private Rectangle NavPlace
         {
             get
             {
                 return new Rectangle(0, 0, navigator.Width, navigator.Height);
             }
         }
-        private Rectangle InfoPlace
+
+    private Rectangle InfoPlace
         {
             get
             {
@@ -47,12 +51,13 @@ namespace GH.Components
                 return new Rectangle(nav.Right + 5, 0, Width - nav.Right - 5, nav.Height);
             }
         }
-        private DataNavigator navigator;
-        private LabelControl loadInfo;
-        private BindingSource pagesSource;
-        private MarqueeProgressBarControl progressBar;
-        private int _cnt = 0;
-        public CustomPagesNavigator()
+
+    private DataNavigator navigator;
+    private LabelControl loadInfo;
+    private BindingSource pagesSource;
+    private MarqueeProgressBarControl progressBar;
+    private int _cnt = 0;
+    public CustomPagesNavigator()
         {
             InitializeComponent();
             navigator.Bounds = NavPlace;
@@ -64,7 +69,7 @@ namespace GH.Components
             ShowProgress = false;
             pagesSource.PositionChanged += PagesSource_PositionChanged;
         }
-        internal void SavePage()
+    internal void SavePage()
         {
             if (PageIntf == null)
                 return;
@@ -77,7 +82,7 @@ namespace GH.Components
                 session.Transaction.Commit();
             }
         }
-        public async void FillPages()
+    public async void FillPages()
         {
             if (!Internet.CheckConnectionForDatabase())
                 return;
@@ -138,19 +143,19 @@ namespace GH.Components
                 }
             }
         }
-        protected override void OnResize(EventArgs e)
+    protected override void OnResize(EventArgs e)
         {
             loadInfo.Bounds = InfoPlace;
             base.OnResize(e);
         }
-        private void PagesSource_PositionChanged(object sender, EventArgs e)
+    private void PagesSource_PositionChanged(object sender, EventArgs e)
         {
             if (ShowProgress)
                 return;
             SavePage();
             ReopenSource?.CloseOpen();
         }
-        private void InitializeComponent()
+    private void InitializeComponent()
         {
             this.progressBar = new DevExpress.XtraEditors.MarqueeProgressBarControl();
             this.navigator = new DevExpress.XtraEditors.DataNavigator();

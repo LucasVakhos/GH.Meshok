@@ -12,6 +12,6 @@ namespace GH.Components
                 "wdexpress",
                 "sharpdevelop"
                 }.Contains(Process.GetCurrentProcess().ProcessName.ToLowerInvariant());
-        public static bool IsDesignMode(this Component obj) => _isDesignMode;
+    public static bool IsDesignMode(this Component obj) => _isDesignMode;
     }
 }

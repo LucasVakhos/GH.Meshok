@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
-public static class ControlExtensions
+    public static class ControlExtensions
 {
     /// <summary>
     /// Рекурсивно ищет первый подходящий для фокуса контрол внутри parent.
@@ -78,7 +77,6 @@ public static class ControlExtensions
             throw new InvalidOperationException($"Control with name '{name}' not found.");
         return result;
     }
-
     [return: MaybeNull]
     public static T FindControlInParents<T>(this Control control) where T : Control
     {

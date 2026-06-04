@@ -1,10 +1,12 @@
 ﻿namespace GH.Components
 {
     public enum Category { Connection, Security, User, DateInterval }
+
     public class DbConnectionProperty : UpdatablePropertyAttribute
     {
         public Category Category { get; set; }
-        public override string Group
+
+    public override string Group
         {
             get
             {

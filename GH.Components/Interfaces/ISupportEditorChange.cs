@@ -8,16 +8,17 @@ namespace GH.Components
     {
         void EditorChanged(object sender);
     }
+
     internal sealed class SR
     {
         internal const string ISupportEditorChangeDescr = "ISupportEditorChangeDescr";
-        private static SR loader;
-        private ResourceManager resources;
-        internal SR()
+    private static SR loader;
+    private ResourceManager resources;
+    internal SR()
         {
             this.resources = new ResourceManager("System", this.GetType().Assembly);
         }
-        private static SR GetLoader()
+    private static SR GetLoader()
         {
             if (SR.loader == null)
             {
@@ -26,21 +27,23 @@ namespace GH.Components
             }
             return SR.loader;
         }
-        private static CultureInfo Culture
+
+    private static CultureInfo Culture
         {
             get
             {
                 return (CultureInfo)null;
             }
         }
-        public static ResourceManager Resources
+
+    public static ResourceManager Resources
         {
             get
             {
                 return SR.GetLoader().resources;
             }
         }
-        public static string GetString(string name, params object[] args)
+    public static string GetString(string name, params object[] args)
         {
             SR loader = SR.GetLoader();
             if (loader == null)
@@ -55,16 +58,16 @@ namespace GH.Components
             }
             return string.Format((IFormatProvider)CultureInfo.CurrentCulture, format, args);
         }
-        public static string GetString(string name)
+    public static string GetString(string name)
         {
             return SR.GetLoader()?.resources.GetString(name, SR.Culture);
         }
-        public static string GetString(string name, out bool usedFallback)
+    public static string GetString(string name, out bool usedFallback)
         {
             usedFallback = false;
             return SR.GetString(name);
         }
-        public static object GetObject(string name)
+    public static object GetObject(string name)
         {
             return SR.GetLoader()?.resources.GetObject(name, SR.Culture);
         }
@@ -73,11 +76,12 @@ namespace GH.Components
     internal sealed class GHDescriptionAttribute : DescriptionAttribute
     {
         private bool replaced;
-        public GHDescriptionAttribute(string description)
+    public GHDescriptionAttribute(string description)
           : base(description)
         {
         }
-        public override string Description
+
+    public override string Description
         {
             get
             {

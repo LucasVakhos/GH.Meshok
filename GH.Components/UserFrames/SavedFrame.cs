@@ -4,7 +4,7 @@ namespace GH.Components
     public class SavedFrame : AbstractFrame, ICaption, ISavedControl, IOpenData
     {
         Control _activeControl = null;
-        private bool _saveLayout = true;
+    private bool _saveLayout = true;
         [GHProperty, DefaultValue(true)]
         public bool SaveLayout { get => _saveLayout; set => _saveLayout = value; }
         new public Control Parent
@@ -32,14 +32,15 @@ namespace GH.Components
                 }
             }
         }
-        protected override void OnParentChanged(EventArgs e)
+    protected override void OnParentChanged(EventArgs e)
         {
             base.OnParentChanged(e);
         }
-        public SavedFrame()
+
+    public SavedFrame()
         {
         }
-        public virtual void LoadControls()
+    public virtual void LoadControls()
         {
             if (!_saveLayout)
                 return;
@@ -49,7 +50,7 @@ namespace GH.Components
                     saved.LoadControls();
             }
         }
-        public virtual void SaveControls()
+    public virtual void SaveControls()
         {
             if (!_saveLayout)
                 return;

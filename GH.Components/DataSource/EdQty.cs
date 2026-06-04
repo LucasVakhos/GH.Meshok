@@ -8,7 +8,7 @@ namespace GH.Components
     {
         GridView view;
         DataSource source;
-        private object _newValue = null;
+    private object _newValue = null;
         object OldValue { get; set; } = null;
         object NewValue
         {
@@ -21,7 +21,8 @@ namespace GH.Components
                 //view.UpdateCurrentRow();
             }
         }
-        public EdQty(DataSource dataSource) : base()
+
+    public EdQty(DataSource dataSource) : base()
         {
             source = dataSource;
             view = dataSource.View as GridView;
@@ -37,14 +38,14 @@ namespace GH.Components
             KeyDown += EdQty_KeyDown;
             ValueChanged += EdQty_ValueChanged;
         }
-        private void EdQty_ValueChanged(object sender, EventArgs e)
+    private void EdQty_ValueChanged(object sender, EventArgs e)
         {
             SpinEdit spinEdit = sender as SpinEdit;
             if (OldValue == null)
                 OldValue = spinEdit.OldEditValue;
             NewValue = (int)spinEdit.Value;
         }
-        private void Post()
+    private void Post()
         {
             //if (OldValue != NewValue)
             //{
@@ -55,13 +56,13 @@ namespace GH.Components
             OldValue = null;
             _newValue = null;
         }
-        private void Cancel()
+    private void Cancel()
         {
             source.Cancel();
             OldValue = null;
             _newValue = null;
         }
-        private void EdQty_KeyDown(object sender, KeyEventArgs e)
+    private void EdQty_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyCode)
             {

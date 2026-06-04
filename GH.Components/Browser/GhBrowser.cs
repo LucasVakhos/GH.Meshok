@@ -5,7 +5,7 @@ namespace GH.Components
     public class GhBrowser : WebView2, ISupportInitialize
     {
         private static string title = @"Wait for loading ...";
-        private static string load_html =
+    private static string load_html =
             @"<html>" +
                 "<head>" +
                     $"<title>{title}</title>" +
@@ -21,13 +21,13 @@ namespace GH.Components
                     "</div>" +
                 "</body>" +
             "</html>";
-        public GhBrowser()
+    public GhBrowser()
         {
         }
-        public virtual void BeginInit()
+    public virtual void BeginInit()
         {
         }
-        public virtual void EndInit()
+    public virtual void EndInit()
         {
             if (!DesignMode)
             {

@@ -8,7 +8,7 @@ namespace GH.Components
     public class GridGh : GridControl, ISavedControl
     {
         private bool _saveLayout = true;
-        public override object DataSource
+    public override object DataSource
         {
             get => base.DataSource;
             set
@@ -18,11 +18,12 @@ namespace GH.Components
                     data.Grid = this;
             }
         }
-        public GridGh()
+
+    public GridGh()
         {
             SetStandardProperties();
         }
-        private void SetStandardProperties()
+    private void SetStandardProperties()
         {
             Dock = DockStyle.Fill;
             EmbeddedNavigator.Buttons.Append.Visible = false;
@@ -32,17 +33,17 @@ namespace GH.Components
             EmbeddedNavigator.Buttons.Remove.Visible = false;
             EmbeddedNavigator.Visible = false;
         }
-        public override void BeginInit()
+    public override void BeginInit()
         {
             base.BeginInit();
         }
-        public override void EndInit()
+    public override void EndInit()
         {
             base.EndInit();
         }
         [GHProperty, DefaultValue(true)]
         public bool SaveLayout { get => _saveLayout; set => _saveLayout = value; }
-        public void LoadControls()
+    public void LoadControls()
         {
             if (!_saveLayout)
                 return;
@@ -50,7 +51,7 @@ namespace GH.Components
             if (File.Exists(file_name))
                 MainView.RestoreLayoutFromXml(file_name);
         }
-        public void SaveControls()
+    public void SaveControls()
         {
             if (!_saveLayout)
                 return;
@@ -58,17 +59,17 @@ namespace GH.Components
             Directory.CreateDirectory(Path.GetDirectoryName(file_name));
             MainView.SaveLayoutToXml(file_name);
         }
-        protected override BaseView CreateDefaultView()
+    protected override BaseView CreateDefaultView()
         {
             return CreateView(nameof(ViewGh));
         }
-        protected override void RegisterAvailableViewsCore(InfoCollection collection)
+    protected override void RegisterAvailableViewsCore(InfoCollection collection)
         {
             base.RegisterAvailableViewsCore(collection);
             collection.Add(new ViewGhInfoRegistrator());
             collection.Add(new HLViewGhInfoRegistrator());
         }
-        protected override void OnGotFocus(EventArgs e)
+    protected override void OnGotFocus(EventArgs e)
         {
             if (!IsDesignMode)
             {
@@ -82,7 +83,7 @@ namespace GH.Components
             }
             base.OnGotFocus(e);
         }
-        protected override void OnLostFocus(EventArgs e)
+    protected override void OnLostFocus(EventArgs e)
         {
             if (!IsDesignMode)
             {
@@ -96,7 +97,7 @@ namespace GH.Components
             }
             base.OnLostFocus(e);
         }
-        protected override void OnEnter(EventArgs e)
+    protected override void OnEnter(EventArgs e)
         {
             //if (!IsDesignMode)
             //{

@@ -8,7 +8,7 @@ namespace GH.Components
     {
         internal static Mutex _mutex;
         static NamedPipeManager namedPipe;
-        private static void NamedPipeManager_ReceiveString(string obj)
+    private static void NamedPipeManager_ReceiveString(string obj)
         {
             switch (obj)
             {
@@ -24,7 +24,7 @@ namespace GH.Components
                     break;
             }
         }
-        public static void RunInstance()
+    public static void RunInstance()
         {
             FileVersionInfo.GetVersionInfo(ExeFullName);
             string m_name = "Mutex_" + Path.GetFileNameWithoutExtension(Application.ExecutablePath);
@@ -63,7 +63,7 @@ namespace GH.Components
             SplashScreenManager.CloseForm(false, 250, AppMainForm, false);
             Application.Run(Instance);
         }
-        private static bool CreateAppContext()
+    private static bool CreateAppContext()
         {
             try
             {
@@ -80,7 +80,8 @@ namespace GH.Components
             }
             return Instance != null;
         }
-        public AppContext()
+
+    public AppContext()
         {
             Instance = this;
             SplashScreenManager.ShowForm(null, GetSplashScreen(), true, true, false, 1000);
@@ -94,7 +95,7 @@ namespace GH.Components
                 MainForm = GetMainForm();
             }
         }
-        protected bool LogIn()
+    protected bool LogIn()
         {
             SetSqlFactoryCriator();
             using (Form form = GetLoginForm())

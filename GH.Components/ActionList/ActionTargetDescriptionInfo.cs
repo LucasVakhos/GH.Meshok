@@ -7,22 +7,23 @@ namespace GH.Components
     public class ActionTargetDescriptionInfo
     {
         private Dictionary<string, PropertyInfo> properties;
-        private Type targetType;
-        public ActionTargetDescriptionInfo(Type targetType)
+    private Type targetType;
+    public ActionTargetDescriptionInfo(Type targetType)
         {
             properties = new Dictionary<string, PropertyInfo>();
             this.targetType = targetType;
             foreach (PropertyInfo property in targetType.GetProperties())
                 properties.Add(property.Name, property);
         }
-        public Type TargetType
+
+    public Type TargetType
         {
             get
             {
                 return targetType;
             }
         }
-        private string checkPropertyName(string propertyName)
+    private string checkPropertyName(string propertyName)
         {
             //List<Type> lst = new List<Type>()
             //{
@@ -65,7 +66,7 @@ namespace GH.Components
             }
             return propertyName;
         }
-        internal void SetValue(string propertyName, object target, object value)
+    internal void SetValue(string propertyName, object target, object value)
         {
             string[] new_propertyNames = checkPropertyName(propertyName).Split('.');
             if (!properties.ContainsKey(new_propertyNames[0]))
@@ -85,7 +86,7 @@ namespace GH.Components
                 Logger.Error(ex);
             }
         }
-        internal object GetValue(string propertyName, object source)
+    internal object GetValue(string propertyName, object source)
         {
             propertyName = checkPropertyName(propertyName);
             if (properties.ContainsKey(propertyName))

@@ -4,7 +4,7 @@ namespace GH.Components
 {
     public static class FileHelper
     {
-        public static void OpenUrl(string link)
+    public static void OpenUrl(string link)
         {
             try
             {
@@ -15,7 +15,7 @@ namespace GH.Components
                 DlgHelper.DlgError("Не возможно открыть url: " + link + Environment.NewLine + ex.Message);
             }
         }
-        public static void OpenFile(string fileName)
+    public static void OpenFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 return;
@@ -31,7 +31,7 @@ namespace GH.Components
                 DlgHelper.DlgError("Не возможно открыть файл: " + fileName + Environment.NewLine + ex.Message);
             }
         }
-        public static void OpenFolder(string fileName)
+    public static void OpenFolder(string fileName)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace GH.Components
                 throw new GH.ComponentsException(ex.Message);
             }
         }
-        public static void OpenViaProcess(string fileName)
+    public static void OpenViaProcess(string fileName)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace GH.Components
                 throw new GH.ComponentsException(ex.Message);
             }
         }
-        public static bool IsCompressed(string pad)
+    public static bool IsCompressed(string pad)
         {
             return (File.GetAttributes(pad) & FileAttributes.Compressed) == FileAttributes.Compressed;
         }

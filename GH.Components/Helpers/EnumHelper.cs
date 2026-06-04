@@ -25,7 +25,8 @@ namespace GH.Components
             }
             return result.ToArray();
         }
-        public static KeyValuePair<T, string>[] GetEnumKeyLookupSource()
+
+    public static KeyValuePair<T, string>[] GetEnumKeyLookupSource()
         {
             if (!typeof(T).IsEnum)
                 throw new ArgumentException("Type must be an enum");
@@ -46,7 +47,7 @@ namespace GH.Components
             }
             return result.ToArray();
         }
-        public static IList<T> GetValues(Enum value)
+    public static IList<T> GetValues(Enum value)
         {
             var enumValues = new List<T>();
             foreach (FieldInfo fi in value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public))
@@ -55,11 +56,11 @@ namespace GH.Components
             }
             return enumValues;
         }
-        public static T Parse(string value)
+    public static T Parse(string value)
         {
             return (T)Enum.Parse(typeof(T), value, true);
         }
-        public static T GetValueFromName(string name)
+    public static T GetValueFromName(string name)
         {
             var type = typeof(T);
             if (!type.IsEnum) throw new InvalidOperationException();
@@ -81,15 +82,15 @@ namespace GH.Components
             }
             throw new ArgumentOutOfRangeException("name");
         }
-        public static IList<string> GetNames(Enum value)
+    public static IList<string> GetNames(Enum value)
         {
             return value.GetType().GetFields(BindingFlags.Static | BindingFlags.Public).Select(fi => fi.Name).ToList();
         }
-        public static IList<string> GetDisplayValues(Enum value)
+    public static IList<string> GetDisplayValues(Enum value)
         {
             return GetNames(value).Select(obj => GetDisplayValue(Parse(obj))).ToList();
         }
-        public static string GetDisplayValue(T value)
+    public static string GetDisplayValue(T value)
         {
             var fieldInfo = value.GetType().GetField(value.ToString());
             var descriptionAttributes = fieldInfo.GetCustomAttributes(
@@ -98,20 +99,21 @@ namespace GH.Components
             return (descriptionAttributes.Length > 0) ? descriptionAttributes[0].Name : value.ToString();
         }
     }
+
     public static class EnumExtensions
     {
         public static TAttribute GetAttribute<TAttribute>(this Enum enumValue) where TAttribute : Attribute
         {
             return enumValue.GetType().GetMember(enumValue.ToString()).First().GetCustomAttribute<TAttribute>();
         }
-        public static string GetDisplayValue(this Enum value)
+    public static string GetDisplayValue(this Enum value)
         {
             FieldInfo fieldInfo = value.GetType().GetField(value.ToString());
             if (fieldInfo == null)
                 return null;
             return ((DisplayAttribute)fieldInfo.GetCustomAttribute(typeof(DisplayAttribute))).Name;
         }
-        public static int ToInt(this Enum value)
+    public static int ToInt(this Enum value)
         {
             return (int)(int)Enum.ToObject(value.GetType(), value);
         }
