@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "A.Old", "A.Old", "{39126E93
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GH.Components", "GH.Z.Controls\Controls\GH.Components.csproj", "{03AF1818-71D1-40E0-A3C8-89A695C1BE7C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VS.Helper", "..\VS.Helper\VS.Helper\VS.Helper.csproj", "{7420BD9F-4F44-41BF-B8FB-BB1EC4478ACF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{03AF1818-71D1-40E0-A3C8-89A695C1BE7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03AF1818-71D1-40E0-A3C8-89A695C1BE7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03AF1818-71D1-40E0-A3C8-89A695C1BE7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7420BD9F-4F44-41BF-B8FB-BB1EC4478ACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7420BD9F-4F44-41BF-B8FB-BB1EC4478ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7420BD9F-4F44-41BF-B8FB-BB1EC4478ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7420BD9F-4F44-41BF-B8FB-BB1EC4478ACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
