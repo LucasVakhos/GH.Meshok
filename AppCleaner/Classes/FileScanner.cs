@@ -519,10 +519,12 @@ public partial class FileScanner : XtraUserControl
         bool isSync = TodoType is ComboToDoItems.SyncProjectFileWithSample or ComboToDoItems.RestoreMissingUsings;
         bool isConvert = TodoType == ComboToDoItems.ConvertOldCsprojToSdkStyle;
         bool isProjectMode = isFindAdd || isSync || isConvert;
-        // ldFOLDERS контрол был удалён из дизайна
-        // SetVisibility(ldFOLDERS, isProcessFiles);
 
-        SetVisibility(lgToDo, TodoType is ComboToDoItems.ClearNameSpace or ComboToDoItems.DeleteNonProjectFiles);
+        SetVisibility(lgFolders, isProcessFiles);
+        //SetVisibility(lgToDo, isFindReplace || isFindAdd || isConvert);
+        //SetVisibility(lgToDo, isFindReplace || isFindAdd || isConvert);
+
+        SetVisibility(lgOptions, TodoType is ComboToDoItems.ClearNameSpace or ComboToDoItems.DeleteNonProjectFiles);
         
         cboSearchFolder.Properties.NullValuePrompt = isConvert
             ? "Установите старый файл проекта..."
@@ -539,11 +541,9 @@ public partial class FileScanner : XtraUserControl
         SetVisibility(lcNET_Version, isConvert);
         SetVisibility(emptySearchExt, !isProjectMode);
         SetVisibility(lcSearchMask, !isProjectMode);
-        SetVisibility(lgToDo, isFindReplace || isFindAdd || isConvert);
         SetVisibility(lcDRY_RUN, TodoType is ComboToDoItems.ClearNameSpace or ComboToDoItems.DeleteNonProjectFiles);
         SetVisibility(lcFind, isFindReplace || isFindAdd);
         SetVisibility(lcReplace, isFindReplace);
-        SetVisibility(lgToDo, isFindReplace || isFindAdd || isConvert);
         SetVisibility(lcPlaceFolder, isFindAdd || isSync);
         cboSearchFolder.Properties.NullValuePrompt = isProjectMode
             ? "Установите файл проекта для сравнения..."

@@ -1,0 +1,60 @@
+{
+  "name": "vscode-helper",
+  "displayName": "VSCode Helper",
+  "description": "Helper extension for VSCode - automatic comment generation with timestamps and Git integration",
+  "version": "1.0.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vscode-helper.createComment",
+        "title": "VSCode Helper: Create Comment with Timestamp"
+      },
+      {
+        "command": "vscode-helper.createCommentFromGit",
+        "title": "VSCode Helper: Create Comment from Git Changes"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vscode-helper.createComment",
+        "key": "ctrl+shift+;",
+        "mac": "cmd+shift+;",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run esbuild-base -- --minify",
+    "esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",
+    "esbuild": "npm run esbuild-base -- --sourcemap",
+    "esbuild-watch": "npm run esbuild-base -- --sourcemap --watch",
+    "test-compile": "tsc -p ./",
+    "pretest": "npm run test-compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vscode/test-electron": "^2.3.4",
+    "esbuild": "^0.19.0",
+    "eslint": "^8.40.0",
+    "glob": "^10.2.2",
+    "mocha": "^10.2.0",
+    "typescript": "^5.1.3"
+  }
+}

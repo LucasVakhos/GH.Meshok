@@ -114,6 +114,16 @@ namespace AppCleaner
             if (string.IsNullOrWhiteSpace(sourceFilePath) || string.IsNullOrWhiteSpace(projectDirectory))
                 return;
 
+            // Проверяем, что файл находится внутри папки проекта
+            var normalizedSourcePath = Path.GetFullPath(sourceFilePath);
+            var normalizedProjectDirectory = Path.GetFullPath(projectDirectory);
+            
+            if (!normalizedSourcePath.StartsWith(normalizedProjectDirectory, StringComparison.OrdinalIgnoreCase))
+            {
+                // Файл находится вне папки проекта - не копируем его в резервное хранилище
+                return;
+            }
+
             var projectParent = Directory.GetParent(projectDirectory)?.FullName;
             if (string.IsNullOrWhiteSpace(projectParent))
                 return;
@@ -196,6 +206,14 @@ namespace AppCleaner
                 cancellationToken.ThrowIfCancellationRequested();
                 var relativePath = NormalizeRelativePath(
                     Path.GetRelativePath(projectDirectory, filePath));
+                
+                // Пропускаем файлы, которые находятся вне папки проекта
+                if (relativePath.StartsWith("..", StringComparison.Ordinal))
+                {
+                    AddToLog($"[Пропущен] {filePath} - файл вне папки проекта");
+                    continue;
+                }
+                
                 try
                 {
                     if (ShouldIgnoreFile(relativePath))
@@ -279,6 +297,11 @@ namespace AppCleaner
                     var includeValue = NormalizeRelativePath(attr?.Value ?? string.Empty);
                     if (string.IsNullOrWhiteSpace(includeValue))
                         continue;
+                    
+                    // Пропускаем пути, которые выходят за пределы папки проекта (например, ..\..\packages\...)
+                    if (includeValue.StartsWith("..", StringComparison.Ordinal))
+                        continue;
+                    
                     // Если Include содержит MSBuild glob, раскрываем его в реальные файлы.
                     if (ContainsWildcard(includeValue))
                     {
@@ -325,6 +348,11 @@ namespace AppCleaner
         {
             cancellationToken.ThrowIfCancellationRequested();
             var normalized = NormalizeRelativePath(includePattern);
+            
+            // Пропускаем glob'ы, которые выходят за пределы папки проекта
+            if (normalized.StartsWith("..", StringComparison.Ordinal))
+                yield break;
+            
             if (!ContainsWildcard(normalized))
                 yield break;
             var firstWildcardIndex = normalized.IndexOfAny(new[] { '*', '?' });

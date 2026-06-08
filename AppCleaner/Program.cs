@@ -1,3 +1,5 @@
+using System.Runtime.Loader;
+
 namespace AppCleaner;
 
 static class Program
@@ -9,6 +11,24 @@ static class Program
     static void Main()
     {
         // Подключаем resolver для загрузки DLL из папки "libs"
+        AssemblyLoadContext.Default.Resolving += (context, assemblyName) =>
+        {
+            try
+            {
+                var libsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "libs");
+                var assemblyPath = Path.Combine(libsPath, $"{assemblyName.Name}.dll");
+                if (File.Exists(assemblyPath))
+                {
+                    return context.LoadFromAssemblyPath(assemblyPath);
+                }
+            }
+            catch
+            {
+                // Игнорируем ошибки - попробует загрузить стандартным способом
+            }
+            return null;
+        };
+
         AppDomain.CurrentDomain.AssemblyResolve += (sender, e) =>
         {
             try

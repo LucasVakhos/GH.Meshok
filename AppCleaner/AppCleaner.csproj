@@ -100,6 +100,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="DevExpress.CodeParser" Version="25.2.7" />
+		<PackageReference Include="DevExpress.Data" Version="25.2.7" />
 		<PackageReference Include="DevExpress.Win.Design" Version="25.2.7" />
 		<PackageReference Include="EdgeSharp.Core" Version="0.9.0" />
 		<PackageReference Include="GTranslate" Version="2.3.1" />
@@ -119,13 +120,13 @@
 		<!-- Создаём папку libs -->
 		<MakeDir Directories="$(OutputPath)libs" />
 		
-		<!-- Копируем DLL в папку libs, но оставляем главный AppCleaner.dll рядом с exe -->
+		<!-- Копируем DLL в папку libs и оставляем все зависимости рядом с exe -->
 		<ItemGroup>
 			<AllDlls Include="$(OutputPath)*.dll" Exclude="$(OutputPath)AppCleaner.dll" />
 		</ItemGroup>
 		
-		<!-- Перемещаем DLL в libs -->
-		<Move SourceFiles="@(AllDlls)" DestinationFolder="$(OutputPath)libs" />
+		<!-- Копируем DLL в libs, не удаляя их из корня -->
+		<Copy SourceFiles="@(AllDlls)" DestinationFolder="$(OutputPath)libs" />
 		
 		<!-- Удаляем пустые папки (кроме libs, ru, runtimes) -->
 		<Exec Command="powershell -NoProfile -Command &quot;$exclude = @('libs', 'ru', 'runtimes'); Get-ChildItem '$(OutputPath)' -Directory -ErrorAction SilentlyContinue | Where-Object { $exclude -notcontains $_.Name } | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue&quot;" />
