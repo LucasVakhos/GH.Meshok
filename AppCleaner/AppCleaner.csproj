@@ -119,10 +119,9 @@
 		<!-- Создаём папку libs -->
 		<MakeDir Directories="$(OutputPath)libs" />
 		
-		<!-- Копируем ВСЕ DLL в папку libs (кроме главного exe) -->
+		<!-- Копируем DLL в папку libs, но оставляем главный AppCleaner.dll рядом с exe -->
 		<ItemGroup>
-			<AllDlls Include="$(OutputPath)*.dll" />
-			<!-- Исключаем сам exe и его связанные файлы, если они почему-то есть -->
+			<AllDlls Include="$(OutputPath)*.dll" Exclude="$(OutputPath)AppCleaner.dll" />
 		</ItemGroup>
 		
 		<!-- Перемещаем DLL в libs -->
